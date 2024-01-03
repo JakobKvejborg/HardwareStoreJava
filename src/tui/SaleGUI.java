@@ -7,6 +7,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.jar.JarEntry;
 
 public class SaleGUI extends JFrame {
 
@@ -16,6 +17,7 @@ public class SaleGUI extends JFrame {
     private SaleCtrl saleCtrl;
     private JTextArea saleInfoTextArea;
     private JTextField barcodeField;
+    private JTextField textField2;
     private JButton button1;
     private JButton button2;
     private JButton button3;
@@ -24,11 +26,6 @@ public class SaleGUI extends JFrame {
         this.employee = employee;
         this.location = location;
         saleCtrl = new SaleCtrl(employee, location);
-
-//        JFrame frame = new JFrame();
-//        frame.setSize(800, 600);
-//        frame.setVisible(true);
-//        frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
 //        setLayout(new GridLayout(11, 31, 10, 10));
         setPreferredSize(new Dimension(1200, 700));
@@ -47,6 +44,7 @@ public class SaleGUI extends JFrame {
 
         pack();
         setLocationRelativeTo(null); // Center the frame
+        add(textField2);
     }
 
 
@@ -88,6 +86,7 @@ public class SaleGUI extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 createSale();
+                textField2.setVisible(true);
             }
         });
 
@@ -104,28 +103,34 @@ public class SaleGUI extends JFrame {
                 TryMe.createCustomers();
                 TryMe.createProducts(location);
                 System.out.println("Test data generated.");
+                button3.setEnabled(false);
             }
         });
 
     }
 
-//    ____________________________________________________________________________________________________
+    //    ____________________________________________________________________________________________________
     private void createComponents() {
         saleInfoTextArea = new JTextArea(20, 50);
         barcodeField = new JTextField(20);
-        // Initialize other components as needed
+
+        textField2 = new JTextField(); // bottom text-field
+        textField2.setBounds(150, 250, 150, 150);
+        textField2.setVisible(false);
     }
 
 
-//    ENTER BARCODE TOP FIELD
+    //    ENTER BARCODE TOP FIELD
     private void addComponents() {
         JPanel panel = new JPanel();
         panel.add(new JLabel("Enter Barcode: "));
         panel.add(barcodeField);
-        // Add other components to the panel
 
         add(panel, BorderLayout.NORTH);
         add(new JScrollPane(saleInfoTextArea), BorderLayout.CENTER);
+        add(textField2);
+
+
     }
 
     private void setListeners() {

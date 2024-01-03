@@ -185,17 +185,21 @@ public class SaleTUI {
 			System.out.println("---------------");
 			System.out.print("total:\t");
 			System.out.println(sale.getPrice());
+			System.out.print("OrderNo:\t");
+			System.out.println(sale.getOrderNo());
 			if(sale.getCustomer() != null) {
 				System.out.println("Customer attached to the sale: ");
 				System.out.println("Name: " + sale.getCustomer().getName());
 				System.out.println("Phone: " + sale.getCustomer().getPhone());
 				System.out.println("Address: " + sale.getCustomer().getAddress());
 				System.out.println("Email: " + sale.getCustomer().getEmail());
+				System.out.println();
 
 				//TODO print customer information
 			}
 			else {
 				System.out.println("No customer attached to the sale.");
+				System.out.println();
 			}
 
 		}

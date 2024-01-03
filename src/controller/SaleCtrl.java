@@ -115,8 +115,7 @@ public class SaleCtrl implements SaleCtrlIF {
 	public Sale makeSale() {
 		//TODO Assign proper orderNo
 //		int newOrderNumber = ++lastOrderNumber; // delete
-		sale = new Sale(1, LocalDateTime.now());
-		System.out.println("orderNo: ");
+		sale = new Sale(0, LocalDateTime.now());
 		return sale;
 	}
 

@@ -54,17 +54,17 @@ public class SaleGUI extends JFrame {
 
     //    BUTTONS
     private void createButtons() {
-        button1 = new JButton("1. Sale Menu");
+        button1 = new JButton("Sale Menu");
         button1.setFont(new Font("Arial", Font.BOLD, 20));
         button1.setBackground(Color.WHITE);
         button1.setPreferredSize(new Dimension(300, 100));
 
-        button2 = new JButton("2. Customer Menu");
+        button2 = new JButton("Customer Menu");
         button2.setFont(new Font("Arial", Font.BOLD, 20));
         button2.setBackground(Color.WHITE);
         button2.setPreferredSize(new Dimension(300, 100));
 
-        button3 = new JButton("3. Generate Test Data");
+        button3 = new JButton("Generate Test Data");
         button3.setFont(new Font("Arial", Font.BOLD, 20));
         button3.setBackground(Color.WHITE);
         button3.setPreferredSize(new Dimension(300, 100));

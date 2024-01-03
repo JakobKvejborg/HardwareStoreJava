@@ -21,7 +21,7 @@ public class Main {
         MainMenuTUI mainMenuTUI = new MainMenuTUI(user, location);
         SaleGUI saleGUI = new SaleGUI(user, location);
 
-//		mainMenuTUI.start(); // OLD TUI
+		mainMenuTUI.start(); // OLD TUI
         saleGUI.setVisible(true); // NEW GUI
 
     }

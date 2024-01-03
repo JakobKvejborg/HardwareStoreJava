@@ -26,7 +26,6 @@ public class SaleCtrl implements SaleCtrlIF {
 	private ProductCtrl productCtrl;
 	private CustomerCtrl customerCtrl;
 	private Sale sale;
-//	private int lastOrderNumber = 0; // delete
 	
 	public SaleCtrl(Employee employee, Location location) {
 		this.employee = employee;

@@ -50,7 +50,7 @@ public class SaleTUI {
      * creates a sale all the way to completion.
      */
     private void createSale() {
-        Sale sale = saleCtrl.makeSale();
+        Sale sale = saleCtrl.makeSale(); // this returns a sale object
 
         boolean allProductsAdded = false;
         System.out.println("Input product barcode. If all products have been added, input next.");

@@ -14,18 +14,22 @@ public class SaleGUI extends JFrame {
     private Location location;
     private Employee employee;
 
-    private SaleCtrl saleCtrl;
+
     private JTextArea saleInfoTextArea;
     private JTextField barcodeField;
     private JTextField textField2;
     private JButton button1;
     private JButton button2;
     private JButton button3;
+    private JButton button4;
+//    SaleMenuGUI saleMenuGUI = new SaleMenuGUI();
+
+
 
     public SaleGUI(Employee employee, Location location) {
         this.employee = employee;
         this.location = location;
-        saleCtrl = new SaleCtrl(employee, location);
+
 
 //        setLayout(new GridLayout(11, 31, 10, 10));
         setPreferredSize(new Dimension(1200, 700));
@@ -36,7 +40,6 @@ public class SaleGUI extends JFrame {
 
         createComponents();
         addComponents(); // Barcode field top
-        setListeners();
 
         createButtons();
         addButtons();
@@ -67,6 +70,12 @@ public class SaleGUI extends JFrame {
         button3.setBackground(Color.WHITE);
         button3.setPreferredSize(new Dimension(300, 100));
 
+        button4 = new JButton("Add product");
+        button4.setFont(new Font("Arial", Font.BOLD, 20));
+        button4.setBackground(Color.WHITE);
+        button4.setPreferredSize(new Dimension(300, 100));
+//        button4.setVisible(false);
+
     }
 
     /**
@@ -77,6 +86,7 @@ public class SaleGUI extends JFrame {
         buttonPanel.add(button1);
         buttonPanel.add(button2);
         buttonPanel.add(button3);
+//        buttonPanel.add(button4);
 
         add(buttonPanel, BorderLayout.CENTER);
     }
@@ -85,8 +95,7 @@ public class SaleGUI extends JFrame {
         button1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                createSale();
-                textField2.setVisible(true);
+                new SaleMenuGUI(employee, location);
             }
         });
 
@@ -107,11 +116,11 @@ public class SaleGUI extends JFrame {
             }
         });
 
+
     }
 
     //    ____________________________________________________________________________________________________
     private void createComponents() {
-        saleInfoTextArea = new JTextArea(20, 50);
         barcodeField = new JTextField(20);
 
         textField2 = new JTextField(); // bottom text-field
@@ -122,55 +131,17 @@ public class SaleGUI extends JFrame {
 
     //    ENTER BARCODE TOP FIELD
     private void addComponents() {
-        JPanel panel = new JPanel();
-        panel.add(new JLabel("Enter Barcode: "));
-        panel.add(barcodeField);
-
-        add(panel, BorderLayout.NORTH);
+        saleInfoTextArea = new JTextArea(20, 50);
         add(new JScrollPane(saleInfoTextArea), BorderLayout.CENTER);
+
+        textField2 = new JTextField(); // bottom text-field
+        textField2.setBounds(150, 250, 150, 150);
+        textField2.setVisible(false);
         add(textField2);
 
 
     }
 
-    private void setListeners() {
-        barcodeField.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String barcode = barcodeField.getText();
-                SellableIF product = saleCtrl.addProduct(barcode);
-                // Process product addition, update UI accordingly
-            }
-        });
-        // Add action listeners for other components
-    }
-
-    private void createSale() {
-//        Sale sale = saleCtrl.makeSale();
-//
-//        boolean allProductsAdded = false;
-//        System.out.println("Input product barcode. If all products have been added, input next.");
-//        while (!allProductsAdded) {
-//            String barcode = textInput.readString();
-//            if (isQuitText(barcode)) {
-//                allProductsAdded = true;
-//            } else {
-//                SellableIF product = addProduct(barcode);
-//                System.out.println("Input product barcode. If all products have been added, input next.");
-//            }
-//
-//        }
-//        Customer customer = setCustomer();
-//        System.out.println("total price of sale: " + sale.getPrice());
-//        System.out.println("Payment in DKK: ");
-//        double payment = inputPayment();
-//        sale = saleCtrl.completeSale(payment);
-//        if (sale == null) {
-//            System.out.println("The sale could not be completed.");
-//        } else {
-//            printSale(sale, payment);
-//        }
-    }
 
 
 }

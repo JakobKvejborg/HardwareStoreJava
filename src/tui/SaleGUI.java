@@ -1,6 +1,5 @@
 package tui;
 
-import controller.SaleCtrl;
 import model.*;
 
 import javax.swing.*;

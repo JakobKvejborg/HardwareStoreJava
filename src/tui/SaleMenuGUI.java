@@ -68,7 +68,7 @@ public class SaleMenuGUI {
         button5.setBackground(Color.WHITE);
         button5.setPreferredSize(new Dimension(300, 100));
 
-        button6 = new JButton("Next");
+        button6 = new JButton("Add product quantity");
         button6.setFont(new Font("Arial", Font.BOLD, 20));
         button6.setBackground(Color.WHITE);
         button6.setPreferredSize(new Dimension(300, 100));
@@ -98,35 +98,17 @@ public class SaleMenuGUI {
         button5.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Dialog to get the quantity
-                String quantityStr = JOptionPane.showInputDialog("Enter quantity:");
-                int quantity1 = 0;
-                try {
-                    quantity1 = Integer.parseInt(quantityStr);
-                } catch (NumberFormatException ex) {
-                    JOptionPane.showMessageDialog(null, "Invalid quantity. Please enter a number.");
-                    return;
-                }
-
-                String barcode = barcodeField.getText();
-                Sale sale = saleCtrl.makeSale();
-
-
-                SellableIF product = saleCtrl.addProduct(barcode);
-                saleCtrl.setQuantity(quantity1);
-                if (product != null) {
-                    displayLabel.setText("Product added: " + product.getName() + " (x" + quantity1 + (")"));
-                    displayLabel.setFont(new Font("Arial", Font.BOLD, 28));
-                }
+                button5AddProduct();
             }
         });
 
         button6.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+               button6addQuantity();
             }
         });
+
 
         button7.addActionListener(new ActionListener() {
             @Override
@@ -134,11 +116,50 @@ public class SaleMenuGUI {
 
             }
         });
+    }
+
+        private void button5AddProduct() {
+            String barcode = barcodeField.getText();
+
+            Sale sale = saleCtrl.makeSale();
+
+            SellableIF product = saleCtrl.addProduct(barcode);
+//                System.out.println("Product added: " + product.getName());
+
+            displayLabel.setText("Product added: " + product.getName());
+            displayLabel.setFont(new Font("Arial", Font.BOLD, 28));
+
+        }
+
+        private void button6addQuantity() {
+            // Dialog to get the quantity
+            String quantityStr = JOptionPane.showInputDialog("Enter quantity:");
+            int quantity1 = 0;
+            try {
+                quantity1 = Integer.parseInt(quantityStr);
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(null, "Invalid quantity. Please enter a number.");
+                return;
+            }
+
+            String barcode = barcodeField.getText();
+            Sale sale = saleCtrl.makeSale();
+
+
+            SellableIF product = saleCtrl.addProduct(barcode);
+            saleCtrl.setQuantity(quantity1);
+            if (product != null) {
+                displayLabel.setText("Product added: " + product.getName() + " (x" + quantity1 + (")"));
+                displayLabel.setFont(new Font("Arial", Font.BOLD, 28));
+            }
+        }
+
+
 
 //        _____________________________________________________________________________________
 
 
-    }
+
 
 
 }

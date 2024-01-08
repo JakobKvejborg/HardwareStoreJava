@@ -25,7 +25,7 @@ public class SaleMenuGUI {
         this.location = location;
         saleCtrl = new SaleCtrl(employee, location);
 
-        JFrame newFrame = new JFrame("Sale Menu");
+        JFrame newFrame = new JFrame();
         newFrame.setPreferredSize(new Dimension(1100, 600));
 
         JPanel panel = new JPanel();

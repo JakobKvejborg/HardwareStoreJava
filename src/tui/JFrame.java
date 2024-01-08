@@ -28,6 +28,11 @@ import javax.swing.JTextPane;
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.RowSpec;
+import javax.swing.SwingConstants;
+import javax.swing.JList;
+import javax.swing.BoxLayout;
+import javax.swing.JSplitPane;
+import javax.swing.JScrollPane;
 
 public class JFrame extends javax.swing.JFrame {
 	
@@ -35,6 +40,9 @@ public class JFrame extends javax.swing.JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JTextField textField;
+	private JTextField textField_2;
+	private JTable table;
+	private JTextField textField_3;
 
 	/**
 	 * Launch the application.
@@ -58,6 +66,7 @@ public class JFrame extends javax.swing.JFrame {
 	public JFrame() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
+		setResizable(false);
 		getContentPane().setLayout(new FormLayout(new ColumnSpec[] {
 				ColumnSpec.decode("436px"),},
 			new RowSpec[] {
@@ -66,61 +75,103 @@ public class JFrame extends javax.swing.JFrame {
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		getContentPane().add(tabbedPane, "1, 1, fill, fill");
 		
-		JPanel panel_1 = new JPanel();
-		tabbedPane.addTab("Main Menu", null, panel_1, null);
-		GridBagLayout gbl_panel_1 = new GridBagLayout();
-		gbl_panel_1.columnWidths = new int[]{0};
-		gbl_panel_1.rowHeights = new int[]{0};
-		gbl_panel_1.columnWeights = new double[]{Double.MIN_VALUE};
-		gbl_panel_1.rowWeights = new double[]{Double.MIN_VALUE};
-		panel_1.setLayout(gbl_panel_1);
+		JPanel MainMenu = new JPanel();
+		tabbedPane.addTab("Main Menu", null, MainMenu, null);
+		GridBagLayout gbl_MainMenu = new GridBagLayout();
+		gbl_MainMenu.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0};
+		gbl_MainMenu.rowHeights = new int[]{0, 0, 0, 0};
+		gbl_MainMenu.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
+		gbl_MainMenu.rowWeights = new double[]{0.0, 0.0, 1.0, Double.MIN_VALUE};
+		MainMenu.setLayout(gbl_MainMenu);
 		
-		JPanel panel = new JPanel();
-		tabbedPane.addTab("Sale Menu", null, panel, null);
-						GridBagLayout gbl_panel = new GridBagLayout();
-						gbl_panel.columnWidths = new int[]{424, 7, 0};
-						gbl_panel.rowHeights = new int[]{19, 0, 0, 0};
-						gbl_panel.columnWeights = new double[]{1.0, 0.0, Double.MIN_VALUE};
-						gbl_panel.rowWeights = new double[]{0.0, 0.0, 1.0, Double.MIN_VALUE};
-						panel.setLayout(gbl_panel);
-						
-								JTextPane textPane = new JTextPane();
-								GridBagConstraints gbc_textPane = new GridBagConstraints();
-								gbc_textPane.insets = new Insets(0, 0, 5, 0);
-								gbc_textPane.anchor = GridBagConstraints.WEST;
-								gbc_textPane.gridx = 1;
-								gbc_textPane.gridy = 0;
-								panel.add(textPane, gbc_textPane);
-								
-								JPanel panel_4 = new JPanel();
-								panel_4.setLayout(null);
-								GridBagConstraints gbc_panel_4 = new GridBagConstraints();
-								gbc_panel_4.insets = new Insets(0, 0, 0, 5);
-								gbc_panel_4.fill = GridBagConstraints.BOTH;
-								gbc_panel_4.gridx = 0;
-								gbc_panel_4.gridy = 2;
-								panel.add(panel_4, gbc_panel_4);
-								
-								JButton button = new JButton("New button");
-								button.setBounds(58, 56, 85, 21);
-								panel_4.add(button);
+		JSplitPane splitPane = new JSplitPane();
+		GridBagConstraints gbc_splitPane = new GridBagConstraints();
+		gbc_splitPane.fill = GridBagConstraints.BOTH;
+		gbc_splitPane.gridx = 6;
+		gbc_splitPane.gridy = 2;
+		MainMenu.add(splitPane, gbc_splitPane);
+		
+		JPanel SaleMenu = new JPanel();
+		tabbedPane.addTab("Sale Menu", null, SaleMenu, null);
+		SaleMenu.setLayout(new BorderLayout(0, 0));
+		
+		JPanel north = new JPanel();
+		SaleMenu.add(north, BorderLayout.NORTH);
+		
+		JPanel south = new JPanel();
+		SaleMenu.add(south, BorderLayout.SOUTH);
+		
+		JPanel west = new JPanel();
+		SaleMenu.add(west, BorderLayout.WEST);
+		
+		JPanel east = new JPanel();
+		SaleMenu.add(east, BorderLayout.EAST);
+		
+		JPanel center = new JPanel();
+		SaleMenu.add(center, BorderLayout.CENTER);
+		
+		JSplitPane splitPane_1 = new JSplitPane();
+		center.add(splitPane_1);
 
 		JLabel lblNewLabel = new JLabel("New label");
 		
-		JPanel panel_2 = new JPanel();
-		tabbedPane.addTab("Loan Menu", null, panel_2, null);
+		JPanel LoanMenu = new JPanel();
+		tabbedPane.addTab("Loan Menu", null, LoanMenu, null);
+		LoanMenu.setLayout(null);
 		
-		JPanel panel_3 = new JPanel();
-		tabbedPane.addTab("Lend Menu", null, panel_3, null);
-		panel_3.setLayout(null);
+		textField_2 = new JTextField();
+		textField_2.setBounds(10, 10, 139, 19);
+		LoanMenu.add(textField_2);
+		textField_2.setColumns(10);
+		
+		JButton btnNewButton_3 = new JButton("Enter");
+		btnNewButton_3.setBounds(148, 9, 57, 21);
+		LoanMenu.add(btnNewButton_3);
+		
+		JButton btnNewButton_4 = new JButton("Færdiggør Salg");
+		btnNewButton_4.setBounds(10, 205, 85, 21);
+		LoanMenu.add(btnNewButton_4);
+		
+		JButton btnNewButton_5 = new JButton("Afbryd");
+		btnNewButton_5.setBounds(97, 205, 85, 21);
+		LoanMenu.add(btnNewButton_5);
+		
+		JLabel lblNewLabel_1 = new JLabel("Kunderabat");
+		lblNewLabel_1.setBounds(10, 165, 73, 13);
+		LoanMenu.add(lblNewLabel_1);
+		
+		table = new JTable();
+		table.setBounds(10, 39, 195, 116);
+		LoanMenu.add(table);
+		
+		JLabel lblNewLabel_2 = new JLabel("New label");
+		lblNewLabel_2.setBounds(239, 40, 45, 43);
+		LoanMenu.add(lblNewLabel_2);
+		
+		JLabel lblNewLabel_3 = new JLabel("New label");
+		lblNewLabel_3.setBounds(239, 81, 45, 49);
+		LoanMenu.add(lblNewLabel_3);
+		
+		JLabel lblNewLabel_4 = new JLabel("New label");
+		lblNewLabel_4.setBounds(239, 129, 45, 41);
+		LoanMenu.add(lblNewLabel_4);
+		
+		textField_3 = new JTextField();
+		textField_3.setColumns(10);
+		textField_3.setBounds(66, 162, 139, 19);
+		LoanMenu.add(textField_3);
+		
+		JPanel LendMenu = new JPanel();
+		tabbedPane.addTab("Lend Menu", null, LendMenu, null);
+		LendMenu.setLayout(null);
 		
 		JButton btnNewButton_1 = new JButton("New button");
 		btnNewButton_1.setBounds(162, 32, 85, 21);
-		panel_3.add(btnNewButton_1);
+		LendMenu.add(btnNewButton_1);
 		
 		textField = new JTextField();
 		textField.setBounds(20, 111, 96, 67);
-		panel_3.add(textField);
+		LendMenu.add(textField);
 		textField.setColumns(10);
 
 	}

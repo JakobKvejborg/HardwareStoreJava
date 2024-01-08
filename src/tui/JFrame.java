@@ -89,5 +89,6 @@ public class JFrame extends javax.swing.JFrame {
 		
 		JTabbedPane tabbedPane_3 = new JTabbedPane(JTabbedPane.TOP);
 		tabbedPane.addTab("Jakob tab", null, tabbedPane_3, null);
+
 	}
 }

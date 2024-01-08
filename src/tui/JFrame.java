@@ -55,7 +55,14 @@ public class JFrame extends javax.swing.JFrame {
 
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		getContentPane().add(tabbedPane, BorderLayout.CENTER);
+<<<<<<< Updated upstream
 
+=======
+		
+		JTabbedPane tabbedPane_3 = new JTabbedPane(JTabbedPane.TOP);
+		tabbedPane.addTab("Main Menu", null, tabbedPane_3, null);
+		
+>>>>>>> Stashed changes
 		JPanel panel = new JPanel();
 		tabbedPane.addTab("Sale Menu", null, panel, null);
 		panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
@@ -81,9 +88,13 @@ public class JFrame extends javax.swing.JFrame {
 
 		JTabbedPane tabbedPane_2 = new JTabbedPane(JTabbedPane.TOP);
 		tabbedPane.addTab("Lend Menu", null, tabbedPane_2, null);
+<<<<<<< Updated upstream
 
 		JTabbedPane tabbedPane_3 = new JTabbedPane(JTabbedPane.TOP);
 		tabbedPane.addTab("Jakob tab", null, tabbedPane_3, null);
+=======
+		
+>>>>>>> Stashed changes
 
 	}
 }

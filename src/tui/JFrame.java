@@ -87,5 +87,8 @@ public class JFrame extends javax.swing.JFrame {
 		
 		JTabbedPane tabbedPane_2 = new JTabbedPane(JTabbedPane.TOP);
 		tabbedPane.addTab("Lend Menu", null, tabbedPane_2, null);
+		
+		JTabbedPane tabbedPane_3 = new JTabbedPane(JTabbedPane.TOP);
+		tabbedPane.addTab("Jakob tab", null, tabbedPane_3, null);
 	}
 }

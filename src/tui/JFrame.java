@@ -64,6 +64,14 @@ public class JFrame extends javax.swing.JFrame {
 		panel.add(Barcode);
 		Barcode.setColumns(10);
 		
+		JButton btnNewButton = new JButton("New button");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("gey boi");
+			}
+		});
+		panel.add(btnNewButton);
+		
 		JTextPane textPane = new JTextPane();
 		panel.add(textPane);
 	
@@ -77,5 +85,4 @@ public class JFrame extends javax.swing.JFrame {
 		JTabbedPane tabbedPane_1 = new JTabbedPane(JTabbedPane.TOP);
 		tabbedPane.addTab("New tab", null, tabbedPane_1, null);
 	}
-
 }

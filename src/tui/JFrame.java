@@ -24,6 +24,9 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.FlowLayout;
 import javax.swing.JTextPane;
+import com.jgoodies.forms.layout.FormLayout;
+import com.jgoodies.forms.layout.ColumnSpec;
+import com.jgoodies.forms.layout.RowSpec;
 
 public class JFrame extends javax.swing.JFrame {
 
@@ -52,17 +55,17 @@ public class JFrame extends javax.swing.JFrame {
 	public JFrame() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
+		getContentPane().setLayout(new FormLayout(new ColumnSpec[] {
+				ColumnSpec.decode("436px"),},
+			new RowSpec[] {
+				RowSpec.decode("263px"),}));
 
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-		getContentPane().add(tabbedPane, BorderLayout.CENTER);
-<<<<<<< Updated upstream
-
-=======
+		getContentPane().add(tabbedPane, "1, 1, fill, fill");
 		
-		JTabbedPane tabbedPane_3 = new JTabbedPane(JTabbedPane.TOP);
-		tabbedPane.addTab("Main Menu", null, tabbedPane_3, null);
+		JPanel panel_1 = new JPanel();
+		tabbedPane.addTab("Main Menu", null, panel_1, null);
 		
->>>>>>> Stashed changes
 		JPanel panel = new JPanel();
 		tabbedPane.addTab("Sale Menu", null, panel, null);
 		panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
@@ -82,19 +85,12 @@ public class JFrame extends javax.swing.JFrame {
 		panel.add(textPane);
 
 		JLabel lblNewLabel = new JLabel("New label");
-
-		JTabbedPane tabbedPane_1 = new JTabbedPane(JTabbedPane.TOP);
-		tabbedPane.addTab("Loan Menu", null, tabbedPane_1, null);
-
-		JTabbedPane tabbedPane_2 = new JTabbedPane(JTabbedPane.TOP);
-		tabbedPane.addTab("Lend Menu", null, tabbedPane_2, null);
-<<<<<<< Updated upstream
-
-		JTabbedPane tabbedPane_3 = new JTabbedPane(JTabbedPane.TOP);
-		tabbedPane.addTab("Jakob tab", null, tabbedPane_3, null);
-=======
 		
->>>>>>> Stashed changes
+		JPanel panel_2 = new JPanel();
+		tabbedPane.addTab("Loan Menu", null, panel_2, null);
+		
+		JPanel panel_3 = new JPanel();
+		tabbedPane.addTab("Lend Menu", null, panel_3, null);
 
 	}
 }

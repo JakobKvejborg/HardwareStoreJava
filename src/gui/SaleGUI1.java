@@ -5,6 +5,7 @@ import java.awt.EventQueue;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JTabbedPane;
 import java.awt.BorderLayout;
 import java.awt.Button;
@@ -34,7 +35,7 @@ import javax.swing.BoxLayout;
 import javax.swing.JSplitPane;
 import javax.swing.JScrollPane;
 
-public class JFrame extends javax.swing.JFrame {
+public class SaleGUI1 extends JFrame {
 	
 //	right-click and select 'Open with' > 'WindowBuilder Editor'
 
@@ -63,7 +64,7 @@ public class JFrame extends javax.swing.JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public JFrame() {
+	public SaleGUI1() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		setResizable(false);

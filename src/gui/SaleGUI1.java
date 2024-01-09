@@ -78,15 +78,11 @@ public class SaleGUI1 extends JFrame {
 	 */
 	public SaleGUI1() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
-		setResizable(false);
-		getContentPane().setLayout(new FormLayout(new ColumnSpec[] {
-				ColumnSpec.decode("436px"),},
-			new RowSpec[] {
-				RowSpec.decode("263px"),}));
+		setBounds(100, 100, 443, 361);
+		getContentPane().setLayout(new BorderLayout(0, 0));
 
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-		getContentPane().add(tabbedPane, "1, 1, fill, fill");
+		getContentPane().add(tabbedPane);
 		
 		JPanel SaleMenu = new JPanel();
 		SaleMenu.setBorder(new EmptyBorder(10, 10, 0, 10));
@@ -239,6 +235,11 @@ public class SaleGUI1 extends JFrame {
 		tableSale = new JTable(50,4);
 		tableSale.setModel(new DefaultTableModel(
 			new Object[][] {
+				{null, null, null, null},
+				{null, null, null, null},
+				{null, null, null, null},
+				{null, null, null, null},
+				{null, null, null, null},
 				{null, null, null, null},
 				{null, null, null, null},
 				{null, null, null, null},

@@ -1,4 +1,4 @@
-package tui;
+package gui;
 
 import controller.SaleCtrl;
 import model.*;

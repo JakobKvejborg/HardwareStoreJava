@@ -1,6 +1,7 @@
-package tui;
+package gui;
 
 import model.*;
+import tui.TryMe;
 
 import javax.swing.*;
 import java.awt.*;

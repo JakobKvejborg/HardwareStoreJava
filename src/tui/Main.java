@@ -1,5 +1,6 @@
 package tui;
 
+import gui.SaleGUI;
 import model.Employee;
 import model.Location;
 import model.Sale;

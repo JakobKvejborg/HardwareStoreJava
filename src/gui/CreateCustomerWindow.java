@@ -7,6 +7,10 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import controller.CustomerCtrl;
+import model.Customer;
+
 import java.awt.GridBagLayout;
 import javax.swing.JLabel;
 import java.awt.GridBagConstraints;
@@ -23,13 +27,16 @@ public class CreateCustomerWindow extends JDialog {
 	private JTextField txtFieldPhone;
 	private JTextField txtFieldAddress;
 	private JTextField txtFieldName;
+	private CustomerCtrl customerCtrl;
+	private Customer customer = null;
+
 
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
 		try {
-			CreateCustomerWindow dialog = new CreateCustomerWindow();
+			CreateCustomerWindow dialog = new CreateCustomerWindow(new CustomerCtrl());
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
 		} catch (Exception e) {
@@ -40,7 +47,14 @@ public class CreateCustomerWindow extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public CreateCustomerWindow() {
+	public CreateCustomerWindow(CustomerCtrl customerCtrl) {
+		setResizable(false);
+		setModal(true);
+		this.customerCtrl = customerCtrl;
+		createLayout();
+	}
+
+	private void createLayout() {
 		setBounds(100, 100, 320, 178);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -134,6 +148,7 @@ public class CreateCustomerWindow extends JDialog {
 				}
 			});
 			okButton.setActionCommand("OK");
+			
 			JButton cancelButton = new JButton("Cancel");
 			cancelButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
@@ -153,11 +168,6 @@ public class CreateCustomerWindow extends JDialog {
 
 				buttonPane.add(cancelButton);
 			}
-			/*
-			 * if(txtFieldName.getText().equals("") || txtFieldName.getText().equals("") ||
-			 * txtFieldName.getText().equals("") || txtFieldName.getText().equals("")) {
-			 * okButton.setEnabled(false); } else { okButton.setEnabled(true); }
-			 */
 		}
 	}
 
@@ -166,14 +176,19 @@ public class CreateCustomerWindow extends JDialog {
 				|| txtFieldEmail.getText().equals("")) {
 			//TODO complain about the textfields being empty
 		} else {
-			System.out.println("Ping");
+			customer = customerCtrl.createCustomer(txtFieldName.getText(), txtFieldAddress.getText(),
+					txtFieldPhone.getText(), txtFieldEmail.getText());
+			this.dispose();
 		}
 
 	}
+	
+	public Customer getCustomer() {
+		return customer;
+	}
 
 	private void cancelClicked() {
-		// TODO Auto-generated method stub
-
+		this.dispose();
 	}
 
 }

@@ -24,14 +24,14 @@ public class SaleMenuPanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	private JTextField txtFindCustomer;
-	private JTextField textFieldDiscountPercentage;
+	private JTextField textDiscountPercentage;
 	private JTable tableSale;
 	private JTextField textName;
 	private JTextField textPhone;
 	private JTextField textAddress;
-	private JTextField textFieldEmail;
-	private JTextField textFieldTotalPrice;
-	private JLabel lblKundeRabat;
+	private JTextField textEmail;
+	private JTextField textTotalPrice;
+	private JLabel lblCustomerDiscount;
 	private JLabel lblTotal;
 	private JTextField textStock;
 	private JTextField textPrice;
@@ -131,13 +131,13 @@ public class SaleMenuPanel extends JPanel {
 		panelCenterSouthWest.add(textPhone, gbc_textPhone);
 		textPhone.setColumns(10);
 		
-		textFieldEmail = new JTextField();
-		GridBagConstraints gbc_textFieldEmail = new GridBagConstraints();
-		gbc_textFieldEmail.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textFieldEmail.gridx = 1;
-		gbc_textFieldEmail.gridy = 2;
-		panelCenterSouthWest.add(textFieldEmail, gbc_textFieldEmail);
-		textFieldEmail.setColumns(10);
+		textEmail = new JTextField();
+		GridBagConstraints gbc_textEmail = new GridBagConstraints();
+		gbc_textEmail.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textEmail.gridx = 1;
+		gbc_textEmail.gridy = 2;
+		panelCenterSouthWest.add(textEmail, gbc_textEmail);
+		textEmail.setColumns(10);
 		
 		JPanel panelCenterNorthWest = new JPanel();
 		panelWestCenter.add(panelCenterNorthWest, BorderLayout.CENTER);
@@ -152,24 +152,24 @@ public class SaleMenuPanel extends JPanel {
 		gbl_panelPriceCal.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panelPriceCal.setLayout(gbl_panelPriceCal);
 		
-		lblKundeRabat = new JLabel();
-		lblKundeRabat.setText("Kunde Rabat");
-		GridBagConstraints gbc_lblKundeRabat = new GridBagConstraints();
-		gbc_lblKundeRabat.insets = new Insets(0, 0, 0, 5);
-		gbc_lblKundeRabat.fill = GridBagConstraints.HORIZONTAL;
-		gbc_lblKundeRabat.gridx = 0;
-		gbc_lblKundeRabat.gridy = 0;
-		panelPriceCal.add(lblKundeRabat, gbc_lblKundeRabat);
+		lblCustomerDiscount = new JLabel();
+		lblCustomerDiscount.setText("Kunde Rabat");
+		GridBagConstraints gbc_lblCustomerDiscount = new GridBagConstraints();
+		gbc_lblCustomerDiscount.insets = new Insets(0, 0, 0, 5);
+		gbc_lblCustomerDiscount.fill = GridBagConstraints.HORIZONTAL;
+		gbc_lblCustomerDiscount.gridx = 0;
+		gbc_lblCustomerDiscount.gridy = 0;
+		panelPriceCal.add(lblCustomerDiscount, gbc_lblCustomerDiscount);
 		
-		textFieldDiscountPercentage = new JTextField();
-		textFieldDiscountPercentage.setEditable(false);
-		GridBagConstraints gbc_textFieldDiscountPercentage = new GridBagConstraints();
-		gbc_textFieldDiscountPercentage.insets = new Insets(0, 0, 0, 5);
-		gbc_textFieldDiscountPercentage.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textFieldDiscountPercentage.gridx = 1;
-		gbc_textFieldDiscountPercentage.gridy = 0;
-		panelPriceCal.add(textFieldDiscountPercentage, gbc_textFieldDiscountPercentage);
-		textFieldDiscountPercentage.setColumns(10);
+		textDiscountPercentage = new JTextField();
+		textDiscountPercentage.setEditable(false);
+		GridBagConstraints gbc_textDiscountPercentage = new GridBagConstraints();
+		gbc_textDiscountPercentage.insets = new Insets(0, 0, 0, 5);
+		gbc_textDiscountPercentage.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textDiscountPercentage.gridx = 1;
+		gbc_textDiscountPercentage.gridy = 0;
+		panelPriceCal.add(textDiscountPercentage, gbc_textDiscountPercentage);
+		textDiscountPercentage.setColumns(10);
 		
 		lblTotal = new JLabel();
 		lblTotal.setText("Total:");
@@ -180,14 +180,14 @@ public class SaleMenuPanel extends JPanel {
 		gbc_lblTotal.gridy = 0;
 		panelPriceCal.add(lblTotal, gbc_lblTotal);
 		
-		textFieldTotalPrice = new JTextField();
-		textFieldTotalPrice.setEditable(false);
-		GridBagConstraints gbc_textFieldTotalPrice = new GridBagConstraints();
-		gbc_textFieldTotalPrice.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textFieldTotalPrice.gridx = 3;
-		gbc_textFieldTotalPrice.gridy = 0;
-		panelPriceCal.add(textFieldTotalPrice, gbc_textFieldTotalPrice);
-		textFieldTotalPrice.setColumns(10);
+		textTotalPrice = new JTextField();
+		textTotalPrice.setEditable(false);
+		GridBagConstraints gbc_textTotalPrice = new GridBagConstraints();
+		gbc_textTotalPrice.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textTotalPrice.gridx = 3;
+		gbc_textTotalPrice.gridy = 0;
+		panelPriceCal.add(textTotalPrice, gbc_textTotalPrice);
+		textTotalPrice.setColumns(10);
 		
 		JScrollPane scrollPaneSale = new JScrollPane();
 		panelCenterNorthWest.add(scrollPaneSale, BorderLayout.CENTER);

@@ -28,7 +28,7 @@ public abstract class AbstractOrder {
 		this.orderNo = ++lastOrderNo;
 		this.date = date;
 	}
-	
+		
 	/**
      * This method sets the customer associated with this order.
      * @param customer The <code>Customer</code> object linked to this order.

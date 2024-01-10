@@ -13,13 +13,15 @@ import java.util.List;
 public class LeaseCtrl {
 	private OrderContainer orderContainer;
 	private ProductCtrl productCtrl;
-	private LocalDateTime startDate;
-	private LocalDateTime endDate;
+	private LocalDateTime date;
 	private List<LeaseableIF> products;
 	private Location location;
+	private Customer customer;
+	private Employee employee;
 
-	public LeaseCtrl(Location location) {
+	public LeaseCtrl(Employee employee, Location location) {
 		orderContainer = OrderContainer.getInstance();
+		this.employee = employee;
 		this.location = location;
 	}
 
@@ -46,6 +48,31 @@ public class LeaseCtrl {
 		if(products.stream().distinct().count() != products.size()) {
 			res = false;
 		}
+		
+		//TODO validate the date
+		if(customer == null) {
+			res = false;
+		}
+		return res;
+	}
+	
+	public boolean finishLoans() {
+		boolean res = validateLoans();
+		OrderContainer orderContainer = OrderContainer.getInstance();
+		//loop over all the products, create a new lease for each
+		for(int i = 0; i < products.size(); i++) {
+			//TODO add orderNO
+			//TODO add payment
+			Lease lease = new Lease(0, date, 0);
+			lease.setProduct(products.get(i));
+			lease.setCustomer(customer);
+			lease.setEmployee(employee);
+			boolean success = products.get(i).decrementStock(1, location);
+			if(success) {
+				orderContainer.addOrder(lease);
+			}
+		}
+		
 		return res;
 	}
 }

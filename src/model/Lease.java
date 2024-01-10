@@ -39,4 +39,8 @@ public class Lease extends AbstractOrder {
 	public String getState() {
 		return state;
 	}
+
+	public void setProduct(LeaseableIF product) {
+		this.product = product;
+	}
 }

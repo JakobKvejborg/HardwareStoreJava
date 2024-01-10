@@ -1,6 +1,7 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * Contains a list of the orders contained in the system.
@@ -36,4 +37,28 @@ public class OrderContainer {
 		orders.add(order);
 		return true;
 	}
+	
+	public AbstractOrder findOrder(int orderNO) {
+		AbstractOrder order = null;
+		for(int i = 0; i < orders.size() && order == null; i++) {
+			if(orders.get(i).getOrderNo() == orderNO) {
+				order = orders.get(i);
+			}
+		}
+		return order;
+	}
+	
+	public int generateOrderNO() {
+		Random random = new Random();
+		boolean found = false;
+		int tempNo = 0;
+		while(!found) {
+			tempNo = random.nextInt();
+			if(findOrder(tempNo) == null) {
+				found = true;
+			}
+		}
+		return tempNo;
+	}
+
 }

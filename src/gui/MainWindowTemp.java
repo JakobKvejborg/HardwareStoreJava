@@ -47,7 +47,7 @@ public class MainWindowTemp extends JFrame {
 		JPanel panelSaleMenu = new SaleMenuPanel();
 		tabbedPane.addTab("Sale Menu", null, panelSaleMenu, null);
 		
-		JPanel panelLoan = new LoanPanel();
+		JPanel panelLoan = new LoanMenuPanel();
 		tabbedPane.addTab("Loan", null, panelLoan, null);
 		
 		JPanel panel_1 = new JPanel();

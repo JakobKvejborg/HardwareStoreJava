@@ -21,7 +21,7 @@ import javax.swing.SwingConstants;
 import javax.swing.JEditorPane;
 import javax.swing.border.EmptyBorder;
 
-public class LoanPanel extends JPanel {
+public class LoanMenuPanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	private JTextField txtFieldBarcode;
@@ -39,8 +39,11 @@ public class LoanPanel extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public LoanPanel() {
+	public LoanMenuPanel() {
 		setLayout(new BorderLayout(0, 0));
+		
+		JSplitPane splitPaneLoan = new JSplitPane();
+		add(splitPaneLoan, BorderLayout.CENTER);
 		
 		JPanel panelFinalButtons = new JPanel();
 		add(panelFinalButtons, BorderLayout.SOUTH);
@@ -54,7 +57,7 @@ public class LoanPanel extends JPanel {
 		
 		JPanel panelDescription = new JPanel();
 		panelDescription.setBorder(new EmptyBorder(10, 0, 0, 10));
-		add(panelDescription, BorderLayout.EAST);
+		splitPaneLoan.setRightComponent(panelDescription);
 		panelDescription.setLayout(new BorderLayout(0, 0));
 		
 		JPanel panelDescriptionSidebar = new JPanel();
@@ -93,7 +96,7 @@ public class LoanPanel extends JPanel {
 		
 		JPanel panelMain = new JPanel();
 		panelMain.setBorder(new EmptyBorder(10, 10, 0, 0));
-		add(panelMain, BorderLayout.CENTER);
+		splitPaneLoan.setLeftComponent(panelMain);
 		panelMain.setLayout(new BorderLayout(0, 0));
 		
 		JPanel panelBarcode = new JPanel();

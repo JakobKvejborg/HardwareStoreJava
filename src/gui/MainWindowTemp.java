@@ -45,13 +45,13 @@ public class MainWindowTemp extends JFrame {
 		contentPane.add(tabbedPane, BorderLayout.CENTER);
 		
 		JPanel panelSaleMenu = new SaleMenuPanel();
-		tabbedPane.addTab("Sale Menu", null, panelSaleMenu, null);
+		tabbedPane.addTab("Sale", null, panelSaleMenu, null);
 		
 		JPanel panelLoan = new LoanMenuPanel();
 		tabbedPane.addTab("Loan", null, panelLoan, null);
 		
-		JPanel panel_1 = new JPanel();
-		tabbedPane.addTab("New tab", null, panel_1, null);
+		JPanel panelLease = new LeaseMenuPanel();
+		tabbedPane.addTab("Lease", null, panelLease, null);
 		
 	}
 

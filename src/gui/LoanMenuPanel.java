@@ -207,21 +207,49 @@ public class LoanMenuPanel extends JPanel {
 		
 		JPanel panelDate = new JPanel();
 		panelAtBottom.add(panelDate);
-		panelDate.setLayout(new FlowLayout(FlowLayout.LEADING, 5, 5));
+		GridBagLayout gbl_panelDate = new GridBagLayout();
+		gbl_panelDate.columnWidths = new int[]{25, 96, 96, 0, 0};
+		gbl_panelDate.rowHeights = new int[]{19, 0};
+		gbl_panelDate.columnWeights = new double[]{0.0, 1.0, 1.0, 1.0, Double.MIN_VALUE};
+		gbl_panelDate.rowWeights = new double[]{0.0, Double.MIN_VALUE};
+		panelDate.setLayout(gbl_panelDate);
 		
 		JLabel lblDate = new JLabel("Dato:");
-		panelDate.add(lblDate);
+		GridBagConstraints gbc_lblDate = new GridBagConstraints();
+		gbc_lblDate.anchor = GridBagConstraints.WEST;
+		gbc_lblDate.insets = new Insets(0, 0, 0, 5);
+		gbc_lblDate.gridx = 0;
+		gbc_lblDate.gridy = 0;
+		panelDate.add(lblDate, gbc_lblDate);
 		
 		textFieldFromDate = new JTextField();
-		panelDate.add(textFieldFromDate);
+		textFieldFromDate.setEditable(false);
+		GridBagConstraints gbc_textFieldFromDate = new GridBagConstraints();
+		gbc_textFieldFromDate.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textFieldFromDate.insets = new Insets(0, 0, 0, 5);
+		gbc_textFieldFromDate.gridx = 1;
+		gbc_textFieldFromDate.gridy = 0;
+		panelDate.add(textFieldFromDate, gbc_textFieldFromDate);
 		textFieldFromDate.setColumns(10);
 		
 		textFieldToDate = new JTextField();
-		panelDate.add(textFieldToDate);
+		textFieldToDate.setEditable(false);
+		GridBagConstraints gbc_textFieldToDate = new GridBagConstraints();
+		gbc_textFieldToDate.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textFieldToDate.insets = new Insets(0, 0, 0, 5);
+		gbc_textFieldToDate.gridx = 2;
+		gbc_textFieldToDate.gridy = 0;
+		panelDate.add(textFieldToDate, gbc_textFieldToDate);
 		textFieldToDate.setColumns(10);
 		
 		textFieldLoanDuration = new JTextField();
-		panelDate.add(textFieldLoanDuration);
+		textFieldLoanDuration.setEditable(false);
+		GridBagConstraints gbc_textFieldLoanDuration = new GridBagConstraints();
+		gbc_textFieldLoanDuration.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textFieldLoanDuration.gridwidth = 2;
+		gbc_textFieldLoanDuration.gridx = 3;
+		gbc_textFieldLoanDuration.gridy = 0;
+		panelDate.add(textFieldLoanDuration, gbc_textFieldLoanDuration);
 		textFieldLoanDuration.setColumns(10);
 		
 		JPanel panelCustomer = new JPanel();

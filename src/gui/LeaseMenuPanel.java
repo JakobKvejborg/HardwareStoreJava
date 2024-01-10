@@ -27,9 +27,6 @@ public class LeaseMenuPanel extends JPanel {
 	private static final long serialVersionUID = 1L;
 	private JTextField txtFieldBarcode;
 	private JTable tableLease;
-	private JTextField textFieldFromDate;
-	private JTextField textFieldToDate;
-	private JTextField textFieldLoanDuration;
 	private JTextField textDiscountPercentage;
 	private JTextField textTotalPrice;
 	private JTextField textName;
@@ -38,6 +35,9 @@ public class LeaseMenuPanel extends JPanel {
 	private JTextField textEmail;
 	private JTextField textField;
 	private JTextField textField_1;
+	private JTextField textFieldFromDate;
+	private JTextField textFieldToDate;
+	private JTextField textFieldLeaseDuration;
 
 	/**
 	 * Create the panel.
@@ -207,22 +207,49 @@ public class LeaseMenuPanel extends JPanel {
 		
 		JPanel panelDate = new JPanel();
 		panelAtBottom.add(panelDate);
-		panelDate.setLayout(new FlowLayout(FlowLayout.LEADING, 5, 5));
+		GridBagLayout gbl_panelDate = new GridBagLayout();
+		gbl_panelDate.columnWidths = new int[]{0, 60, 25, 0, 0};
+		gbl_panelDate.rowHeights = new int[]{19, 0};
+		gbl_panelDate.columnWeights = new double[]{0.0, 1.0, 1.0, 1.0, Double.MIN_VALUE};
+		gbl_panelDate.rowWeights = new double[]{0.0, Double.MIN_VALUE};
+		panelDate.setLayout(gbl_panelDate);
 		
 		JLabel lblDate = new JLabel("Dato:");
-		panelDate.add(lblDate);
+		GridBagConstraints gbc_lblDate = new GridBagConstraints();
+		gbc_lblDate.insets = new Insets(0, 0, 0, 5);
+		gbc_lblDate.anchor = GridBagConstraints.WEST;
+		gbc_lblDate.gridx = 0;
+		gbc_lblDate.gridy = 0;
+		panelDate.add(lblDate, gbc_lblDate);
 		
 		textFieldFromDate = new JTextField();
-		panelDate.add(textFieldFromDate);
+		textFieldFromDate.setEditable(false);
 		textFieldFromDate.setColumns(10);
+		GridBagConstraints gbc_textFieldFromDate = new GridBagConstraints();
+		gbc_textFieldFromDate.insets = new Insets(0, 0, 0, 5);
+		gbc_textFieldFromDate.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textFieldFromDate.gridx = 1;
+		gbc_textFieldFromDate.gridy = 0;
+		panelDate.add(textFieldFromDate, gbc_textFieldFromDate);
 		
 		textFieldToDate = new JTextField();
-		panelDate.add(textFieldToDate);
+		textFieldToDate.setEditable(false);
 		textFieldToDate.setColumns(10);
+		GridBagConstraints gbc_textFieldToDate = new GridBagConstraints();
+		gbc_textFieldToDate.insets = new Insets(0, 0, 0, 5);
+		gbc_textFieldToDate.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textFieldToDate.gridx = 2;
+		gbc_textFieldToDate.gridy = 0;
+		panelDate.add(textFieldToDate, gbc_textFieldToDate);
 		
-		textFieldLoanDuration = new JTextField();
-		panelDate.add(textFieldLoanDuration);
-		textFieldLoanDuration.setColumns(10);
+		textFieldLeaseDuration = new JTextField();
+		textFieldLeaseDuration.setEditable(false);
+		textFieldLeaseDuration.setColumns(10);
+		GridBagConstraints gbc_textFieldLeaseDuration = new GridBagConstraints();
+		gbc_textFieldLeaseDuration.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textFieldLeaseDuration.gridx = 3;
+		gbc_textFieldLeaseDuration.gridy = 0;
+		panelDate.add(textFieldLeaseDuration, gbc_textFieldLeaseDuration);
 		
 		JPanel panelCustomer = new JPanel();
 		panelAtBottom.add(panelCustomer);

@@ -331,7 +331,7 @@ public class SaleMenuPanel extends JPanel {
 		gbl_panelSaleGridSouth.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panelSaleGridSouth.setLayout(gbl_panelSaleGridSouth);
 		
-		JButton btnCheckout = new JButton("Færdigør");
+		JButton btnCheckout = new JButton("Færdiggør");
 		GridBagConstraints gbc_btnCheckout = new GridBagConstraints();
 		gbc_btnCheckout.anchor = GridBagConstraints.NORTHWEST;
 		gbc_btnCheckout.insets = new Insets(0, 0, 0, 5);

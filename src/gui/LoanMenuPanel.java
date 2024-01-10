@@ -43,12 +43,14 @@ public class LoanMenuPanel extends JPanel {
 	 * Create the panel.
 	 */
 	public LoanMenuPanel() {
+		setBorder(new EmptyBorder(10, 10, 10, 10));
 		setLayout(new BorderLayout(0, 0));
 		
 		JSplitPane splitPaneLoan = new JSplitPane();
 		add(splitPaneLoan, BorderLayout.CENTER);
 		
 		JPanel panelFinalButtons = new JPanel();
+		panelFinalButtons.setBorder(null);
 		add(panelFinalButtons, BorderLayout.SOUTH);
 		panelFinalButtons.setLayout(new FlowLayout(FlowLayout.LEADING, 5, 5));
 		
@@ -59,12 +61,18 @@ public class LoanMenuPanel extends JPanel {
 		panelFinalButtons.add(btnCancel);
 		
 		JPanel panelDescription = new JPanel();
-		panelDescription.setBorder(new EmptyBorder(10, 0, 0, 10));
+		panelDescription.setBorder(null);
 		splitPaneLoan.setRightComponent(panelDescription);
 		panelDescription.setLayout(new BorderLayout(0, 0));
+
+		
+		JSplitPane splitPaneDescription = new JSplitPane();
+		splitPaneDescription.setBorder(null);
+		panelDescription.add(splitPaneDescription, BorderLayout.CENTER);
+
 		
 		JPanel panelDescriptionSidebar = new JPanel();
-		panelDescription.add(panelDescriptionSidebar, BorderLayout.WEST);
+		splitPaneDescription.setLeftComponent(panelDescriptionSidebar);
 		GridBagLayout gbl_panelDescriptionSidebar = new GridBagLayout();
 		gbl_panelDescriptionSidebar.columnWidths = new int[]{10, 0};
 		gbl_panelDescriptionSidebar.rowHeights = new int[]{10, 0, 0, 0, 0, 0};
@@ -72,19 +80,11 @@ public class LoanMenuPanel extends JPanel {
 		gbl_panelDescriptionSidebar.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		panelDescriptionSidebar.setLayout(gbl_panelDescriptionSidebar);
 		
-		JPanel panelPicture = new JPanel();
-		GridBagConstraints gbc_panelPicture = new GridBagConstraints();
-		gbc_panelPicture.insets = new Insets(0, 0, 5, 0);
-		gbc_panelPicture.anchor = GridBagConstraints.NORTHWEST;
-		gbc_panelPicture.gridx = 0;
-		gbc_panelPicture.gridy = 0;
-		panelDescriptionSidebar.add(panelPicture, gbc_panelPicture);
-		
 		JLabel lblNewLabel_7 = new JLabel("Lager Antal");
 		GridBagConstraints gbc_lblNewLabel_7 = new GridBagConstraints();
 		gbc_lblNewLabel_7.insets = new Insets(0, 0, 5, 0);
 		gbc_lblNewLabel_7.gridx = 0;
-		gbc_lblNewLabel_7.gridy = 1;
+		gbc_lblNewLabel_7.gridy = 0;
 		panelDescriptionSidebar.add(lblNewLabel_7, gbc_lblNewLabel_7);
 		
 		textField = new JTextField();
@@ -93,7 +93,7 @@ public class LoanMenuPanel extends JPanel {
 		gbc_textField.insets = new Insets(0, 0, 5, 0);
 		gbc_textField.fill = GridBagConstraints.HORIZONTAL;
 		gbc_textField.gridx = 0;
-		gbc_textField.gridy = 2;
+		gbc_textField.gridy = 1;
 		panelDescriptionSidebar.add(textField, gbc_textField);
 		textField.setColumns(10);
 		
@@ -101,34 +101,34 @@ public class LoanMenuPanel extends JPanel {
 		GridBagConstraints gbc_lblNewLabel_1 = new GridBagConstraints();
 		gbc_lblNewLabel_1.insets = new Insets(0, 0, 5, 0);
 		gbc_lblNewLabel_1.gridx = 0;
-		gbc_lblNewLabel_1.gridy = 3;
+		gbc_lblNewLabel_1.gridy = 2;
 		panelDescriptionSidebar.add(lblNewLabel_1, gbc_lblNewLabel_1);
 		
 		textField_1 = new JTextField();
 		textField_1.setEditable(false);
 		GridBagConstraints gbc_textField_1 = new GridBagConstraints();
+		gbc_textField_1.insets = new Insets(0, 0, 5, 0);
 		gbc_textField_1.fill = GridBagConstraints.HORIZONTAL;
 		gbc_textField_1.gridx = 0;
-		gbc_textField_1.gridy = 4;
+		gbc_textField_1.gridy = 3;
 		panelDescriptionSidebar.add(textField_1, gbc_textField_1);
 		textField_1.setColumns(10);
 		
 		JScrollPane scrollPaneDescription = new JScrollPane();
 		scrollPaneDescription.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		scrollPaneDescription.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-		panelDescription.add(scrollPaneDescription, BorderLayout.CENTER);
+		splitPaneDescription.setRightComponent(scrollPaneDescription);
 		
 		JEditorPane dtrpnIItemDescription = new JEditorPane();
 		dtrpnIItemDescription.setEditable(false);
 		dtrpnIItemDescription.setText("description\r\newiof wei jei jwr ewijdescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescription descriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescription descriptiondescriptiondescription description description descriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptidescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptionondescription");
 		scrollPaneDescription.setViewportView(dtrpnIItemDescription);
 		
-		JLabel lblNewLabel = new JLabel("Valgte Vares Navn");
+		JLabel lblNewLabel = new JLabel("Varens Navn");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		panelDescription.add(lblNewLabel, BorderLayout.NORTH);
 		
 		JPanel panelMain = new JPanel();
-		panelMain.setBorder(new EmptyBorder(10, 10, 0, 0));
 		splitPaneLoan.setLeftComponent(panelMain);
 		panelMain.setLayout(new BorderLayout(0, 0));
 		

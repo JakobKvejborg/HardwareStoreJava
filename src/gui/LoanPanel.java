@@ -25,12 +25,16 @@ public class LoanPanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	private JTextField txtFieldBarcode;
-	private JTable table;
+	private JTable tableLoan;
 	private JTextField textFieldFromDate;
 	private JTextField textFieldToDate;
 	private JTextField textFieldLoanDuration;
-	private JTextField textField;
-	private JTextField textField_1;
+	private JTextField textDiscountPercentage;
+	private JTextField textTotalPrice;
+	private JTextField textName;
+	private JTextField textPhone;
+	private JTextField textAddress;
+	private JTextField textEmail;
 
 	/**
 	 * Create the panel.
@@ -42,11 +46,11 @@ public class LoanPanel extends JPanel {
 		add(panelFinalButtons, BorderLayout.SOUTH);
 		panelFinalButtons.setLayout(new FlowLayout(FlowLayout.LEADING, 5, 5));
 		
-		JButton btnNewButton = new JButton("New button");
-		panelFinalButtons.add(btnNewButton);
+		JButton btnCheckOut = new JButton("Færdiggør");
+		panelFinalButtons.add(btnCheckOut);
 		
-		JButton btnNewButton_1 = new JButton("New button");
-		panelFinalButtons.add(btnNewButton_1);
+		JButton btnCancel = new JButton("Afbryd");
+		panelFinalButtons.add(btnCancel);
 		
 		JPanel panelDescription = new JPanel();
 		panelDescription.setBorder(new EmptyBorder(10, 0, 0, 10));
@@ -76,16 +80,16 @@ public class LoanPanel extends JPanel {
 		gbc_lblNewLabel_7.gridy = 1;
 		panelDescriptionSidebar.add(lblNewLabel_7, gbc_lblNewLabel_7);
 		
-		JScrollPane scrollPane_1 = new JScrollPane();
-		panelDescription.add(scrollPane_1, BorderLayout.CENTER);
+		JScrollPane scrollPaneDescription = new JScrollPane();
+		panelDescription.add(scrollPaneDescription, BorderLayout.CENTER);
 		
-		JLabel lblNewLabel_6 = new JLabel("Vare Navn");
-		scrollPane_1.setColumnHeaderView(lblNewLabel_6);
+		JLabel lblItemName = new JLabel("Vare Navn");
+		scrollPaneDescription.setColumnHeaderView(lblItemName);
 		
-		JEditorPane dtrpnAccordingToAll = new JEditorPane();
-		dtrpnAccordingToAll.setEditable(false);
-		dtrpnAccordingToAll.setText("description\r\n");
-		scrollPane_1.setViewportView(dtrpnAccordingToAll);
+		JEditorPane dtrpnIItemDescription = new JEditorPane();
+		dtrpnIItemDescription.setEditable(false);
+		dtrpnIItemDescription.setText("description\r\n");
+		scrollPaneDescription.setViewportView(dtrpnIItemDescription);
 		
 		JPanel panelMain = new JPanel();
 		panelMain.setBorder(new EmptyBorder(10, 10, 0, 0));
@@ -109,22 +113,46 @@ public class LoanPanel extends JPanel {
 		
 		JPanel panelTotal = new JPanel();
 		panelAtBottom.add(panelTotal);
-		panelTotal.setLayout(new FlowLayout(FlowLayout.TRAILING, 5, 5));
+		GridBagLayout gbl_panelTotal = new GridBagLayout();
+		gbl_panelTotal.columnWidths = new int[]{76, 62, 55, 111, 0};
+		gbl_panelTotal.rowHeights = new int[]{19, 0};
+		gbl_panelTotal.columnWeights = new double[]{0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
+		gbl_panelTotal.rowWeights = new double[]{0.0, Double.MIN_VALUE};
+		panelTotal.setLayout(gbl_panelTotal);
 		
-		JLabel lblNewLabel = new JLabel("Kunde Rabat:");
-		panelTotal.add(lblNewLabel);
+		JLabel lblCustomerDiscount = new JLabel("Kunde Rabat:");
+		GridBagConstraints gbc_lblCustomerDiscount = new GridBagConstraints();
+		gbc_lblCustomerDiscount.anchor = GridBagConstraints.WEST;
+		gbc_lblCustomerDiscount.insets = new Insets(0, 0, 0, 5);
+		gbc_lblCustomerDiscount.gridx = 0;
+		gbc_lblCustomerDiscount.gridy = 0;
+		panelTotal.add(lblCustomerDiscount, gbc_lblCustomerDiscount);
 		
-		textField = new JTextField();
-		textField.setEditable(false);
-		panelTotal.add(textField);
-		textField.setColumns(10);
+		textDiscountPercentage = new JTextField();
+		textDiscountPercentage.setEditable(false);
+		GridBagConstraints gbc_textDiscountPercentage = new GridBagConstraints();
+		gbc_textDiscountPercentage.anchor = GridBagConstraints.NORTHWEST;
+		gbc_textDiscountPercentage.insets = new Insets(0, 0, 0, 5);
+		gbc_textDiscountPercentage.gridx = 1;
+		gbc_textDiscountPercentage.gridy = 0;
+		panelTotal.add(textDiscountPercentage, gbc_textDiscountPercentage);
+		textDiscountPercentage.setColumns(10);
 		
-		JLabel lblNewLabel_1 = new JLabel("Total:");
-		panelTotal.add(lblNewLabel_1);
+		JLabel lblTotal = new JLabel("Total:");
+		GridBagConstraints gbc_lblTotal = new GridBagConstraints();
+		gbc_lblTotal.anchor = GridBagConstraints.EAST;
+		gbc_lblTotal.insets = new Insets(0, 0, 0, 5);
+		gbc_lblTotal.gridx = 2;
+		gbc_lblTotal.gridy = 0;
+		panelTotal.add(lblTotal, gbc_lblTotal);
 		
-		textField_1 = new JTextField();
-		panelTotal.add(textField_1);
-		textField_1.setColumns(10);
+		textTotalPrice = new JTextField();
+		GridBagConstraints gbc_textTotalPrice = new GridBagConstraints();
+		gbc_textTotalPrice.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textTotalPrice.gridx = 3;
+		gbc_textTotalPrice.gridy = 0;
+		panelTotal.add(textTotalPrice, gbc_textTotalPrice);
+		textTotalPrice.setColumns(10);
 		
 		JPanel panelDate = new JPanel();
 		panelAtBottom.add(panelDate);
@@ -154,15 +182,16 @@ public class LoanPanel extends JPanel {
 		gbl_panelKunde.rowWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
 		panelKunde.setLayout(gbl_panelKunde);
 		
-		JFormattedTextField formattedTextField = new JFormattedTextField();
-		GridBagConstraints gbc_formattedTextField = new GridBagConstraints();
-		gbc_formattedTextField.insets = new Insets(0, 0, 5, 5);
-		gbc_formattedTextField.fill = GridBagConstraints.HORIZONTAL;
-		gbc_formattedTextField.gridx = 0;
-		gbc_formattedTextField.gridy = 0;
-		panelKunde.add(formattedTextField, gbc_formattedTextField);
+		JFormattedTextField formattedTextFindCustomer = new JFormattedTextField();
+		formattedTextFindCustomer.setText("Indsæt Tlf:");
+		GridBagConstraints gbc_formattedTextFindCustomer = new GridBagConstraints();
+		gbc_formattedTextFindCustomer.insets = new Insets(0, 0, 5, 5);
+		gbc_formattedTextFindCustomer.fill = GridBagConstraints.HORIZONTAL;
+		gbc_formattedTextFindCustomer.gridx = 0;
+		gbc_formattedTextFindCustomer.gridy = 0;
+		panelKunde.add(formattedTextFindCustomer, gbc_formattedTextFindCustomer);
 		
-		JButton btnNewCustomer = new JButton("Ny Kunde");
+		JButton btnNewCustomer = new JButton("Opret ny Kunde");
 		GridBagConstraints gbc_btnNewCustomer = new GridBagConstraints();
 		gbc_btnNewCustomer.fill = GridBagConstraints.HORIZONTAL;
 		gbc_btnNewCustomer.insets = new Insets(0, 0, 5, 0);
@@ -170,38 +199,46 @@ public class LoanPanel extends JPanel {
 		gbc_btnNewCustomer.gridy = 0;
 		panelKunde.add(btnNewCustomer, gbc_btnNewCustomer);
 		
-		JLabel lblNewLabel_2 = new JLabel("New label");
-		GridBagConstraints gbc_lblNewLabel_2 = new GridBagConstraints();
-		gbc_lblNewLabel_2.insets = new Insets(0, 0, 5, 5);
-		gbc_lblNewLabel_2.gridx = 0;
-		gbc_lblNewLabel_2.gridy = 1;
-		panelKunde.add(lblNewLabel_2, gbc_lblNewLabel_2);
+		textName = new JTextField();
+		GridBagConstraints gbc_textName = new GridBagConstraints();
+		gbc_textName.insets = new Insets(0, 0, 5, 5);
+		gbc_textName.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textName.gridx = 0;
+		gbc_textName.gridy = 1;
+		panelKunde.add(textName, gbc_textName);
+		textName.setColumns(10);
 		
-		JLabel lblNewLabel_3 = new JLabel("New label");
-		GridBagConstraints gbc_lblNewLabel_3 = new GridBagConstraints();
-		gbc_lblNewLabel_3.insets = new Insets(0, 0, 5, 0);
-		gbc_lblNewLabel_3.gridx = 1;
-		gbc_lblNewLabel_3.gridy = 1;
-		panelKunde.add(lblNewLabel_3, gbc_lblNewLabel_3);
+		textAddress = new JTextField();
+		GridBagConstraints gbc_textAddress = new GridBagConstraints();
+		gbc_textAddress.insets = new Insets(0, 0, 5, 0);
+		gbc_textAddress.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textAddress.gridx = 1;
+		gbc_textAddress.gridy = 1;
+		panelKunde.add(textAddress, gbc_textAddress);
+		textAddress.setColumns(10);
 		
-		JLabel lblNewLabel_4 = new JLabel("New label");
-		GridBagConstraints gbc_lblNewLabel_4 = new GridBagConstraints();
-		gbc_lblNewLabel_4.insets = new Insets(0, 0, 0, 5);
-		gbc_lblNewLabel_4.gridx = 0;
-		gbc_lblNewLabel_4.gridy = 2;
-		panelKunde.add(lblNewLabel_4, gbc_lblNewLabel_4);
+		textPhone = new JTextField();
+		GridBagConstraints gbc_textPhone = new GridBagConstraints();
+		gbc_textPhone.insets = new Insets(0, 0, 0, 5);
+		gbc_textPhone.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textPhone.gridx = 0;
+		gbc_textPhone.gridy = 2;
+		panelKunde.add(textPhone, gbc_textPhone);
+		textPhone.setColumns(10);
 		
-		JLabel lblNewLabel_5 = new JLabel("New label");
-		GridBagConstraints gbc_lblNewLabel_5 = new GridBagConstraints();
-		gbc_lblNewLabel_5.gridx = 1;
-		gbc_lblNewLabel_5.gridy = 2;
-		panelKunde.add(lblNewLabel_5, gbc_lblNewLabel_5);
+		textEmail = new JTextField();
+		GridBagConstraints gbc_textEmail = new GridBagConstraints();
+		gbc_textEmail.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textEmail.gridx = 1;
+		gbc_textEmail.gridy = 2;
+		panelKunde.add(textEmail, gbc_textEmail);
+		textEmail.setColumns(10);
 		
-		JScrollPane scrollPane = new JScrollPane();
-		panelMain.add(scrollPane, BorderLayout.CENTER);
+		JScrollPane scrollPaneLoan = new JScrollPane();
+		panelMain.add(scrollPaneLoan, BorderLayout.CENTER);
 		
-		table = new JTable();
-		table.setModel(new DefaultTableModel(
+		tableLoan = new JTable();
+		tableLoan.setModel(new DefaultTableModel(
 			new Object[][] {
 				{null, null, null},
 				{null, null, null},
@@ -238,7 +275,7 @@ public class LoanPanel extends JPanel {
 				return columnTypes[columnIndex];
 			}
 		});
-		scrollPane.setViewportView(table);
+		scrollPaneLoan.setViewportView(tableLoan);
 
 	}
 

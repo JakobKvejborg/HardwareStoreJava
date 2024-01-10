@@ -1,7 +1,5 @@
 package model;
 
-import java.time.LocalDateTime;
-
 public abstract class AbstractCopy {
 	
 	private String barcode;
@@ -27,7 +25,7 @@ public abstract class AbstractCopy {
 		this.stock = stock;
 	}
 	
-	public abstract double getPrice(LocalDateTime date);
+	//public abstract double getPrice(LocalDateTime date);
 
 	
 }

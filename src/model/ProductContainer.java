@@ -81,6 +81,30 @@ public class ProductContainer {
 		return res;
 	}
 	
+	public LeaseableIF findLeaseable(String barcode) {
+		LeaseableIF res = null;
+		AbstractCopy copy = findCopy(barcode);
+		//Check if the found copy can be leased
+		if(copy instanceof SellableIF) {
+			//change the static type of the copy to a LeaseableIF
+			res = (LeaseableIF) copy;
+		}
+		//products cannot be leaseable, so it's not necessary to loop through them.
+		return res;
+	}
+	
+	public LendableIF findLendable(String barcode) {
+		LendableIF res = null;
+		AbstractCopy copy = findCopy(barcode);
+		//Check if the found copy can be lend
+		if(copy instanceof SellableIF) {
+			//change the static type of the copy to a LendableIF
+			res = (LendableIF) copy;
+		}
+		//products cannot be lendable, so it's not necessary to loop through them.
+		return res;
+	}
+	
 	/** 
 	 * adds a product to list 
 	 * @param product		represents a product

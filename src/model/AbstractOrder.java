@@ -64,4 +64,6 @@ public abstract class AbstractOrder {
 	public int getOrderNo() {
 		return orderNo;
 	}
+	
+	abstract double getPrice();
 }

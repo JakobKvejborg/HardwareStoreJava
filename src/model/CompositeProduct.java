@@ -10,7 +10,7 @@ import java.util.ArrayList;
  * @version 14/12/2023
  * @since 14/12/2023 
  */
-public class CompositeProduct {
+public class CompositeProduct implements SellableIF {
 	private double price;
 	private double discount;
 	private ArrayList<CompositeLine> compositeLines;
@@ -32,6 +32,47 @@ public class CompositeProduct {
 
 	public double getDiscount() {
 		return discount;
+	}
+
+	@Override
+	public boolean isUnique() {
+		boolean res = false;
+		for(int i = 0; i < compositeLines.size() && !res; i++) {
+			res = compositeLines.get(i).getProduct().isUnique();
+		}
+		return res;
+	}
+
+	@Override
+	public String getName() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int getStock(Location location) {
+		if(compositeLines.size() == 0) {
+			//the product doesn't have anything it is composed of. Throw error?
+			return 0;
+		}
+		int res = compositeLines.get(0).getProduct().getStock(location) / compositeLines.get(0).getQuantity();
+		for(int i = 1; i < compositeLines.size(); i++) {
+			//get the minimum value of the two
+			res = Math.min(res, compositeLines.get(i).getProduct().getStock(location) / compositeLines.get(i).getQuantity());
+		}
+		return res;
+	}
+
+	
+	//idk this doesn't work
+	@Override
+	public boolean decrementStock(int quantity, Location location) {
+		if(getStock(location) < quantity) {
+			//not enough stock
+			return false;
+		}
+		//do something
+		return false;
 	}
 	
 	

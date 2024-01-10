@@ -13,6 +13,7 @@ import java.util.ArrayList;
 public class Lease extends AbstractOrder {
 	private double totalPaid;
 	private LocalDateTime paymentDue;
+	private LeaseableIF product;
 	private String state;
 
 	public Lease(int orderNo, LocalDateTime date, double totalPaid) {
@@ -23,6 +24,10 @@ public class Lease extends AbstractOrder {
 
 	}
 
+	public double getPrice() {
+		return 0;
+	}
+	
 	public double getTotalPaid() {
 		return totalPaid;
 	}

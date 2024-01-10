@@ -1,10 +1,11 @@
 package model;
 
+import java.time.LocalDateTime;
 
 /**
  * @author Jakob & Jonas
  * 
- * @version 13-12-2023
+ * @version 10/01/2024
  * @since 13-12-2023
  */
 public class LendableProduct extends AbstractProduct{
@@ -12,7 +13,6 @@ public class LendableProduct extends AbstractProduct{
 	private double lendDiscount;
 	private double leasePrice;
 	private double leaseDiscount;
-	private LendableCopy lendableCopy;
 	
 	public LendableProduct(String name, String descripton, String barcode, double purchasePrice, double lendPrice, double lendDiscount, double leasePrice, double leaseDiscount) {
 		super(name, descripton, barcode, purchasePrice);
@@ -22,7 +22,7 @@ public class LendableProduct extends AbstractProduct{
 		this.leaseDiscount = leaseDiscount;
 	}
 	
-	public double getLendPrice() {
+	public double getLendPrice(LocalDateTime date) {
 		return lendPrice;
 	}
 

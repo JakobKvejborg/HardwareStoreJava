@@ -22,14 +22,11 @@ import javax.swing.JEditorPane;
 import javax.swing.border.EmptyBorder;
 import javax.swing.ScrollPaneConstants;
 
-public class LoanMenuPanel extends JPanel {
+public class LeaseMenuPanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	private JTextField txtFieldBarcode;
-	private JTable tableLoan;
-	private JTextField textFieldFromDate;
-	private JTextField textFieldToDate;
-	private JTextField textFieldLoanDuration;
+	private JTable tableLease;
 	private JTextField textDiscountPercentage;
 	private JTextField textTotalPrice;
 	private JTextField textName;
@@ -38,16 +35,19 @@ public class LoanMenuPanel extends JPanel {
 	private JTextField textEmail;
 	private JTextField textField;
 	private JTextField textField_1;
+	private JTextField textFieldFromDate;
+	private JTextField textFieldToDate;
+	private JTextField textFieldLeaseDuration;
 
 	/**
 	 * Create the panel.
 	 */
-	public LoanMenuPanel() {
+	public LeaseMenuPanel() {
 		setBorder(new EmptyBorder(10, 10, 10, 10));
 		setLayout(new BorderLayout(0, 0));
 		
-		JSplitPane splitPaneLoan = new JSplitPane();
-		add(splitPaneLoan, BorderLayout.CENTER);
+		JSplitPane splitPaneLease = new JSplitPane();
+		add(splitPaneLease, BorderLayout.CENTER);
 		
 		JPanel panelFinalButtons = new JPanel();
 		panelFinalButtons.setBorder(null);
@@ -76,7 +76,7 @@ public class LoanMenuPanel extends JPanel {
 		
 		JPanel panelDescription = new JPanel();
 		panelDescription.setBorder(null);
-		splitPaneLoan.setRightComponent(panelDescription);
+		splitPaneLease.setRightComponent(panelDescription);
 		panelDescription.setLayout(new BorderLayout(0, 0));
 
 		
@@ -143,7 +143,7 @@ public class LoanMenuPanel extends JPanel {
 		panelDescription.add(lblProductName, BorderLayout.NORTH);
 		
 		JPanel panelMain = new JPanel();
-		splitPaneLoan.setLeftComponent(panelMain);
+		splitPaneLease.setLeftComponent(panelMain);
 		panelMain.setLayout(new BorderLayout(0, 0));
 		
 		JPanel panelBarcode = new JPanel();
@@ -208,7 +208,7 @@ public class LoanMenuPanel extends JPanel {
 		JPanel panelDate = new JPanel();
 		panelAtBottom.add(panelDate);
 		GridBagLayout gbl_panelDate = new GridBagLayout();
-		gbl_panelDate.columnWidths = new int[]{25, 96, 96, 0, 0};
+		gbl_panelDate.columnWidths = new int[]{0, 60, 25, 0, 0};
 		gbl_panelDate.rowHeights = new int[]{19, 0};
 		gbl_panelDate.columnWeights = new double[]{0.0, 1.0, 1.0, 1.0, Double.MIN_VALUE};
 		gbl_panelDate.rowWeights = new double[]{0.0, Double.MIN_VALUE};
@@ -216,41 +216,40 @@ public class LoanMenuPanel extends JPanel {
 		
 		JLabel lblDate = new JLabel("Dato:");
 		GridBagConstraints gbc_lblDate = new GridBagConstraints();
-		gbc_lblDate.anchor = GridBagConstraints.WEST;
 		gbc_lblDate.insets = new Insets(0, 0, 0, 5);
+		gbc_lblDate.anchor = GridBagConstraints.WEST;
 		gbc_lblDate.gridx = 0;
 		gbc_lblDate.gridy = 0;
 		panelDate.add(lblDate, gbc_lblDate);
 		
 		textFieldFromDate = new JTextField();
 		textFieldFromDate.setEditable(false);
+		textFieldFromDate.setColumns(10);
 		GridBagConstraints gbc_textFieldFromDate = new GridBagConstraints();
-		gbc_textFieldFromDate.fill = GridBagConstraints.HORIZONTAL;
 		gbc_textFieldFromDate.insets = new Insets(0, 0, 0, 5);
+		gbc_textFieldFromDate.fill = GridBagConstraints.HORIZONTAL;
 		gbc_textFieldFromDate.gridx = 1;
 		gbc_textFieldFromDate.gridy = 0;
 		panelDate.add(textFieldFromDate, gbc_textFieldFromDate);
-		textFieldFromDate.setColumns(10);
 		
 		textFieldToDate = new JTextField();
 		textFieldToDate.setEditable(false);
+		textFieldToDate.setColumns(10);
 		GridBagConstraints gbc_textFieldToDate = new GridBagConstraints();
-		gbc_textFieldToDate.fill = GridBagConstraints.HORIZONTAL;
 		gbc_textFieldToDate.insets = new Insets(0, 0, 0, 5);
+		gbc_textFieldToDate.fill = GridBagConstraints.HORIZONTAL;
 		gbc_textFieldToDate.gridx = 2;
 		gbc_textFieldToDate.gridy = 0;
 		panelDate.add(textFieldToDate, gbc_textFieldToDate);
-		textFieldToDate.setColumns(10);
 		
-		textFieldLoanDuration = new JTextField();
-		textFieldLoanDuration.setEditable(false);
-		GridBagConstraints gbc_textFieldLoanDuration = new GridBagConstraints();
-		gbc_textFieldLoanDuration.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textFieldLoanDuration.gridwidth = 2;
-		gbc_textFieldLoanDuration.gridx = 3;
-		gbc_textFieldLoanDuration.gridy = 0;
-		panelDate.add(textFieldLoanDuration, gbc_textFieldLoanDuration);
-		textFieldLoanDuration.setColumns(10);
+		textFieldLeaseDuration = new JTextField();
+		textFieldLeaseDuration.setEditable(false);
+		textFieldLeaseDuration.setColumns(10);
+		GridBagConstraints gbc_textFieldLeaseDuration = new GridBagConstraints();
+		gbc_textFieldLeaseDuration.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textFieldLeaseDuration.gridx = 3;
+		gbc_textFieldLeaseDuration.gridy = 0;
+		panelDate.add(textFieldLeaseDuration, gbc_textFieldLeaseDuration);
 		
 		JPanel panelCustomer = new JPanel();
 		panelAtBottom.add(panelCustomer);
@@ -317,11 +316,11 @@ public class LoanMenuPanel extends JPanel {
 		panelCustomer.add(textEmail, gbc_textEmail);
 		textEmail.setColumns(10);
 		
-		JScrollPane scrollPaneLoan = new JScrollPane();
-		panelMain.add(scrollPaneLoan, BorderLayout.CENTER);
+		JScrollPane scrollPaneLease = new JScrollPane();
+		panelMain.add(scrollPaneLease, BorderLayout.CENTER);
 		
-		tableLoan = new JTable();
-		tableLoan.setModel(new DefaultTableModel(
+		tableLease = new JTable();
+		tableLease.setModel(new DefaultTableModel(
 			new Object[][] {
 				{null, null, null},
 				{null, null, null},
@@ -358,7 +357,7 @@ public class LoanMenuPanel extends JPanel {
 				return columnTypes[columnIndex];
 			}
 		});
-		scrollPaneLoan.setViewportView(tableLoan);
+		scrollPaneLease.setViewportView(tableLease);
 
 	}
 

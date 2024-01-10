@@ -18,20 +18,31 @@ public class ProductCtrl {
 	public ProductCtrl() {
 		this.productContainer = ProductContainer.getInstance();
 	}
-	
-	public AbstractProduct findProduct(String productId) {
-		return productContainer.findProduct(productId);
+
+	public AbstractProduct findProduct(String barcode) {
+		return productContainer.findProduct(barcode);
 	}
-	
+
 	public SellableIF findSellable(String barcode) {
 		return productContainer.findSellable(barcode);
 	}
-	
+
 	public LeaseableIF findLeaseable(String barcode) {
 		return productContainer.findLeaseable(barcode);
 	}
-	
+
 	public LendableIF findLendable(String barcode) {
 		return productContainer.findLendable(barcode);
+	}
+
+	public void updateProduct(String barcode, String name) {
+		AbstractProduct product = findProduct(barcode);
+
+		if (product != null) {
+			product.setName(name);
+			System.out.println("Product has been updated: " + product);
+		} else {
+			System.out.println("Product could not be found: " + barcode);
+		}
 	}
 }

@@ -14,6 +14,10 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.JEditorPane;
+import javax.swing.JTextPane;
+import javax.swing.SwingConstants;
+import javax.swing.ScrollPaneConstants;
 
 public class SaleMenuPanel extends JPanel {
 
@@ -43,6 +47,7 @@ public class SaleMenuPanel extends JPanel {
 		add(splitPaneSale, BorderLayout.CENTER);
 		
 		JPanel panelSaleNorthWest = new JPanel();
+		panelSaleNorthWest.setBorder(new EmptyBorder(10, 0, 0, 0));
 		splitPaneSale.setLeftComponent(panelSaleNorthWest);
 		panelSaleNorthWest.setLayout(new BorderLayout(0, 0));
 		
@@ -172,6 +177,7 @@ public class SaleMenuPanel extends JPanel {
 		panelPriceCal.add(lblTotal, gbc_lblTotal);
 		
 		textFieldTotalPrice = new JTextField();
+		textFieldTotalPrice.setEditable(false);
 		GridBagConstraints gbc_textFieldTotalPrice = new GridBagConstraints();
 		gbc_textFieldTotalPrice.fill = GridBagConstraints.HORIZONTAL;
 		gbc_textFieldTotalPrice.gridx = 3;
@@ -247,14 +253,8 @@ public class SaleMenuPanel extends JPanel {
 		));
 		scrollPaneSale.setViewportView(tableSale);
 		
-		JScrollPane scrollPaneWest = new JScrollPane();
-		splitPaneSale.setRightComponent(scrollPaneWest);
-		
-		JLabel lblNewLabel_5 = new JLabel("New label");
-		scrollPaneWest.setColumnHeaderView(lblNewLabel_5);
-		
-		JSplitPane splitPane_1 = new JSplitPane();
-		scrollPaneWest.setViewportView(splitPane_1);
+		JSplitPane splitPaneEast = new JSplitPane();
+		splitPaneSale.setRightComponent(splitPaneEast);
 		
 		JPanel panelSaleSouth = new JPanel();
 		add(panelSaleSouth, BorderLayout.SOUTH);

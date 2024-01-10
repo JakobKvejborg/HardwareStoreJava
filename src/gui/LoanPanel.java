@@ -19,6 +19,7 @@ import java.awt.Component;
 import javax.swing.JTextPane;
 import javax.swing.SwingConstants;
 import javax.swing.JEditorPane;
+import javax.swing.border.EmptyBorder;
 
 public class LoanPanel extends JPanel {
 
@@ -48,6 +49,7 @@ public class LoanPanel extends JPanel {
 		panelFinalButtons.add(btnNewButton_1);
 		
 		JPanel panelDescription = new JPanel();
+		panelDescription.setBorder(new EmptyBorder(10, 0, 0, 10));
 		add(panelDescription, BorderLayout.EAST);
 		panelDescription.setLayout(new BorderLayout(0, 0));
 		
@@ -81,10 +83,12 @@ public class LoanPanel extends JPanel {
 		scrollPane_1.setColumnHeaderView(lblNewLabel_6);
 		
 		JEditorPane dtrpnAccordingToAll = new JEditorPane();
+		dtrpnAccordingToAll.setEditable(false);
 		dtrpnAccordingToAll.setText("description\r\n");
 		scrollPane_1.setViewportView(dtrpnAccordingToAll);
 		
 		JPanel panelMain = new JPanel();
+		panelMain.setBorder(new EmptyBorder(10, 10, 0, 0));
 		add(panelMain, BorderLayout.CENTER);
 		panelMain.setLayout(new BorderLayout(0, 0));
 		

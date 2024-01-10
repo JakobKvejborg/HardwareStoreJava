@@ -36,15 +36,11 @@ public class SaleMenuPanel extends JPanel {
 	public SaleMenuPanel() {
 		
 		
-		setBounds(100, 100, 443, 361);
+		setLayout(new BorderLayout(0, 0));
 	
-		JPanel SaleMenu = new JPanel();
-		SaleMenu.setBorder(new EmptyBorder(10, 10, 0, 10));
-//		tabbedPane.addTab("Sale Menu", null, SaleMenu, null);
-		SaleMenu.setLayout(new BorderLayout(0, 0));
-		
+	
 		JSplitPane splitPaneSale = new JSplitPane();
-		SaleMenu.add(splitPaneSale, BorderLayout.CENTER);
+		add(splitPaneSale, BorderLayout.CENTER);
 		
 		JPanel panelSaleNorthWest = new JPanel();
 		splitPaneSale.setLeftComponent(panelSaleNorthWest);
@@ -261,7 +257,7 @@ public class SaleMenuPanel extends JPanel {
 		scrollPaneWest.setViewportView(splitPane_1);
 		
 		JPanel panelSaleSouth = new JPanel();
-		SaleMenu.add(panelSaleSouth, BorderLayout.SOUTH);
+		add(panelSaleSouth, BorderLayout.SOUTH);
 		panelSaleSouth.setLayout(new BorderLayout(0, 0));
 		
 		JPanel panelSaleGridSouth = new JPanel();

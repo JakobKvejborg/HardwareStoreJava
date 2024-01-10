@@ -18,23 +18,24 @@ import javax.swing.JEditorPane;
 import javax.swing.JTextPane;
 import javax.swing.SwingConstants;
 import javax.swing.ScrollPaneConstants;
+import java.awt.FlowLayout;
 
 public class SaleMenuPanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-	private JTextField textFieldBarcode;
 	private JTextField txtFindCustomer;
-	private JTextField textFieldDiscountPercentage;
+	private JTextField textDiscountPercentage;
 	private JTable tableSale;
 	private JTextField textName;
 	private JTextField textPhone;
 	private JTextField textAddress;
-	private JTextField textFieldEmail;
-	private JTextField textFieldTotalPrice;
-	private JLabel lblKundeRabat;
+	private JTextField textEmail;
+	private JTextField textTotalPrice;
+	private JLabel lblCustomerDiscount;
 	private JLabel lblTotal;
-	private JTextField textFieldStock;
-	private JTextField textFieldPrice;
+	private JTextField textStock;
+	private JTextField textPrice;
+	private JTextField textBarcode;
 
 	/**
 	 * Create the panel.
@@ -57,15 +58,16 @@ public class SaleMenuPanel extends JPanel {
 		panelSaleNorthWest.add(panelNorthWest, BorderLayout.NORTH);
 		panelNorthWest.setLayout(new BorderLayout(0, 0));
 		
-		JSplitPane splitPaneNorthWest = new JSplitPane();
-		panelNorthWest.add(splitPaneNorthWest, BorderLayout.NORTH);
+		JPanel panelBarcode = new JPanel();
+		panelNorthWest.add(panelBarcode, BorderLayout.SOUTH);
+		panelBarcode.setLayout(new BorderLayout(0, 0));
 		
-		textFieldBarcode = new JTextField();
-		splitPaneNorthWest.setLeftComponent(textFieldBarcode);
-		textFieldBarcode.setColumns(10);
+		textBarcode = new JTextField();
+		textBarcode.setColumns(10);
+		panelBarcode.add(textBarcode);
 		
-		JButton btnEnterKey = new JButton("Enter");
-		splitPaneNorthWest.setRightComponent(btnEnterKey);
+		JButton btnBarcodeEnter = new JButton("Enter");
+		panelBarcode.add(btnBarcodeEnter, BorderLayout.EAST);
 		
 		JPanel panelSouthWest = new JPanel();
 		panelSaleNorthWest.add(panelSouthWest, BorderLayout.SOUTH);
@@ -129,13 +131,13 @@ public class SaleMenuPanel extends JPanel {
 		panelCenterSouthWest.add(textPhone, gbc_textPhone);
 		textPhone.setColumns(10);
 		
-		textFieldEmail = new JTextField();
-		GridBagConstraints gbc_textFieldEmail = new GridBagConstraints();
-		gbc_textFieldEmail.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textFieldEmail.gridx = 1;
-		gbc_textFieldEmail.gridy = 2;
-		panelCenterSouthWest.add(textFieldEmail, gbc_textFieldEmail);
-		textFieldEmail.setColumns(10);
+		textEmail = new JTextField();
+		GridBagConstraints gbc_textEmail = new GridBagConstraints();
+		gbc_textEmail.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textEmail.gridx = 1;
+		gbc_textEmail.gridy = 2;
+		panelCenterSouthWest.add(textEmail, gbc_textEmail);
+		textEmail.setColumns(10);
 		
 		JPanel panelCenterNorthWest = new JPanel();
 		panelWestCenter.add(panelCenterNorthWest, BorderLayout.CENTER);
@@ -150,24 +152,24 @@ public class SaleMenuPanel extends JPanel {
 		gbl_panelPriceCal.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panelPriceCal.setLayout(gbl_panelPriceCal);
 		
-		lblKundeRabat = new JLabel();
-		lblKundeRabat.setText("Kunde Rabat");
-		GridBagConstraints gbc_lblKundeRabat = new GridBagConstraints();
-		gbc_lblKundeRabat.insets = new Insets(0, 0, 0, 5);
-		gbc_lblKundeRabat.fill = GridBagConstraints.HORIZONTAL;
-		gbc_lblKundeRabat.gridx = 0;
-		gbc_lblKundeRabat.gridy = 0;
-		panelPriceCal.add(lblKundeRabat, gbc_lblKundeRabat);
+		lblCustomerDiscount = new JLabel();
+		lblCustomerDiscount.setText("Kunde Rabat");
+		GridBagConstraints gbc_lblCustomerDiscount = new GridBagConstraints();
+		gbc_lblCustomerDiscount.insets = new Insets(0, 0, 0, 5);
+		gbc_lblCustomerDiscount.fill = GridBagConstraints.HORIZONTAL;
+		gbc_lblCustomerDiscount.gridx = 0;
+		gbc_lblCustomerDiscount.gridy = 0;
+		panelPriceCal.add(lblCustomerDiscount, gbc_lblCustomerDiscount);
 		
-		textFieldDiscountPercentage = new JTextField();
-		textFieldDiscountPercentage.setEditable(false);
-		GridBagConstraints gbc_textFieldDiscountPercentage = new GridBagConstraints();
-		gbc_textFieldDiscountPercentage.insets = new Insets(0, 0, 0, 5);
-		gbc_textFieldDiscountPercentage.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textFieldDiscountPercentage.gridx = 1;
-		gbc_textFieldDiscountPercentage.gridy = 0;
-		panelPriceCal.add(textFieldDiscountPercentage, gbc_textFieldDiscountPercentage);
-		textFieldDiscountPercentage.setColumns(10);
+		textDiscountPercentage = new JTextField();
+		textDiscountPercentage.setEditable(false);
+		GridBagConstraints gbc_textDiscountPercentage = new GridBagConstraints();
+		gbc_textDiscountPercentage.insets = new Insets(0, 0, 0, 5);
+		gbc_textDiscountPercentage.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textDiscountPercentage.gridx = 1;
+		gbc_textDiscountPercentage.gridy = 0;
+		panelPriceCal.add(textDiscountPercentage, gbc_textDiscountPercentage);
+		textDiscountPercentage.setColumns(10);
 		
 		lblTotal = new JLabel();
 		lblTotal.setText("Total:");
@@ -178,14 +180,14 @@ public class SaleMenuPanel extends JPanel {
 		gbc_lblTotal.gridy = 0;
 		panelPriceCal.add(lblTotal, gbc_lblTotal);
 		
-		textFieldTotalPrice = new JTextField();
-		textFieldTotalPrice.setEditable(false);
-		GridBagConstraints gbc_textFieldTotalPrice = new GridBagConstraints();
-		gbc_textFieldTotalPrice.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textFieldTotalPrice.gridx = 3;
-		gbc_textFieldTotalPrice.gridy = 0;
-		panelPriceCal.add(textFieldTotalPrice, gbc_textFieldTotalPrice);
-		textFieldTotalPrice.setColumns(10);
+		textTotalPrice = new JTextField();
+		textTotalPrice.setEditable(false);
+		GridBagConstraints gbc_textTotalPrice = new GridBagConstraints();
+		gbc_textTotalPrice.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textTotalPrice.gridx = 3;
+		gbc_textTotalPrice.gridy = 0;
+		panelPriceCal.add(textTotalPrice, gbc_textTotalPrice);
+		textTotalPrice.setColumns(10);
 		
 		JScrollPane scrollPaneSale = new JScrollPane();
 		panelCenterNorthWest.add(scrollPaneSale, BorderLayout.CENTER);
@@ -255,66 +257,66 @@ public class SaleMenuPanel extends JPanel {
 		));
 		scrollPaneSale.setViewportView(tableSale);
 		
-		JPanel panel = new JPanel();
-		splitPaneSale.setRightComponent(panel);
-		panel.setLayout(new BorderLayout(0, 0));
+		JPanel panelDescription = new JPanel();
+		splitPaneSale.setRightComponent(panelDescription);
+		panelDescription.setLayout(new BorderLayout(0, 0));
 		
 		JLabel lblProductName = new JLabel("Varens navn her");
 		lblProductName.setHorizontalAlignment(SwingConstants.CENTER);
-		panel.add(lblProductName, BorderLayout.NORTH);
+		panelDescription.add(lblProductName, BorderLayout.NORTH);
 		
-		JSplitPane splitPane = new JSplitPane();
-		panel.add(splitPane, BorderLayout.CENTER);
+		JSplitPane splitPaneDescription = new JSplitPane();
+		panelDescription.add(splitPaneDescription, BorderLayout.CENTER);
 		
-		JScrollPane scrollPane = new JScrollPane();
-		splitPane.setRightComponent(scrollPane);
+		JScrollPane scrollPaneDescription = new JScrollPane();
+		splitPaneDescription.setRightComponent(scrollPaneDescription);
 		
 		JTextPane txtpnProductDescription = new JTextPane();
 		txtpnProductDescription.setText("Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. Beskrivelse her. Varens beskrivelse her. ");
-		scrollPane.setViewportView(txtpnProductDescription);
+		scrollPaneDescription.setViewportView(txtpnProductDescription);
 		
-		JPanel panel_1 = new JPanel();
-		splitPane.setLeftComponent(panel_1);
-		GridBagLayout gbl_panel_1 = new GridBagLayout();
-		gbl_panel_1.columnWidths = new int[]{0, 0};
-		gbl_panel_1.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0};
-		gbl_panel_1.columnWeights = new double[]{1.0, Double.MIN_VALUE};
-		gbl_panel_1.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-		panel_1.setLayout(gbl_panel_1);
+		JPanel panelInfoDescription = new JPanel();
+		splitPaneDescription.setLeftComponent(panelInfoDescription);
+		GridBagLayout gbl_panelInfoDescription = new GridBagLayout();
+		gbl_panelInfoDescription.columnWidths = new int[]{0, 0};
+		gbl_panelInfoDescription.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0};
+		gbl_panelInfoDescription.columnWeights = new double[]{1.0, Double.MIN_VALUE};
+		gbl_panelInfoDescription.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		panelInfoDescription.setLayout(gbl_panelInfoDescription);
 		
-		JLabel lblPris = new JLabel("Lager antal");
-		GridBagConstraints gbc_lblPris = new GridBagConstraints();
-		gbc_lblPris.insets = new Insets(0, 0, 5, 0);
-		gbc_lblPris.gridx = 0;
-		gbc_lblPris.gridy = 0;
-		panel_1.add(lblPris, gbc_lblPris);
+		JLabel lblPrice = new JLabel("(Lager antal)");
+		GridBagConstraints gbc_lblPrice = new GridBagConstraints();
+		gbc_lblPrice.insets = new Insets(0, 0, 5, 0);
+		gbc_lblPrice.gridx = 0;
+		gbc_lblPrice.gridy = 0;
+		panelInfoDescription.add(lblPrice, gbc_lblPrice);
 		
-		textFieldStock = new JTextField();
-		textFieldStock.setEditable(false);
-		GridBagConstraints gbc_textFieldStock = new GridBagConstraints();
-		gbc_textFieldStock.insets = new Insets(0, 0, 5, 0);
-		gbc_textFieldStock.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textFieldStock.gridx = 0;
-		gbc_textFieldStock.gridy = 1;
-		panel_1.add(textFieldStock, gbc_textFieldStock);
-		textFieldStock.setColumns(10);
+		textStock = new JTextField();
+		textStock.setEditable(false);
+		GridBagConstraints gbc_textStock = new GridBagConstraints();
+		gbc_textStock.insets = new Insets(0, 0, 5, 0);
+		gbc_textStock.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textStock.gridx = 0;
+		gbc_textStock.gridy = 1;
+		panelInfoDescription.add(textStock, gbc_textStock);
+		textStock.setColumns(10);
 		
-		JLabel lblNewLabel_2 = new JLabel("Pris m/ rabat");
-		GridBagConstraints gbc_lblNewLabel_2 = new GridBagConstraints();
-		gbc_lblNewLabel_2.insets = new Insets(0, 0, 5, 0);
-		gbc_lblNewLabel_2.gridx = 0;
-		gbc_lblNewLabel_2.gridy = 2;
-		panel_1.add(lblNewLabel_2, gbc_lblNewLabel_2);
+		JLabel lblStock = new JLabel("(Pris m/ rabat)");
+		GridBagConstraints gbc_lblStock = new GridBagConstraints();
+		gbc_lblStock.insets = new Insets(0, 0, 5, 0);
+		gbc_lblStock.gridx = 0;
+		gbc_lblStock.gridy = 2;
+		panelInfoDescription.add(lblStock, gbc_lblStock);
 		
-		textFieldPrice = new JTextField();
-		textFieldPrice.setEditable(false);
-		GridBagConstraints gbc_textFieldPrice = new GridBagConstraints();
-		gbc_textFieldPrice.insets = new Insets(0, 0, 5, 0);
-		gbc_textFieldPrice.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textFieldPrice.gridx = 0;
-		gbc_textFieldPrice.gridy = 3;
-		panel_1.add(textFieldPrice, gbc_textFieldPrice);
-		textFieldPrice.setColumns(10);
+		textPrice = new JTextField();
+		textPrice.setEditable(false);
+		GridBagConstraints gbc_textPrice = new GridBagConstraints();
+		gbc_textPrice.insets = new Insets(0, 0, 5, 0);
+		gbc_textPrice.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textPrice.gridx = 0;
+		gbc_textPrice.gridy = 3;
+		panelInfoDescription.add(textPrice, gbc_textPrice);
+		textPrice.setColumns(10);
 		
 		JPanel panelSaleSouth = new JPanel();
 		add(panelSaleSouth, BorderLayout.SOUTH);

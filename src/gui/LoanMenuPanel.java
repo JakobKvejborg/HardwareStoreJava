@@ -223,14 +223,14 @@ public class LoanMenuPanel extends JPanel {
 		panelDate.add(textFieldLoanDuration);
 		textFieldLoanDuration.setColumns(10);
 		
-		JPanel panelKunde = new JPanel();
-		panelAtBottom.add(panelKunde);
-		GridBagLayout gbl_panelKunde = new GridBagLayout();
-		gbl_panelKunde.columnWidths = new int[]{0, 0, 0};
-		gbl_panelKunde.rowHeights = new int[]{0, 0, 0, 0};
-		gbl_panelKunde.columnWeights = new double[]{1.0, 1.0, Double.MIN_VALUE};
-		gbl_panelKunde.rowWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
-		panelKunde.setLayout(gbl_panelKunde);
+		JPanel panelCustomer = new JPanel();
+		panelAtBottom.add(panelCustomer);
+		GridBagLayout gbl_panelCustomer = new GridBagLayout();
+		gbl_panelCustomer.columnWidths = new int[]{0, 0, 0};
+		gbl_panelCustomer.rowHeights = new int[]{0, 0, 0, 0};
+		gbl_panelCustomer.columnWeights = new double[]{1.0, 1.0, Double.MIN_VALUE};
+		gbl_panelCustomer.rowWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
+		panelCustomer.setLayout(gbl_panelCustomer);
 		
 		JFormattedTextField formattedTextFindCustomer = new JFormattedTextField();
 		formattedTextFindCustomer.setText("Indsæt Tlf:");
@@ -239,7 +239,7 @@ public class LoanMenuPanel extends JPanel {
 		gbc_formattedTextFindCustomer.fill = GridBagConstraints.HORIZONTAL;
 		gbc_formattedTextFindCustomer.gridx = 0;
 		gbc_formattedTextFindCustomer.gridy = 0;
-		panelKunde.add(formattedTextFindCustomer, gbc_formattedTextFindCustomer);
+		panelCustomer.add(formattedTextFindCustomer, gbc_formattedTextFindCustomer);
 		
 		JButton btnNewCustomer = new JButton("Opret ny Kunde");
 		GridBagConstraints gbc_btnNewCustomer = new GridBagConstraints();
@@ -247,7 +247,7 @@ public class LoanMenuPanel extends JPanel {
 		gbc_btnNewCustomer.insets = new Insets(0, 0, 5, 0);
 		gbc_btnNewCustomer.gridx = 1;
 		gbc_btnNewCustomer.gridy = 0;
-		panelKunde.add(btnNewCustomer, gbc_btnNewCustomer);
+		panelCustomer.add(btnNewCustomer, gbc_btnNewCustomer);
 		
 		textName = new JTextField();
 		GridBagConstraints gbc_textName = new GridBagConstraints();
@@ -255,7 +255,7 @@ public class LoanMenuPanel extends JPanel {
 		gbc_textName.fill = GridBagConstraints.HORIZONTAL;
 		gbc_textName.gridx = 0;
 		gbc_textName.gridy = 1;
-		panelKunde.add(textName, gbc_textName);
+		panelCustomer.add(textName, gbc_textName);
 		textName.setColumns(10);
 		
 		textAddress = new JTextField();
@@ -264,7 +264,7 @@ public class LoanMenuPanel extends JPanel {
 		gbc_textAddress.fill = GridBagConstraints.HORIZONTAL;
 		gbc_textAddress.gridx = 1;
 		gbc_textAddress.gridy = 1;
-		panelKunde.add(textAddress, gbc_textAddress);
+		panelCustomer.add(textAddress, gbc_textAddress);
 		textAddress.setColumns(10);
 		
 		textPhone = new JTextField();
@@ -273,7 +273,7 @@ public class LoanMenuPanel extends JPanel {
 		gbc_textPhone.fill = GridBagConstraints.HORIZONTAL;
 		gbc_textPhone.gridx = 0;
 		gbc_textPhone.gridy = 2;
-		panelKunde.add(textPhone, gbc_textPhone);
+		panelCustomer.add(textPhone, gbc_textPhone);
 		textPhone.setColumns(10);
 		
 		textEmail = new JTextField();
@@ -281,7 +281,7 @@ public class LoanMenuPanel extends JPanel {
 		gbc_textEmail.fill = GridBagConstraints.HORIZONTAL;
 		gbc_textEmail.gridx = 1;
 		gbc_textEmail.gridy = 2;
-		panelKunde.add(textEmail, gbc_textEmail);
+		panelCustomer.add(textEmail, gbc_textEmail);
 		textEmail.setColumns(10);
 		
 		JScrollPane scrollPaneLoan = new JScrollPane();

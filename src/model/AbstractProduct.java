@@ -44,6 +44,10 @@ public abstract class AbstractProduct {
 		return name;
 	}
 	
+	public void setName(String name) {
+		this.name = name;
+	}
+	
 	/**
 	 * This method gets <code>barcode</code>.
 	 * @return a <code>string</code> representing a products barcode.

@@ -1,5 +1,8 @@
 package gui;
 
+import model.Employee;
+import model.Location;
+
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -33,6 +36,11 @@ public class MainWindowTemp extends JFrame {
 	 * Create the frame.
 	 */
 	public MainWindowTemp() {
+
+		Employee user = new Employee("ProjectGroup", "UCN", "11234567", "noreply@UCN.dk", "PG");
+		Location location = new Location("Hjem & Fix", "Pioner Alle 2");
+
+		setTitle("Vestbjerg Byggecenter");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1152, 560);
 		contentPane = new JPanel();
@@ -44,7 +52,7 @@ public class MainWindowTemp extends JFrame {
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		contentPane.add(tabbedPane, BorderLayout.CENTER);
 		
-		JPanel panelSaleMenu = new SaleMenuPanel();
+		JPanel panelSaleMenu = new SaleMenuPanel(user, location); // maybe wrong "user, location"
 		tabbedPane.addTab("Sale", null, panelSaleMenu, null);
 		
 		JPanel panelLoan = new LoanMenuPanel();
@@ -53,7 +61,7 @@ public class MainWindowTemp extends JFrame {
 		JPanel panelLease = new LeaseMenuPanel();
 		tabbedPane.addTab("Lease", null, panelLease, null);
 
-		JPanel panelTestData = new GenerateTestDataPanel(); // TODO
+		JPanel panelTestData = new GenerateTestDataPanel(user, location); // TODO
 		tabbedPane.addTab("Generate Test data", null, panelTestData, null);
 		
 	}

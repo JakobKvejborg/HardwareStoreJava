@@ -1,11 +1,13 @@
 package gui;
 
 import controller.CustomerCtrl;
+import controller.SaleCtrl;
+import model.Employee;
+import model.Location;
+import model.Sale;
+import model.SellableIF;
 
-import java.awt.BorderLayout;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
+import java.awt.*;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -20,11 +22,18 @@ import javax.swing.JEditorPane;
 import javax.swing.JTextPane;
 import javax.swing.SwingConstants;
 import javax.swing.ScrollPaneConstants;
-import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
+import java.time.LocalDateTime;
 
 public class SaleMenuPanel extends JPanel {
+
+	private Employee employee;
+	private Location location;
+	private SaleCtrl saleCtrl;
+	private Sale sale;
 
 	private static final long serialVersionUID = 1L;
 	private JTextField txtFindCustomer;
@@ -48,7 +57,10 @@ public class SaleMenuPanel extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public SaleMenuPanel() {
+	public SaleMenuPanel(Employee employee, Location location) { // penrose, er Employee employee og location correct? Ellers slet lortet
+		this.employee = employee;
+		this.location = location;
+		saleCtrl = new SaleCtrl(employee, location);
 		setBorder(new EmptyBorder(10, 10, 10, 10));
 		
 		
@@ -76,6 +88,17 @@ public class SaleMenuPanel extends JPanel {
 		
 		btnBarcodeEnter = new JButton("Enter");
 		panelBarcode.add(btnBarcodeEnter, BorderLayout.EAST);
+		btnBarcodeEnter.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String barcode = textBarcode.getText();
+				Sale sale = saleCtrl.makeSale();
+				SellableIF product = saleCtrl.addProduct(barcode);
+
+				DefaultTableModel model = (DefaultTableModel) tableSale.getModel();
+				model.addRow(new Object[]{product.getName(), 1, product.getPrice(LocalDateTime.now()), "???"});
+			}
+		});
 		
 		JPanel panelWestCenter = new JPanel();
 		panelSaleNorthWest.add(panelWestCenter, BorderLayout.CENTER);
@@ -91,7 +114,22 @@ public class SaleMenuPanel extends JPanel {
 		panelCenterSouthWest.setLayout(gbl_panelCenterSouthWest);
 		
 		txtFindCustomer = new JTextField();
-		txtFindCustomer.setText("Indsæt Tlf.");
+		txtFindCustomer.setText("Indtast tlf.nr.");
+		txtFindCustomer.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent e) {
+				if (!txtFindCustomer.getText().isEmpty()) {
+					txtFindCustomer.setText("");
+				}
+			}
+
+			@Override
+			public void focusLost(FocusEvent e) {
+				if (txtFindCustomer.getText().isEmpty()) {
+					txtFindCustomer.setText("Indtast tlf.nr.");
+				}
+			}
+		});
 		GridBagConstraints gbc_txtFindCustomer = new GridBagConstraints();
 		gbc_txtFindCustomer.insets = new Insets(0, 0, 5, 5);
 		gbc_txtFindCustomer.fill = GridBagConstraints.HORIZONTAL;
@@ -210,61 +248,61 @@ public class SaleMenuPanel extends JPanel {
 		tableSale = new JTable(50,4);
 		tableSale.setModel(new DefaultTableModel(
 			new Object[][] {
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
+//				{null, null, null, null},
+//				{null, null, null, null},
+//				{null, null, null, null},
+//				{null, null, null, null},
+//				{null, null, null, null},
+//				{null, null, null, null},
+//				{null, null, null, null},
+//				{null, null, null, null},
+//				{null, null, null, null},
+//				{null, null, null, null},
+//				{null, null, null, null},
+//				{null, null, null, null},
+//				{null, null, null, null},
+//				{null, null, null, null},
+//				{null, null, null, null},
+//				{null, null, null, null},
+//				{null, null, null, null},
+//				{null, null, null, null},
+//				{null, null, null, null},
+//				{null, null, null, null},
+//				{null, null, null, null},
+//				{null, null, null, null},
+//				{null, null, null, null},
+//				{null, null, null, null},
+//				{null, null, null, null},
+//				{null, null, null, null},
+//				{null, null, null, null},
+//				{null, null, null, null},
+//				{null, null, null, null},
+//				{null, null, null, null},
+//				{null, null, null, null},
+//				{null, null, null, null},
+//				{null, null, null, null},
+//				{null, null, null, null},
+//				{null, null, null, null},
+//				{null, null, null, null},
+//				{null, null, null, null},
+//				{null, null, null, null},
+//				{null, null, null, null},
+//				{null, null, null, null},
+//				{null, null, null, null},
+//				{null, null, null, null},
+//				{null, null, null, null},
+//				{null, null, null, null},
+//				{null, null, null, null},
+//				{null, null, null, null},
+//				{null, null, null, null},
+//				{null, null, null, null},
+//				{null, null, null, null},
+//				{null, null, null, null},
+//				{null, null, null, null},
+//				{null, null, null, null},
+//				{null, null, null, null},
+//				{null, null, null, null},
+//				{null, null, null, null},
 			},
 			new String[] {
 				"Indk\u00F8bskurv", "Antal", "Pris", "Fjern"

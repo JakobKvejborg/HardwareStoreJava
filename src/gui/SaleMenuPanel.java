@@ -9,19 +9,9 @@ import model.SellableIF;
 
 import java.awt.*;
 
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JSplitPane;
-import javax.swing.JTable;
-import javax.swing.JTextField;
+import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.JEditorPane;
-import javax.swing.JTextPane;
-import javax.swing.SwingConstants;
-import javax.swing.ScrollPaneConstants;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusAdapter;
@@ -34,6 +24,7 @@ public class SaleMenuPanel extends JPanel {
 	private Location location;
 	private SaleCtrl saleCtrl;
 	private Sale sale;
+	private JLabel lblTotalPrice;
 
 	private static final long serialVersionUID = 1L;
 	private JTextField txtFindCustomer;
@@ -391,6 +382,18 @@ public class SaleMenuPanel extends JPanel {
 		gbc_btnCheckout.gridx = 0;
 		gbc_btnCheckout.gridy = 0;
 		panelSaleGridSouth.add(btnCheckout, gbc_btnCheckout);
+		btnCheckout.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String paymentInput = JOptionPane.showInputDialog("Indtast betaling:");
+				double payment;
+				payment = Double.parseDouble(paymentInput);
+				sale = saleCtrl.completeSale(payment);
+				String totalPrice = "Total: " + sale.getPrice() + "kr" + " Betalt: " + payment + "kr Tilbage: " + (payment - sale.getPrice()) + "kr";
+				showTotalPrice(totalPrice);
+				// TODO reset JTable slet alle produkter fra indkøbskurven osv.
+			}
+		});
 		
 		btnCancel = new JButton("Afbryd");
 		GridBagConstraints gbc_btnCancel = new GridBagConstraints();
@@ -400,7 +403,24 @@ public class SaleMenuPanel extends JPanel {
 		gbc_btnCancel.gridy = 0;
 		panelSaleGridSouth.add(btnCancel, gbc_btnCancel);
 
+		lblTotalPrice = new JLabel();
+		GridBagConstraints gbc_lblTotalPrice = new GridBagConstraints();
+		gbc_lblTotalPrice.insets = new Insets(0, 0, 0, 5);
+		gbc_lblTotalPrice.anchor = GridBagConstraints.NORTHWEST;
+		gbc_lblTotalPrice.gridx = 10;
+		gbc_lblTotalPrice.gridy = 0; //
+		panelSaleGridSouth.add(lblTotalPrice, gbc_lblTotalPrice);
 
+
+
+	}
+
+	/**
+	 * This method sets the label in the right bottom corner to the total price
+	 * @param totalPrice
+	 */
+	private void showTotalPrice(String totalPrice) {
+		lblTotalPrice.setText(totalPrice);
 	}
 
 }

@@ -62,4 +62,11 @@ public class CustomerContainer {
 		}
 		return res;
 	}
+	
+	public void removeCustomer(String phone) {
+		Customer customer = findCustomer(phone);
+		if(customer != null) {
+			customers.remove(customer);
+		}
+	}
 }

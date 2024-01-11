@@ -1,5 +1,6 @@
 package controller;
 
+import model.AbstractProduct;
 import model.Customer;
 import model.CustomerContainer;
 
@@ -46,5 +47,18 @@ public class CustomerCtrl implements CustomerCtrlIF {
 			customer = null;
 		}
 		return customer;
+	}
+	
+	public void updateCustomer(String name, String address, String phone, String email) {
+		Customer customer = findCustomer(phone);
+		if(customer != null) {
+			customer.setName(name);
+			customer.setAddress(address);
+			customer.setPhone(phone);
+			customer.setEmail(email);
+			System.out.println("Customer information has been updated: " + customer);
+		} else {
+			System.out.println("Customer could not be found: " + phone);
+		}
 	}
 }

@@ -69,5 +69,17 @@ public abstract class AbstractPerson {
 	public String getEmail() {
 		return email;
 	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
 	
 }

@@ -12,6 +12,7 @@ import java.util.ArrayList;
  */
 public class ShelfProduct extends AbstractProduct implements SellableIF {
 	
+	private static double purchasePrice;
 	private ArrayList<ShelfStock> stocks;	
 	//TODO: Make price not break old sales when it is changed.
 	private TemporalPriceList price;
@@ -25,6 +26,10 @@ public class ShelfProduct extends AbstractProduct implements SellableIF {
 		this.discount = new TemporalPriceList();
 		this.discount.addPrice(discount, creationDate);
 		stocks = new ArrayList<>();
+	}
+	
+	public ShelfProduct(String name, String description, String barcode, double purchasePrice) {
+		super(name, description, barcode, purchasePrice);
 	}
 	
 	public int getQuantity(Location location) {

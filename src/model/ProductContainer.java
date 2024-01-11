@@ -139,5 +139,14 @@ public class ProductContainer {
 		}
 		return res;
 	}
+	
+	
+	public void removeProduct(String barcode) {
+		AbstractProduct product = findProduct(barcode);
+		
+		if(product != null) {
+			products.remove(product);
+		}
+	}
 }
 

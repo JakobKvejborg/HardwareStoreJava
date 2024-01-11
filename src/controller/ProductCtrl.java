@@ -35,11 +35,14 @@ public class ProductCtrl {
 		return productContainer.findLendable(barcode);
 	}
 
-	public void updateProduct(String barcode, String name) {
+	public void updateProduct(String barcode, String name, String description, double purchasePrice) {
 		AbstractProduct product = findProduct(barcode);
 
 		if (product != null) {
 			product.setName(name);
+			product.setDescription(description);
+			product.setBarcode(barcode);
+			product.setPurchasePrice(purchasePrice);
 			System.out.println("Product has been updated: " + product);
 		} else {
 			System.out.println("Product could not be found: " + barcode);

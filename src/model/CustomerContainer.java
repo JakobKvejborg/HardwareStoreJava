@@ -6,7 +6,7 @@ import java.util.ArrayList;
  * This class represents a customer container which can store and search for
  * the class <code>Customer</code>.
  * 
- * @author Patrick Thor Sorenson De Siqueira, Majbritt Kjeldgaard Harsfort
+ * @author Patrick Thor Sorenson De Siqueira, Majbritt Kjeldgaard Harsfort, Jonas
  * @version 13/12/2023
  * @since 07/12/2023
  */

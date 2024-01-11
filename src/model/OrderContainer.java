@@ -6,7 +6,7 @@ import java.util.Random;
 /**
  * Contains a list of the orders contained in the system.
  * 
- * @author Penrose
+ * @author Penrose, Jonas
  * @version 07/12/2023
  * @since 07/12/2023
  */
@@ -61,4 +61,10 @@ public class OrderContainer {
 		return tempNo;
 	}
 
+	public void removeOrder(int orderNO) {
+		AbstractOrder order = findOrder(orderNO);
+		if(order != null) {
+			orders.remove(order);
+		}
+	}
 }

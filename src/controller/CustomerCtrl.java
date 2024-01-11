@@ -7,7 +7,7 @@ import model.CustomerContainer;
 /**
  * This class represents customer controller which creates an instance of
  * customer container and sends the commands to the container.
- * @author Patrick Thor Sorenson De Siqueira, Majbritt Kjeldgaard Harsfort
+ * @author Patrick Thor Sorenson De Siqueira, Majbritt Kjeldgaard Harsfort, Jonas
  * @version 13/12/2023
  * @since 07/12/2023
  */

@@ -2,6 +2,7 @@ package controller;
 
 import java.time.LocalDateTime;
 
+import model.AbstractOrder;
 import model.AbstractProduct;
 import model.Customer;
 import model.Employee;
@@ -146,5 +147,28 @@ public class SaleCtrl implements SaleCtrlIF {
 		return res;
 	}
 
-
+	public AbstractOrder findOrder(int orderNO) {
+		return orderContainer.findOrder(orderNO);
+	}
+	
+	public Sale createOrder(int orderNO, LocalDateTime date) {
+		Sale order = new Sale(orderNO, date);
+		boolean success = orderContainer.addOrder(order);
+		if(!success) {
+			order = null;
+		}
+		return order;
+	}
+	
+	public void updateOrder(int orderNO, LocalDateTime date) {
+		AbstractOrder order = findOrder(orderNO);
+		if(order != null) {
+			order.setOrderNo(orderNO);
+			order.setCustomer(null);
+			order.setEmployee(employee);
+			System.out.println("Order has been updated: " + order);
+		} else {
+			System.out.println("Order could not be found: " + orderNO);
+		}
+	}
 }

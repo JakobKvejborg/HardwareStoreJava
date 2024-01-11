@@ -61,6 +61,10 @@ public abstract class AbstractOrder {
 		this.employee = employee;
 	}
 
+	public void setOrderNo(int orderNo) {
+		this.orderNo = orderNo;
+	}
+
 	public int getOrderNo() {
 		return orderNo;
 	}

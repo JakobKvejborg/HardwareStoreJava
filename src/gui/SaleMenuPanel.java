@@ -36,6 +36,10 @@ public class SaleMenuPanel extends JPanel {
 	private JTextField textPrice;
 	private JTextField textBarcode;
 	private JTextField textField;
+	private JButton btnCheckout;
+	private JButton btnCancel;
+	private JButton btnCreateCustomer;
+	private JButton btnBarcodeEnter;
 
 	/**
 	 * Create the panel.
@@ -66,12 +70,8 @@ public class SaleMenuPanel extends JPanel {
 		textBarcode.setColumns(10);
 		panelBarcode.add(textBarcode);
 		
-		JButton btnBarcodeEnter = new JButton("Enter");
+		btnBarcodeEnter = new JButton("Enter");
 		panelBarcode.add(btnBarcodeEnter, BorderLayout.EAST);
-		
-		JPanel panelSouthWest = new JPanel();
-		panelSaleNorthWest.add(panelSouthWest, BorderLayout.SOUTH);
-		panelSouthWest.setLayout(new BorderLayout(0, 0));
 		
 		JPanel panelWestCenter = new JPanel();
 		panelSaleNorthWest.add(panelWestCenter, BorderLayout.CENTER);
@@ -96,7 +96,7 @@ public class SaleMenuPanel extends JPanel {
 		panelCenterSouthWest.add(txtFindCustomer, gbc_txtFindCustomer);
 		txtFindCustomer.setColumns(10);
 		
-		JButton btnCreateCustomer = new JButton("Opret ny kunde");
+		btnCreateCustomer = new JButton("Opret ny kunde");
 		GridBagConstraints gbc_btnCreateCustomer = new GridBagConstraints();
 		gbc_btnCreateCustomer.fill = GridBagConstraints.HORIZONTAL;
 		gbc_btnCreateCustomer.insets = new Insets(0, 0, 5, 0);
@@ -335,7 +335,7 @@ public class SaleMenuPanel extends JPanel {
 		gbl_panelSaleGridSouth.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panelSaleGridSouth.setLayout(gbl_panelSaleGridSouth);
 		
-		JButton btnCheckout = new JButton("Færdiggør");
+		btnCheckout = new JButton("Færdiggør");
 		GridBagConstraints gbc_btnCheckout = new GridBagConstraints();
 		gbc_btnCheckout.anchor = GridBagConstraints.NORTHWEST;
 		gbc_btnCheckout.insets = new Insets(0, 0, 0, 5);
@@ -343,7 +343,7 @@ public class SaleMenuPanel extends JPanel {
 		gbc_btnCheckout.gridy = 0;
 		panelSaleGridSouth.add(btnCheckout, gbc_btnCheckout);
 		
-		JButton btnCancel = new JButton("Afbryd");
+		btnCancel = new JButton("Afbryd");
 		GridBagConstraints gbc_btnCancel = new GridBagConstraints();
 		gbc_btnCancel.insets = new Insets(0, 0, 0, 5);
 		gbc_btnCancel.anchor = GridBagConstraints.NORTHWEST;
@@ -351,7 +351,6 @@ public class SaleMenuPanel extends JPanel {
 		gbc_btnCancel.gridy = 0;
 		panelSaleGridSouth.add(btnCancel, gbc_btnCancel);
 
-		JLabel lblNewLabel = new JLabel("New label");
 
 	}
 

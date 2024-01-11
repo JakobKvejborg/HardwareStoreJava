@@ -38,6 +38,10 @@ public class LoanMenuPanel extends JPanel {
 	private JTextField textEmail;
 	private JTextField textField;
 	private JTextField textField_1;
+	private JButton btnCheckOut;
+	private JButton btnCancel;
+	private JButton btnNewCustomer;
+	private JButton btnBarcodeEnter;
 
 	/**
 	 * Create the panel.
@@ -59,7 +63,7 @@ public class LoanMenuPanel extends JPanel {
 		gbl_panelFinalButtons.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panelFinalButtons.setLayout(gbl_panelFinalButtons);
 		
-		JButton btnCheckOut = new JButton("Færdiggør");
+		btnCheckOut = new JButton("Færdiggør");
 		GridBagConstraints gbc_btnCheckOut = new GridBagConstraints();
 		gbc_btnCheckOut.anchor = GridBagConstraints.NORTHWEST;
 		gbc_btnCheckOut.insets = new Insets(0, 0, 0, 5);
@@ -67,7 +71,7 @@ public class LoanMenuPanel extends JPanel {
 		gbc_btnCheckOut.gridy = 0;
 		panelFinalButtons.add(btnCheckOut, gbc_btnCheckOut);
 		
-		JButton btnCancel = new JButton("Afbryd");
+		btnCancel = new JButton("Afbryd");
 		GridBagConstraints gbc_btnCancel = new GridBagConstraints();
 		gbc_btnCancel.anchor = GridBagConstraints.NORTHWEST;
 		gbc_btnCancel.gridx = 1;
@@ -154,7 +158,7 @@ public class LoanMenuPanel extends JPanel {
 		panelBarcode.add(txtFieldBarcode, BorderLayout.CENTER);
 		txtFieldBarcode.setColumns(10);
 		
-		JButton btnBarcodeEnter = new JButton("Enter");
+		btnBarcodeEnter = new JButton("Enter");
 		panelBarcode.add(btnBarcodeEnter, BorderLayout.EAST);
 		
 		JPanel panelAtBottom = new JPanel();
@@ -270,7 +274,7 @@ public class LoanMenuPanel extends JPanel {
 		gbc_formattedTextFindCustomer.gridy = 0;
 		panelCustomer.add(formattedTextFindCustomer, gbc_formattedTextFindCustomer);
 		
-		JButton btnNewCustomer = new JButton("Opret ny Kunde");
+		btnNewCustomer = new JButton("Opret ny Kunde");
 		GridBagConstraints gbc_btnNewCustomer = new GridBagConstraints();
 		gbc_btnNewCustomer.fill = GridBagConstraints.HORIZONTAL;
 		gbc_btnNewCustomer.insets = new Insets(0, 0, 5, 0);

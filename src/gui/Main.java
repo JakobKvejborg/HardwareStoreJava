@@ -19,8 +19,8 @@ public class Main {
     public static void main(String[] args) {
         Employee user = new Employee("ProjectGroup", "UCN", "11234567", "noreply@UCN.dk", "PG");
         Location location = new Location("Hjem & Fix", "Pioner Alle 2");
+
         // MainMenuTUI mainMenuTUI = new MainMenuTUI(user, location); //OLD TUI
-       
 //		mainMenuTUI.start(); // OLD TUI
        
         

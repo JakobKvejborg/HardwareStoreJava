@@ -53,7 +53,7 @@ public class MainWindowTemp extends JFrame {
 		JPanel panelLease = new LeaseMenuPanel();
 		tabbedPane.addTab("Lease", null, panelLease, null);
 
-		JPanel panelTestData = new JPanel(); // TODO
+		JPanel panelTestData = new GenerateTestDataPanel(); // TODO
 		tabbedPane.addTab("Generate Test data", null, panelTestData, null);
 		
 	}

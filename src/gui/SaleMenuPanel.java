@@ -1,5 +1,7 @@
 package gui;
 
+import controller.CustomerCtrl;
+
 import java.awt.BorderLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -19,6 +21,8 @@ import javax.swing.JTextPane;
 import javax.swing.SwingConstants;
 import javax.swing.ScrollPaneConstants;
 import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class SaleMenuPanel extends JPanel {
 
@@ -103,6 +107,13 @@ public class SaleMenuPanel extends JPanel {
 		gbc_btnCreateCustomer.gridx = 1;
 		gbc_btnCreateCustomer.gridy = 0;
 		panelCenterSouthWest.add(btnCreateCustomer, gbc_btnCreateCustomer);
+		btnCreateCustomer.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				CreateCustomerWindow customerWindow = new CreateCustomerWindow(new CustomerCtrl()); //maybe not "new CustomerCtrl()" TODO
+				customerWindow.setVisible(true);
+			}
+		});
 		
 		textName = new JTextField();
 		textName.setEditable(false);

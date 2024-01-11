@@ -34,15 +34,15 @@ public class CreateCustomerWindow extends JDialog {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		try {
-			CreateCustomerWindow dialog = new CreateCustomerWindow(new CustomerCtrl());
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+//	public static void main(String[] args) {
+//		try {
+//			CreateCustomerWindow dialog = new CreateCustomerWindow(new CustomerCtrl());
+//			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+//			dialog.setVisible(true);
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//	}
 
 	/**
 	 * Create the dialog.
@@ -55,6 +55,7 @@ public class CreateCustomerWindow extends JDialog {
 	}
 
 	private void createLayout() {
+		setTitle("Opret ny kunde");
 		setBounds(100, 100, 320, 178);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));

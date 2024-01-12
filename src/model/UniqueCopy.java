@@ -38,6 +38,11 @@ public class UniqueCopy extends AbstractCopy implements SellableIF{
 	}
 
 	@Override
+	public String getDescription() {
+		return product.getDescription();
+	}
+
+	@Override
 	public int getStock(Location location) {
 		int res = 0;
 		//check if it has stock assigned, and if it is at the given location.

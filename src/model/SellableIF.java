@@ -22,6 +22,8 @@ public interface SellableIF {
 	 * @return The name of the Sellable.
 	 */
 	String getName();
+
+	String getDescription();
 	
 	public int getStock(Location location);
 	

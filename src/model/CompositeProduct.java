@@ -50,6 +50,11 @@ public class CompositeProduct implements SellableIF {
 	}
 
 	@Override
+	public String getDescription() {
+		return null;
+	}
+
+	@Override
 	public int getStock(Location location) {
 		if(compositeLines.size() == 0) {
 			//the product doesn't have anything it is composed of. Throw error?

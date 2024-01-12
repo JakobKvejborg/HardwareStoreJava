@@ -15,6 +15,8 @@ import javax.swing.JFormattedTextField;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 import java.awt.Component;
 import javax.swing.JTextPane;
 import javax.swing.SwingConstants;
@@ -38,6 +40,7 @@ public class LeaseMenuPanel extends JPanel {
 	private JTextField textFieldFromDate;
 	private JTextField textFieldToDate;
 	private JTextField textFieldLeaseDuration;
+	private JTextField textFindCustomer;
 	private JButton btnCheckOut;
 	private JButton btnCancel;
 	private JButton btnNewCustomer;
@@ -264,14 +267,30 @@ public class LeaseMenuPanel extends JPanel {
 		gbl_panelCustomer.rowWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
 		panelCustomer.setLayout(gbl_panelCustomer);
 		
-		JFormattedTextField formattedTextFindCustomer = new JFormattedTextField();
-		formattedTextFindCustomer.setText("Indsæt Tlf:");
-		GridBagConstraints gbc_formattedTextFindCustomer = new GridBagConstraints();
-		gbc_formattedTextFindCustomer.insets = new Insets(0, 0, 5, 5);
-		gbc_formattedTextFindCustomer.fill = GridBagConstraints.HORIZONTAL;
-		gbc_formattedTextFindCustomer.gridx = 0;
-		gbc_formattedTextFindCustomer.gridy = 0;
-		panelCustomer.add(formattedTextFindCustomer, gbc_formattedTextFindCustomer);
+		textFindCustomer = new JTextField();
+		textFindCustomer.setText("Indsæt Tlf:");
+		textFindCustomer.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent e) {
+				if (!textFindCustomer.getText().isEmpty()) {
+					textFindCustomer.setText("");
+				}
+			}
+
+			@Override
+			public void focusLost(FocusEvent e) {
+				if (textFindCustomer.getText().isEmpty()) {
+					textFindCustomer.setText("Indtast tlf.nr.");
+				}
+			}
+		});
+		
+		GridBagConstraints gbc_textFindCustomer = new GridBagConstraints();
+		gbc_textFindCustomer.insets = new Insets(0, 0, 5, 5);
+		gbc_textFindCustomer.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textFindCustomer.gridx = 0;
+		gbc_textFindCustomer.gridy = 0;
+		panelCustomer.add(textFindCustomer, gbc_textFindCustomer);
 		
 		btnNewCustomer = new JButton("Opret ny Kunde");
 		GridBagConstraints gbc_btnNewCustomer = new GridBagConstraints();

@@ -18,6 +18,17 @@ import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.time.LocalDateTime;
 
+/**
+* @author Julia Rafn
+ *@author Jakob Kvejborg
+ *@author Patrick
+ *@author Penrose
+ *@author Jonas Glintborg
+ *@author Majbritt
+        * @version 12/01/2024
+        * @since 10/01/2024
+        */
+
 public class SaleMenuPanel extends JPanel {
 
     private Employee employee;
@@ -55,9 +66,7 @@ public class SaleMenuPanel extends JPanel {
         saleCtrl = new SaleCtrl(employee, location);
         setBorder(new EmptyBorder(10, 10, 10, 10));
 
-
         setLayout(new BorderLayout(0, 0));
-
 
         JSplitPane splitPaneSale = new JSplitPane();
         add(splitPaneSale, BorderLayout.CENTER);
@@ -241,61 +250,7 @@ public class SaleMenuPanel extends JPanel {
         tableSale = new JTable(50, 4);
         tableSale.setModel(new DefaultTableModel(
                 new Object[][]{
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
+//				{null, null, null, null}, // x50 ned af
                 },
                 new String[]{
                         "Indk\u00F8bskurv", "Antal", "Pris", "Fjern"

@@ -150,13 +150,13 @@ public class CreateCustomerWindow extends JDialog {
 			});
 			okButton.setActionCommand("OK");
 			
-			JButton cancelButton = new JButton("Cancel");
+			JButton cancelButton = new JButton("Anuller");
 			cancelButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					cancelClicked();
 				}
 			});
-			cancelButton.setActionCommand("Cancel");
+			cancelButton.setActionCommand("Anuller");
 
 			JPanel buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
@@ -183,7 +183,7 @@ public class CreateCustomerWindow extends JDialog {
 		}
 
 	}
-	
+
 	public Customer getCustomer() {
 		return customer;
 	}

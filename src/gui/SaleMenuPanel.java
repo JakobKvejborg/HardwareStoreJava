@@ -243,7 +243,7 @@ public class SaleMenuPanel extends JPanel {
         gbc_textField.gridx = 3;
         gbc_textField.gridy = 0;
         panelPriceCal.add(textField, gbc_textField);
-
+        
         JScrollPane scrollPaneSale = new JScrollPane();
         panelCenterNorthWest.add(scrollPaneSale, BorderLayout.CENTER);
 
@@ -302,22 +302,22 @@ public class SaleMenuPanel extends JPanel {
         panelDescriptionSideBar.add(textStock, gbc_textStock);
         textStock.setColumns(10);
 
-        JLabel lblStock = new JLabel("(Pris m/ rabat)");
-        GridBagConstraints gbc_lblStock = new GridBagConstraints();
-        gbc_lblStock.insets = new Insets(0, 0, 5, 0);
-        gbc_lblStock.gridx = 0;
-        gbc_lblStock.gridy = 2;
-        panelDescriptionSideBar.add(lblStock, gbc_lblStock);
-
-        textPrice = new JTextField();
-        textPrice.setEditable(false);
-        GridBagConstraints gbc_textPrice = new GridBagConstraints();
-        gbc_textPrice.insets = new Insets(0, 0, 5, 0);
-        gbc_textPrice.fill = GridBagConstraints.HORIZONTAL;
-        gbc_textPrice.gridx = 0;
-        gbc_textPrice.gridy = 3;
-        panelDescriptionSideBar.add(textPrice, gbc_textPrice);
-        textPrice.setColumns(10);
+//        JLabel lblStock = new JLabel("(Pris m/ rabat)");
+//        GridBagConstraints gbc_lblStock = new GridBagConstraints();
+//        gbc_lblStock.insets = new Insets(0, 0, 5, 0);
+//        gbc_lblStock.gridx = 0;
+//        gbc_lblStock.gridy = 2;
+//        panelDescriptionSideBar.add(lblStock, gbc_lblStock);
+//
+//        textPrice = new JTextField();
+//        textPrice.setEditable(false);
+//        GridBagConstraints gbc_textPrice = new GridBagConstraints();
+//        gbc_textPrice.insets = new Insets(0, 0, 5, 0);
+//        gbc_textPrice.fill = GridBagConstraints.HORIZONTAL;
+//        gbc_textPrice.gridx = 0;
+//        gbc_textPrice.gridy = 3;
+//        panelDescriptionSideBar.add(textPrice, gbc_textPrice);
+//        textPrice.setColumns(10);
 
         JPanel panelSaleSouth = new JPanel();
         add(panelSaleSouth, BorderLayout.SOUTH);
@@ -346,8 +346,9 @@ public class SaleMenuPanel extends JPanel {
                 double payment;
                 payment = Double.parseDouble(paymentInput);
                 sale = saleCtrl.completeSale(payment);
-                String totalPrice = "Total: " + sale.getPrice() + "kr" + " Betalt: " + payment + "kr Tilbage: " + (payment - sale.getPrice()) + "kr";
+                String totalPrice = "Betalt: " + payment + "kr Tilbage: " + (payment - sale.getPrice()) + "kr";
                 showTotalPrice(totalPrice);
+                textField.setText(sale.getPrice() + "kr");
                 // TODO reset JTable slet alle produkter fra indkøbskurven osv.
             }
         });

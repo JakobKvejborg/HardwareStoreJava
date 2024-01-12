@@ -44,7 +44,7 @@ public class CustomerGroupCtrl {
 		}
 	}
 	
-	public CustomerGroup createCustomer(String name, String type, double maxDiscount, LocalDateTime date) {
+	public CustomerGroup createCustomerGroup(String name, String type, double maxDiscount, LocalDateTime date) {
 		CustomerGroup customerGroup = new CustomerGroup(name, type, maxDiscount, null);
 		boolean success = addCustomerGroup(customerGroup);
 		if(!success) {

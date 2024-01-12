@@ -39,6 +39,30 @@ public class CustomerGroup {
 		return maxDiscount.getPrice(date);
 	}
 	
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public TemporalPriceList getMaxDiscount() {
+		return maxDiscount;
+	}
+
+	public void setMaxDiscount(TemporalPriceList maxDiscount) {
+		this.maxDiscount = maxDiscount;
+	}
+
 	/**
 	 * This method gets <code>defaultCustomerGroup</code>.
 	 * @return a <code>defaultCustomerGroup<code> representing <code>CustomerGroup</code>. 

@@ -25,8 +25,8 @@ public class Sale extends AbstractOrder {
      * @param orderNo contains the number unique to a specific sale
      * @param date    contains the date the sale was made
      */
-    public Sale(int orderNo, LocalDateTime date) {
-        super(orderNo, date);
+    public Sale(LocalDateTime date) {
+        super(date);
         saleOrderLines = new ArrayList<>();
         craftmanDiscount = 0.0d;
         quantityDiscount = 0.0d;

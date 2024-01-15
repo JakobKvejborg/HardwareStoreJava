@@ -49,7 +49,7 @@ public class MockSaleCtrl implements SaleCtrlIF {
 
 	@Override
 	public Sale makeSale() {
-		sale = new Sale(00001, LocalDateTime.now());
+		sale = new Sale( LocalDateTime.now());
 		return sale;
 	}
 

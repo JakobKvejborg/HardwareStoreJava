@@ -53,7 +53,7 @@ public class OrderContainer {
 		boolean found = false;
 		int tempNo = 0;
 		while(!found) {
-			tempNo = random.nextInt();
+			tempNo = random.nextInt(Integer.MAX_VALUE);
 			if(findOrder(tempNo) == null) {
 				found = true;
 			}

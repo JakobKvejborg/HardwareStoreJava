@@ -27,7 +27,7 @@ public class SaleTest {
 	 */
 	@BeforeEach
 	public void setUp() {
-		sale = new Sale(1, LocalDateTime.of(2023, 1, 1, 1, 1));
+		sale = new Sale(LocalDateTime.of(2023, 1, 1, 1, 1));
 		saleOrderLineTest = new SaleOrderLine(new ShelfProduct("Oakwood planks", "Plank space", "087543", 9.99, 19.99, 10, LocalDateTime.of(2023, 1, 1, 1, 1)), 1);
 		sale.addSaleOrderLine(saleOrderLineTest);
 	}

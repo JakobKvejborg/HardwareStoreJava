@@ -30,6 +30,6 @@ public class OrderContainerTest {
 	 */
 	@Test
 	public void addOrderTest() {
-		assertTrue(OrderContainer.getInstance().addOrder(new Sale(4829343, null)));
+		assertTrue(OrderContainer.getInstance().addOrder(new Sale(null)));
 	}
 }

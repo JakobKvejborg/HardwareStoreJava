@@ -2,6 +2,8 @@ package controller;
 
 import model.*;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -10,7 +12,7 @@ import java.util.List;
  * @version 10/01/2024
  * @since 13/12/2023
  */
-public class LeaseCtrl {
+public class LeaseCtrl /*implements LeaseCtrlIF*/ {
 	private OrderContainer orderContainer;
 	private ProductCtrl productCtrl;
 	private LocalDateTime date;
@@ -23,6 +25,7 @@ public class LeaseCtrl {
 		orderContainer = OrderContainer.getInstance();
 		this.employee = employee;
 		this.location = location;
+		this.date = LocalDateTime.now();
 	}
 
 	public LeaseableIF addProduct(String barcode) {
@@ -34,7 +37,11 @@ public class LeaseCtrl {
 		return product;
 	}
 	
-	public boolean validateLoans() {
+	
+	
+	
+	
+	public boolean validateLeases() {
 		//check if there is minimum 1 product
 		boolean res = products.size() > 0;
 		
@@ -56,23 +63,27 @@ public class LeaseCtrl {
 		return res;
 	}
 	
-	public boolean finishLoans() {
-		boolean res = validateLoans();
+	public ArrayList<Lease> completeLeases(double payment) {
+		boolean res = validateLeases();
 		OrderContainer orderContainer = OrderContainer.getInstance();
+		ArrayList<Lease> completedLeases = new ArrayList<>();
 		//loop over all the products, create a new lease for each
 		for(int i = 0; i < products.size(); i++) {
-			//TODO add orderNO
 			//TODO add payment
-			Lease lease = new Lease(0, date, 0);
+			Lease lease = new Lease(date, 0);
 			lease.setProduct(products.get(i));
 			lease.setCustomer(customer);
 			lease.setEmployee(employee);
+			lease.setOrderNo(orderContainer.generateOrderNO());
 			boolean success = products.get(i).decrementStock(1, location);
 			if(success) {
 				orderContainer.addOrder(lease);
+				completedLeases.add(lease);
 			}
 		}
 		
-		return res;
+		return completedLeases;
 	}
+
+	
 }

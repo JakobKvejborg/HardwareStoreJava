@@ -113,9 +113,9 @@ public class SaleCtrl implements SaleCtrlIF {
 	 * @return returns the created sale.
 	 */
 	public Sale makeSale() {
-		//TODO Assign proper orderNo
+		//orderNo is now assigned at completion
 //		int newOrderNumber = ++lastOrderNumber; // delete
-		sale = new Sale(0, LocalDateTime.now());
+		sale = new Sale(LocalDateTime.now());
 		return sale;
 	}
 
@@ -131,6 +131,7 @@ public class SaleCtrl implements SaleCtrlIF {
 		Sale res = null;
 		if(payment >= sale.getPrice()) {
 			sale.setEmployee(employee);
+			sale.setOrderNo(orderContainer.generateOrderNO());
 			
 			for(int i = 0; i < sale.getSaleOrderLinesSize(); i++) {
 				//reduce the stock of each item in the sale
@@ -152,7 +153,7 @@ public class SaleCtrl implements SaleCtrlIF {
 	}
 	
 	public Sale createOrder(int orderNO, LocalDateTime date) {
-		Sale order = new Sale(orderNO, date);
+		Sale order = new Sale(date);
 		boolean success = orderContainer.addOrder(order);
 		if(!success) {
 			order = null;

@@ -2,7 +2,6 @@ package model;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
 
 /**
  * @author Majbritt Kjeldgaard Harsfort
@@ -15,8 +14,8 @@ public class Loan extends AbstractOrder {
 	private LendableIF product;
 	
 
-	public Loan(int orderNo, LocalDateTime startDate, LocalDateTime endDate, LendableIF product) {
-		super(orderNo, startDate);
+	public Loan(LocalDateTime startDate, LocalDateTime endDate, LendableIF product) {
+		super(startDate);
 		this.endDate = endDate;
 		this.product = product;
 	}

@@ -24,7 +24,7 @@ public abstract class AbstractOrder {
      * @param orderNo The order number associated with this order.
      * @param date    The date and time when the order was made.
      */
-	public AbstractOrder(int orderNo, LocalDateTime date) {
+	public AbstractOrder(LocalDateTime date) {
 		this.orderNo = ++lastOrderNo;
 		this.date = date;
 	}
@@ -60,6 +60,10 @@ public abstract class AbstractOrder {
 	public void setEmployee(Employee employee) {
 		this.employee = employee;
 	}
+	
+	public Employee getEmployee() {
+		return employee;
+	}
 
 	public void setOrderNo(int orderNo) {
 		this.orderNo = orderNo;
@@ -68,6 +72,6 @@ public abstract class AbstractOrder {
 	public int getOrderNo() {
 		return orderNo;
 	}
-	
-	abstract double getPrice();
+		
+	//abstract double getPrice();
 }

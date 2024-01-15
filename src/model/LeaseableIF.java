@@ -1,10 +1,12 @@
 package model;
 
+import java.time.LocalDateTime;
+
 public interface LeaseableIF {
 
 	String getName();
 
-	double getLeasePrice();
+	double getLeasePrice(LocalDateTime date);
 	
 	public int getStock(Location location);
 	

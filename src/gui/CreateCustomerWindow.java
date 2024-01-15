@@ -173,14 +173,14 @@ public class CreateCustomerWindow extends JDialog {
 	}
 
 	private void okClicked() {
-		if (txtFieldName.getText().equals("") || txtFieldAddress.getText().equals("") || txtFieldPhone.getText().equals("")
-				|| txtFieldEmail.getText().equals("")) {
-			//TODO complain about the textfields being empty
-		} else {
-			customer = customerCtrl.createCustomer(txtFieldName.getText(), txtFieldAddress.getText(),
-					txtFieldPhone.getText(), txtFieldEmail.getText());
+//		if (txtFieldName.getText().equals("") || txtFieldAddress.getText().equals("") || txtFieldPhone.getText().equals("")
+//				|| txtFieldEmail.getText().equals("")) {
+//			//TODO complain about the textfields being empty
+//		} else {
+//			customer = customerCtrl.createCustomer(txtFieldName.getText(), txtFieldAddress.getText(),
+//					txtFieldPhone.getText(), txtFieldEmail.getText());
 			this.dispose();
-		}
+//		}
 
 	}
 
@@ -192,4 +192,19 @@ public class CreateCustomerWindow extends JDialog {
 		this.dispose();
 	}
 
+	public String getName() {
+		return txtFieldName.getText();
+	}
+	
+	public String getAddress() {
+		return txtFieldAddress.getText();
+	}
+	
+	public String getPhone() {
+		return txtFieldPhone.getText();
+	}
+	
+	public String getEmail() {
+		return txtFieldEmail.getText();
+	}
 }

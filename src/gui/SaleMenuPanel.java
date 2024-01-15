@@ -2,6 +2,7 @@ package gui;
 
 import controller.CustomerCtrl;
 import controller.SaleCtrl;
+import model.Customer;
 import model.Employee;
 import model.Location;
 import model.Sale;
@@ -43,6 +44,7 @@ public class SaleMenuPanel extends JPanel {
     private Sale sale;
     private SaleTable saleTableModel;
     private JLabel lblTotalPrice;
+    private CustomerCtrl customerCtrl;
 
 	private static final long serialVersionUID = 1L;
 	private JTextField txtFindCustomer;
@@ -223,17 +225,35 @@ public class SaleMenuPanel extends JPanel {
 		gbc_btnCreateCustomer.gridx = 1;
 		gbc_btnCreateCustomer.gridy = 0;
 		panelCenterSouthWest.add(btnCreateCustomer, gbc_btnCreateCustomer);
+//		btnCreateCustomer.addActionListener(new ActionListener() {
+//			@Override
+//			public void actionPerformed(ActionEvent e) {
+//				CreateCustomerWindow customerWindow = new CreateCustomerWindow(new CustomerCtrl()); // maybe not "new
+//																									// CustomerCtrl()"
+//																									// TODO
+//				customerWindow.setVisible(true);
+//			}
+//		});
 		btnCreateCustomer.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				CreateCustomerWindow customerWindow = new CreateCustomerWindow(new CustomerCtrl()); // maybe not "new
-																									// CustomerCtrl()"
-																									// TODO
+				CreateCustomerWindow customerWindow = new CreateCustomerWindow(customerCtrl);
 				customerWindow.setVisible(true);
+				
+				String name = customerWindow.getName();
+				String address = customerWindow.getAddress();
+				String phone = customerWindow.getPhone();
+				String email = customerWindow.getEmail();
+				
+				textName.setText(name);
+				textAddress.setText(address);
+				textPhone.setText(phone);
+				textEmail.setText(email);
 			}
 		});
 
 		textName = new JTextField();
+		textName.setText("Navn");
 		textName.setEditable(false);
 		GridBagConstraints gbc_textName = new GridBagConstraints();
 		gbc_textName.insets = new Insets(0, 0, 5, 5);
@@ -244,6 +264,7 @@ public class SaleMenuPanel extends JPanel {
 		textName.setColumns(10);
 
 		textAddress = new JTextField();
+		textAddress.setText("Addresse");
 		textAddress.setEditable(false);
 		GridBagConstraints gbc_textAddress = new GridBagConstraints();
 		gbc_textAddress.insets = new Insets(0, 0, 5, 0);
@@ -254,6 +275,7 @@ public class SaleMenuPanel extends JPanel {
 		textAddress.setColumns(10);
 
 		textPhone = new JTextField();
+		textPhone.setText("Telefon Nummer");
 		textPhone.setEditable(false);
 		GridBagConstraints gbc_textPhone = new GridBagConstraints();
 		gbc_textPhone.insets = new Insets(0, 0, 0, 5);
@@ -264,6 +286,7 @@ public class SaleMenuPanel extends JPanel {
 		textPhone.setColumns(10);
 
 		textEmail = new JTextField();
+		textEmail.setText("Email");
 		textEmail.setEditable(false);
 		GridBagConstraints gbc_textEmail = new GridBagConstraints();
 		gbc_textEmail.fill = GridBagConstraints.HORIZONTAL;

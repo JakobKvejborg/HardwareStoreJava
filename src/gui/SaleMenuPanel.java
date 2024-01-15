@@ -476,7 +476,7 @@ public class SaleMenuPanel extends JPanel {
         gbc_lblTotalPrice.anchor = GridBagConstraints.NORTHWEST;
         gbc_lblTotalPrice.gridx = 10;
         gbc_lblTotalPrice.gridy = 0; //
-        //Sorry, can't make this work rn - Penrose
+        //Sorry, can't make this work rn, no idea what this code does - Penrose
         //panelSaleGridSouth.add(lblTotalPrice, gbc_lblTotalPrice);
 	}
 
@@ -489,7 +489,7 @@ public class SaleMenuPanel extends JPanel {
         //DefaultTableModel model = (DefaultTableModel) tableSale.getModel();
         //model.addRow(new Object[]{product.getName(), 1, product.getPrice(LocalDateTime.now()), "???"});
         setProductDescription(txtpnProductDescription);
-        }
+    }
 
 	/**
      * This method sets the label in the right bottom corner to the total price

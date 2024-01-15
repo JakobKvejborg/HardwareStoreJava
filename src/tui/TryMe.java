@@ -67,6 +67,10 @@ public class TryMe {
 		copyStock.addCopy(copy1);
 		copyStock.addCopy(copy2);
 		
+		//LeaseCopy leaseCopy = new UniqueCopy("999", product3);
+		UniqueStock leaseStock = new UniqueStock(location, 2, 7);
+
+		
 		productContainer.addCopy(copy1);
 		productContainer.addCopy(copy2);
 

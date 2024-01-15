@@ -9,7 +9,18 @@ import javax.swing.JSplitPane;
 import javax.swing.BoxLayout;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableModel;
+
+import controller.LeaseCtrl;
+import controller.SaleCtrl;
+import model.Employee;
+import model.LeaseableIF;
+import model.Location;
+import model.Sale;
+import model.SaleOrderLine;
+import model.SellableIF;
+
 import javax.swing.JLabel;
 import javax.swing.JFormattedTextField;
 import java.awt.GridBagLayout;
@@ -17,12 +28,18 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.awt.Component;
 import javax.swing.JTextPane;
 import javax.swing.SwingConstants;
 import javax.swing.JEditorPane;
 import javax.swing.border.EmptyBorder;
 import javax.swing.ScrollPaneConstants;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class LeaseMenuPanel extends JPanel {
 
@@ -45,11 +62,82 @@ public class LeaseMenuPanel extends JPanel {
 	private JButton btnCancel;
 	private JButton btnNewCustomer;
 	private JButton btnBarcodeEnter;
+	private LeaseTable leaseTableModel;
+	private Employee employee;
+	private Location location;
+	private LeaseCtrl leaseCtrl;
 
+	private class LeaseTable extends AbstractTableModel {
+
+    	private static final String[] COL_NAMES = {
+    			"Vare", "Pris", "Fjern"
+    	};
+    	private ArrayList<LeaseableIF> products;
+    	
+    	public LeaseTable(ArrayList<LeaseableIF> products) {
+    		if(products == null) {
+    			products = new ArrayList<>();
+    		}
+    		this.products = products;
+    		
+    	}
+    	
+    	public void setData(ArrayList<LeaseableIF> products) {
+    		this.products = products;
+    		super.fireTableDataChanged();
+    	}
+    	
+    	@Override
+    	public String getColumnName(int col) {
+    		return COL_NAMES[col];
+    	}
+    	
+		@Override
+		public int getRowCount() {
+			return products.size();
+		}
+
+		@Override
+		public int getColumnCount() {
+			return 3;
+		}
+
+		@Override
+		public Object getValueAt(int rowIndex, int columnIndex) {
+			Object res = null;
+			LeaseableIF product = products.get(rowIndex);
+			switch(columnIndex) {
+				case 0:
+					res = product.getName();
+					break;
+				case 1:
+					res = product.getLeasePrice(LocalDateTime.now());
+					break;
+				case 2:
+					res = "-";
+					break;
+				default:
+					res = "<UNKNOWN " + columnIndex + ">";
+			}
+			return res;
+		}
+    	
+    }
+	
+	
 	/**
 	 * Create the panel.
 	 */
-	public LeaseMenuPanel() {
+	public LeaseMenuPanel(Employee employee, Location location) {
+        this.employee = employee;
+        this.location = location;
+        leaseCtrl = new LeaseCtrl(employee, location);
+		createLayout();
+
+	}
+
+
+	private void createLayout() {
 		setBorder(new EmptyBorder(10, 10, 10, 10));
 		setLayout(new BorderLayout(0, 0));
 		
@@ -158,10 +246,22 @@ public class LeaseMenuPanel extends JPanel {
 		panelBarcode.setLayout(new BorderLayout(0, 0));
 		
 		txtFieldBarcode = new JTextField();
+		txtFieldBarcode.addKeyListener(new KeyAdapter() {
+        	public void keyPressed(KeyEvent e) {
+        		if(e.getKeyCode() == 10) {
+        			barcodeEntered();
+        		}
+        	}
+        });
 		panelBarcode.add(txtFieldBarcode, BorderLayout.CENTER);
 		txtFieldBarcode.setColumns(10);
 		
 		btnBarcodeEnter = new JButton("Enter");
+		btnBarcodeEnter.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				barcodeEntered();
+			}
+		});
 		panelBarcode.add(btnBarcodeEnter, BorderLayout.EAST);
 		
 		JPanel panelAtBottom = new JPanel();
@@ -343,45 +443,19 @@ public class LeaseMenuPanel extends JPanel {
 		panelMain.add(scrollPaneLease, BorderLayout.CENTER);
 		
 		tableLease = new JTable();
-		tableLease.setModel(new DefaultTableModel(
-			new Object[][] {
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-			},
-			new String[] {
-				"Vare", "Price", "Fjern"
-			}
-		) {
-			Class[] columnTypes = new Class[] {
-				String.class, Double.class, Object.class
-			};
-			public Class getColumnClass(int columnIndex) {
-				return columnTypes[columnIndex];
-			}
-		});
+		//TODO insert controller data
+		leaseTableModel = new LeaseTable(null);
+		tableLease.setModel(leaseTableModel);
 		scrollPaneLease.setViewportView(tableLease);
+	}
 
+
+	private void barcodeEntered() {
+		System.out.println("Ping!");
+		String barcode = txtFieldBarcode.getText();
+        LeaseableIF product = leaseCtrl.addProduct(barcode);
+
+        leaseTableModel.setData(leaseCtrl.getProducts());
 	}
 
 }

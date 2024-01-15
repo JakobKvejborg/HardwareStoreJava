@@ -16,7 +16,7 @@ public class LeaseCtrl /*implements LeaseCtrlIF*/ {
 	private OrderContainer orderContainer;
 	private ProductCtrl productCtrl;
 	private LocalDateTime date;
-	private List<LeaseableIF> products;
+	private ArrayList<LeaseableIF> products;
 	private Location location;
 	private Customer customer;
 	private Employee employee;
@@ -26,6 +26,9 @@ public class LeaseCtrl /*implements LeaseCtrlIF*/ {
 		this.employee = employee;
 		this.location = location;
 		this.date = LocalDateTime.now();
+		this.orderContainer = OrderContainer.getInstance();
+		this.productCtrl = new ProductCtrl();
+		this.products = new ArrayList<>();
 	}
 
 	public LeaseableIF addProduct(String barcode) {
@@ -83,6 +86,10 @@ public class LeaseCtrl /*implements LeaseCtrlIF*/ {
 		}
 		
 		return completedLeases;
+	}
+
+	public ArrayList<LeaseableIF> getProducts() {
+		return products;
 	}
 
 	

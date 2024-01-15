@@ -11,6 +11,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import model.LendableIF;
 import model.SellableIF;
 
 import javax.swing.JLabel;
@@ -52,6 +53,7 @@ public class LoanMenuPanel extends JPanel {
 	private JButton btnCancel;
 	private JButton btnNewCustomer;
 	private JButton btnBarcodeEnter;
+	private Object loanCtrl;
 
 	/**
 	 * Create the panel.
@@ -406,7 +408,7 @@ public class LoanMenuPanel extends JPanel {
 	}
 	private void barcodeEntered() {
     	String barcode = txtFieldBarcode.getText();
-        SellableIF product = LoanCtrl.addProduct(barcode);
+        //LendableIF product = loanCtrl.addProduct(barcode);
         //TODO there are multiple missing parts like LoanCrtl not existing yet that needs doing
         //- before this can be finished!
         

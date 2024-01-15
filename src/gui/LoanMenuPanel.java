@@ -10,13 +10,20 @@ import javax.swing.BoxLayout;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+
+import model.SellableIF;
+
 import javax.swing.JLabel;
 import javax.swing.JFormattedTextField;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.Component;
 import javax.swing.JTextPane;
 import javax.swing.SwingConstants;
@@ -160,9 +167,22 @@ public class LoanMenuPanel extends JPanel {
 		txtFieldBarcode = new JTextField();
 		panelBarcode.add(txtFieldBarcode, BorderLayout.CENTER);
 		txtFieldBarcode.setColumns(10);
+		txtFieldBarcode.addKeyListener(new KeyAdapter() {
+        	public void keyPressed(KeyEvent e) {
+        		if(e.getKeyCode() == 10) {
+        			barcodeEntered();
+        		}
+        	}
+        });
 		
 		btnBarcodeEnter = new JButton("Enter");
 		panelBarcode.add(btnBarcodeEnter, BorderLayout.EAST);
+		btnBarcodeEnter.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                barcodeEntered();
+            }
+        }); 
 		
 		JPanel panelAtBottom = new JPanel();
 		panelMain.add(panelAtBottom, BorderLayout.SOUTH);
@@ -384,5 +404,17 @@ public class LoanMenuPanel extends JPanel {
 		scrollPaneLoan.setViewportView(tableLoan);
 
 	}
+	private void barcodeEntered() {
+    	String barcode = txtFieldBarcode.getText();
+        SellableIF product = LoanCtrl.addProduct(barcode);
+        //TODO there are multiple missing parts like LoanCrtl not existing yet that needs doing
+        //- before this can be finished!
+        
+        //loanTableModel.setData(saleCtrl.getLoan());
+        
+        //DefaultTableModel model = (DefaultTableModel) tableLoan.getModel();
+        //model.addRow(new Object[]{product.getName(), 1, product.getPrice(LocalDateTime.now()), "???"});
+        //setProductDescription(txtpnProductDescription);
+        }
 
 }

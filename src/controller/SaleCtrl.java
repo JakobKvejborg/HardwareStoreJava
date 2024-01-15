@@ -172,4 +172,8 @@ public class SaleCtrl implements SaleCtrlIF {
 			System.out.println("Order could not be found: " + orderNO);
 		}
 	}
+
+	public Sale getSale() {
+		return sale;
+	}
 }

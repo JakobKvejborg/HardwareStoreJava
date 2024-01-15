@@ -5,12 +5,14 @@ import controller.SaleCtrl;
 import model.Employee;
 import model.Location;
 import model.Sale;
+import model.SaleOrderLine;
 import model.SellableIF;
 
 import java.awt.*;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -19,6 +21,7 @@ import java.awt.event.FocusEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 /**
  * @author Julia Rafn
@@ -33,11 +36,13 @@ import java.time.LocalDateTime;
 
 public class SaleMenuPanel extends JPanel {
 
-	private Employee employee;
-	private Location location;
-	private SaleCtrl saleCtrl;
-	private Sale sale;
-	private JLabel lblTotalPrice;
+
+    private Employee employee;
+    private Location location;
+    private SaleCtrl saleCtrl;
+    private Sale sale;
+    private SaleTable saleTableModel;
+    private JLabel lblTotalPrice;
 
 	private static final long serialVersionUID = 1L;
 	private JTextField txtFindCustomer;
@@ -58,15 +63,83 @@ public class SaleMenuPanel extends JPanel {
 	private JButton btnBarcodeEnter;
 	private JTextField textField_1;
 	private JTextPane txtpnProductDescription;
+    
+    private class SaleTable extends AbstractTableModel {
 
-	/**
-	 * Create the panel.
-	 */
-	public SaleMenuPanel(Employee employee, Location location) { // penrose, er Employee employee og location correct?
-																	// Ellers slet lortet
-		this.employee = employee;
-		this.location = location;
-		saleCtrl = new SaleCtrl(employee, location);
+    	private static final String[] COL_NAMES = {
+    			"Vare", "Antal", "Styk pris", "Total Pris", "Fjern"
+    	};
+    	private Sale sale;
+    	
+    	public SaleTable(Sale sale) {
+    		if(sale == null) {
+    			sale = new Sale(null);
+    		}
+    		this.sale = sale;
+    		
+    	}
+    	
+    	public void setData(Sale sale) {
+    		this.sale = sale;
+    		super.fireTableDataChanged();
+    	}
+    	
+    	@Override
+    	public String getColumnName(int col) {
+    		return COL_NAMES[col];
+    	}
+    	
+		@Override
+		public int getRowCount() {
+			return sale.getSaleOrderLinesSize();
+		}
+
+		@Override
+		public int getColumnCount() {
+			return 5;
+		}
+
+		@Override
+		public Object getValueAt(int rowIndex, int columnIndex) {
+			Object res = null;
+			SaleOrderLine saleOrderLine = sale.getSaleOrderLine(rowIndex);
+			switch(columnIndex) {
+				case 0:
+					res = saleOrderLine.getProduct().getName();
+					break;
+				case 1:
+					res = saleOrderLine.getQuantity();
+					break;
+				case 2:
+					res = saleOrderLine.getPrice(LocalDateTime.now());
+					break;
+				case 3:
+					res = saleOrderLine.getPrice(LocalDateTime.now()) * saleOrderLine.getQuantity();
+					break;
+				case 4:
+					res = "-";
+					break;
+				default:
+					res = "<UNKNOWN " + columnIndex + ">";
+			}
+			return res;
+		}
+    	
+    }
+    
+    
+    /**
+     * Create the panel.
+     */
+    public SaleMenuPanel(Employee employee, Location location) {
+        this.employee = employee;
+        this.location = location;
+        saleCtrl = new SaleCtrl(employee, location);
+        sale = saleCtrl.makeSale();
+        createLayout();
+    }
+
+	private void createLayout() {
 		setBorder(new EmptyBorder(10, 10, 10, 10));
 
 		setLayout(new BorderLayout(0, 0));
@@ -92,31 +165,18 @@ public class SaleMenuPanel extends JPanel {
         textBarcode.addKeyListener(new KeyAdapter() {
         	public void keyPressed(KeyEvent e) {
         		if(e.getKeyCode() == 10) {
-        			String barcode = textBarcode.getText();
-                    Sale sale = saleCtrl.makeSale();
-                    SellableIF product = saleCtrl.addProduct(barcode);
-
-                    DefaultTableModel model = (DefaultTableModel) tableSale.getModel();
-                    model.addRow(new Object[]{product.getName(), 1, product.getPrice(LocalDateTime.now()), "???"});
-                    setProductDescription(txtpnProductDescription);
+        			barcodeEntered();
         		}
         	}
         });
-
-		btnBarcodeEnter = new JButton("Enter");
-		panelBarcode.add(btnBarcodeEnter, BorderLayout.EAST);
-		btnBarcodeEnter.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				String barcode = textBarcode.getText();
-				Sale sale = saleCtrl.makeSale();
-				SellableIF product = saleCtrl.addProduct(barcode);
-
-				DefaultTableModel model = (DefaultTableModel) tableSale.getModel();
-				model.addRow(new Object[] { product.getName(), 1, product.getPrice(LocalDateTime.now()), "???" });
-				setProductDescription(txtpnProductDescription);
-			}
-		});        
+        btnBarcodeEnter = new JButton("Enter");
+        panelBarcode.add(btnBarcodeEnter, BorderLayout.EAST);
+        btnBarcodeEnter.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                barcodeEntered();
+            }
+        });    
 
 		JPanel panelWestCenter = new JPanel();
 		panelSaleNorthWest.add(panelWestCenter, BorderLayout.CENTER);
@@ -265,11 +325,19 @@ public class SaleMenuPanel extends JPanel {
 		JScrollPane scrollPaneSale = new JScrollPane();
 		panelCenterNorthWest.add(scrollPaneSale, BorderLayout.CENTER);
 
-		tableSale = new JTable(50, 4);
-		tableSale.setModel(new DefaultTableModel(new Object[][] {
+        tableSale = new JTable(50, 5);
+        /*tableSale.setModel(new DefaultTableModel(
+                new Object[][]{
 //				{null, null, null, null}, // x50 ned af
-		}, new String[] { "Indk\u00F8bskurv", "Antal", "Pris", "Fjern" }));
-		scrollPaneSale.setViewportView(tableSale);
+                },
+                new String[]{
+                        "Indk\u00F8bskurv", "Antal", "Pris", "Fjern"
+                }
+        ));*/
+        saleTableModel = new SaleTable(saleCtrl.getSale());
+        tableSale.setModel(saleTableModel);
+        
+        scrollPaneSale.setViewportView(tableSale);
 
 		JPanel panelDescription = new JPanel();
 		splitPaneSale.setRightComponent(panelDescription);
@@ -399,12 +467,38 @@ public class SaleMenuPanel extends JPanel {
 	 *
 	 * @param totalPrice
 	 */
-	private void showTotalPrice(String totalPrice) {
-		lblTotalPrice.setText(totalPrice);
-	}
+	
 
 	private void setProductDescription(JTextPane txtpnProductDescription) {
-//			txtpnProductDescription.setText(sale.getSaleOrderLine(0).getProduct().getDescription());
-		txtpnProductDescription.setText("Dette er varens beskrivelse TODO"); // TODO
+        lblTotalPrice = new JLabel();
+        GridBagConstraints gbc_lblTotalPrice = new GridBagConstraints();
+        gbc_lblTotalPrice.insets = new Insets(0, 0, 0, 5);
+        gbc_lblTotalPrice.anchor = GridBagConstraints.NORTHWEST;
+        gbc_lblTotalPrice.gridx = 10;
+        gbc_lblTotalPrice.gridy = 0; //
+        //Sorry, can't make this work rn - Penrose
+        //panelSaleGridSouth.add(lblTotalPrice, gbc_lblTotalPrice);
 	}
+
+    private void barcodeEntered() {
+    	String barcode = textBarcode.getText();
+        SellableIF product = saleCtrl.addProduct(barcode);
+
+        saleTableModel.setData(saleCtrl.getSale());
+        
+        //DefaultTableModel model = (DefaultTableModel) tableSale.getModel();
+        //model.addRow(new Object[]{product.getName(), 1, product.getPrice(LocalDateTime.now()), "???"});
+        setProductDescription(txtpnProductDescription);
+        }
+
+	/**
+     * This method sets the label in the right bottom corner to the total price
+     *
+     * @param totalPrice
+     */
+    private void showTotalPrice(String totalPrice) {
+        lblTotalPrice.setText(totalPrice);
+    }
+
+  
 }

@@ -225,15 +225,7 @@ public class SaleMenuPanel extends JPanel {
 		gbc_btnCreateCustomer.gridx = 1;
 		gbc_btnCreateCustomer.gridy = 0;
 		panelCenterSouthWest.add(btnCreateCustomer, gbc_btnCreateCustomer);
-//		btnCreateCustomer.addActionListener(new ActionListener() {
-//			@Override
-//			public void actionPerformed(ActionEvent e) {
-//				CreateCustomerWindow customerWindow = new CreateCustomerWindow(new CustomerCtrl()); // maybe not "new
-//																									// CustomerCtrl()"
-//																									// TODO
-//				customerWindow.setVisible(true);
-//			}
-//		});
+
 		btnCreateCustomer.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {

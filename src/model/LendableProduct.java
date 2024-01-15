@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
  * @since 13-12-2023
  */
 public class LendableProduct extends AbstractProduct{
+	//TODO: Add temporal Patterns
 	private double lendPrice;
 	private double lendDiscount;
 	private double leasePrice;
@@ -30,7 +31,7 @@ public class LendableProduct extends AbstractProduct{
 		return lendDiscount;
 	}
 
-	public double getLeasePrice() {
+	public double getLeasePrice(LocalDateTime date) {
 		return leasePrice;
 	}
 
@@ -39,8 +40,7 @@ public class LendableProduct extends AbstractProduct{
 	}
 
 	public boolean isUnique() {
-		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 	
 }

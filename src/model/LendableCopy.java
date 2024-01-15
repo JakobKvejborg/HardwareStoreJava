@@ -39,14 +39,22 @@ public class LendableCopy extends AbstractCopy implements LendableIF, LeaseableI
 
 	@Override
 	public int getStock(Location location) {
-		// TODO Auto-generated method stub
-		return 0;
+		int res = 0;
+		//check if it has stock assigned, and if it is at the given location.
+		if(getStock() != null && getStock().getLocation() == location) {
+			res = 1;
+		}
+		return res;
 	}
 
 	@Override
-	public boolean decrementStock(int quantity, Location location) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean decrementStock(int quanity, Location location) {
+		boolean res = false;
+		if (getStock(location) >= 1) {
+			res = getStock().removeCopy(this);
+			setStock(null);
+		}
+		return res;
 	}
 	
 }

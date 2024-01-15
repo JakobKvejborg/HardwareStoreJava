@@ -29,6 +29,7 @@ public class CreateCustomerWindow extends JDialog {
 	private JTextField txtFieldName;
 	private CustomerCtrl customerCtrl;
 	private Customer customer = null;
+	private boolean okClicked = false;
 
 
 	/**
@@ -172,16 +173,22 @@ public class CreateCustomerWindow extends JDialog {
 		}
 	}
 
+	public boolean isOkClicked() {
+		return okClicked;
+	}
+	
 	private void okClicked() {
+		okClicked = true;
+		setVisible(false);
 //		if (txtFieldName.getText().equals("") || txtFieldAddress.getText().equals("") || txtFieldPhone.getText().equals("")
 //				|| txtFieldEmail.getText().equals("")) {
 //			//TODO complain about the textfields being empty
 //		} else {
 //			customer = customerCtrl.createCustomer(txtFieldName.getText(), txtFieldAddress.getText(),
 //					txtFieldPhone.getText(), txtFieldEmail.getText());
-			this.dispose();
+//			this.dispose();
 //		}
-
+//
 	}
 
 	public Customer getCustomer() {
@@ -189,7 +196,8 @@ public class CreateCustomerWindow extends JDialog {
 	}
 
 	private void cancelClicked() {
-		this.dispose();
+		okClicked = false;
+		setVisible(false);
 	}
 
 	public String getName() {

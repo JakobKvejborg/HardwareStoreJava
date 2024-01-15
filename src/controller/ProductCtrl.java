@@ -57,4 +57,8 @@ public class ProductCtrl {
 			System.out.println("Product could not be found: " + barcode);
 		}
 	}
+	
+	public void removeProduct(String barcode) {
+		productContainer.removeProduct(barcode);
+	}
 }

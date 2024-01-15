@@ -16,6 +16,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.time.LocalDateTime;
 
 /**
@@ -84,9 +86,22 @@ public class SaleMenuPanel extends JPanel {
 		panelNorthWest.add(panelBarcode, BorderLayout.SOUTH);
 		panelBarcode.setLayout(new BorderLayout(0, 0));
 
-		textBarcode = new JTextField();
-		textBarcode.setColumns(10);
-		panelBarcode.add(textBarcode);
+        textBarcode = new JTextField();
+        textBarcode.setColumns(10);
+        panelBarcode.add(textBarcode);
+        textBarcode.addKeyListener(new KeyAdapter() {
+        	public void keyPressed(KeyEvent e) {
+        		if(e.getKeyCode() == 10) {
+        			String barcode = textBarcode.getText();
+                    Sale sale = saleCtrl.makeSale();
+                    SellableIF product = saleCtrl.addProduct(barcode);
+
+                    DefaultTableModel model = (DefaultTableModel) tableSale.getModel();
+                    model.addRow(new Object[]{product.getName(), 1, product.getPrice(LocalDateTime.now()), "???"});
+                    setProductDescription(txtpnProductDescription);
+        		}
+        	}
+        });
 
 		btnBarcodeEnter = new JButton("Enter");
 		panelBarcode.add(btnBarcodeEnter, BorderLayout.EAST);
@@ -101,7 +116,7 @@ public class SaleMenuPanel extends JPanel {
 				model.addRow(new Object[] { product.getName(), 1, product.getPrice(LocalDateTime.now()), "???" });
 				setProductDescription(txtpnProductDescription);
 			}
-		});
+		});        
 
 		JPanel panelWestCenter = new JPanel();
 		panelSaleNorthWest.add(panelWestCenter, BorderLayout.CENTER);

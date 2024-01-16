@@ -525,17 +525,7 @@ public class SaleMenuPanel extends JPanel {
 
 		saleTableModel.setData(saleCtrl.getSale());
 
-		// DefaultTableModel model = (DefaultTableModel) tableSale.getModel();
-		// model.addRow(new Object[]{product.getName(), 1,
-		// product.getPrice(LocalDateTime.now()), "???"});
-		// setProductDescription(txtpnProductDescription);
-
-		saleTableModel.setData(saleCtrl.getSale());
-
-		// DefaultTableModel model = (DefaultTableModel) tableSale.getModel();
-		// model.addRow(new Object[]{product.getName(), 1,
-		// product.getPrice(LocalDateTime.now()), "???"});
-		// setProductDescription(txtpnProductDescription);
+		txtpnProductDescription.setText(product.getDescription());
 	}
 
 	/**

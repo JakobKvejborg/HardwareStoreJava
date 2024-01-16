@@ -489,6 +489,7 @@ public class SaleMenuPanel extends JPanel {
 
 	private void cancelClicked() {
 		saleCtrl.clearSale();
+		saleCtrl.makeSale();
 		saleTableModel.setData(saleCtrl.getSale());
 	}
 

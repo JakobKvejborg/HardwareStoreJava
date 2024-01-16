@@ -5,6 +5,8 @@ import java.time.LocalDateTime;
 import model.Aisle;
 import model.Customer;
 import model.CustomerContainer;
+import model.LendableCopy;
+import model.LendableProduct;
 import model.Location;
 import model.ShelfProduct;
 import model.ShelfStock;
@@ -67,12 +69,15 @@ public class TryMe {
 		copyStock.addCopy(copy1);
 		copyStock.addCopy(copy2);
 		
-		//LeaseCopy leaseCopy = new UniqueCopy("999", product3);
-		UniqueStock leaseStock = new UniqueStock(location, 2, 7);
-
+		LendableProduct lendableProduct = new LendableProduct("Tractor", "wroom wroom!", "987789", 4999, 12, 0, 13, 0);
+		LendableCopy leaseCopy = new LendableCopy("999", lendableProduct);
+		UniqueStock loanLeaseStock = new UniqueStock(location, 2, 7);
+		leaseCopy.setStock(loanLeaseStock);
+		loanLeaseStock.addCopy(leaseCopy);
 		
 		productContainer.addCopy(copy1);
 		productContainer.addCopy(copy2);
+		productContainer.addCopy(leaseCopy);
 
 		
 

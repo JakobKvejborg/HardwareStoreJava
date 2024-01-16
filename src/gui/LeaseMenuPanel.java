@@ -455,10 +455,14 @@ public class LeaseMenuPanel extends JPanel {
 
 
 	private void barcodeEntered() {
-		System.out.println("Ping!");
 		String barcode = txtFieldBarcode.getText();
         LeaseableIF product = leaseCtrl.addProduct(barcode);
-
+        if(product != null) {
+    		System.out.println(product.getName());
+        }
+        else {
+        	System.out.println("product not found!");
+        }
         leaseTableModel.setData(leaseCtrl.getProducts());
 	}
 

@@ -397,9 +397,14 @@ public class LoanMenuPanel extends JPanel {
 				{null, null, null},
 			},
 			new String[] {
+					
 				"Vare", "Price", "Fjern"
 			}
 		) {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1615048397567041604L;
 			Class[] columnTypes = new Class[] {
 				String.class, Double.class, Object.class
 			};

@@ -85,7 +85,7 @@ public class ProductContainer {
 		LeaseableIF res = null;
 		AbstractCopy copy = findCopy(barcode);
 		//Check if the found copy can be leased
-		if(copy instanceof SellableIF) {
+		if(copy instanceof LeaseableIF) {
 			//change the static type of the copy to a LeaseableIF
 			res = (LeaseableIF) copy;
 		}
@@ -97,7 +97,7 @@ public class ProductContainer {
 		LendableIF res = null;
 		AbstractCopy copy = findCopy(barcode);
 		//Check if the found copy can be lend
-		if(copy instanceof SellableIF) {
+		if(copy instanceof LendableIF) {
 			//change the static type of the copy to a LendableIF
 			res = (LendableIF) copy;
 		}

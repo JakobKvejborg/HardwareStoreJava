@@ -324,6 +324,7 @@ public class LoanMenuPanel extends JPanel {
 		panelCustomer.add(btnNewCustomer, gbc_btnNewCustomer);
 		
 		textName = new JTextField();
+		textName.setText("Navn");
 		textName.setEditable(false);
 		GridBagConstraints gbc_textName = new GridBagConstraints();
 		gbc_textName.insets = new Insets(0, 0, 5, 5);
@@ -334,6 +335,7 @@ public class LoanMenuPanel extends JPanel {
 		textName.setColumns(10);
 		
 		textAddress = new JTextField();
+		textAddress.setText("Addresse");
 		textAddress.setEditable(false);
 		GridBagConstraints gbc_textAddress = new GridBagConstraints();
 		gbc_textAddress.insets = new Insets(0, 0, 5, 0);
@@ -344,6 +346,7 @@ public class LoanMenuPanel extends JPanel {
 		textAddress.setColumns(10);
 		
 		textPhone = new JTextField();
+		textPhone.setText("Telefon Nummer");
 		textPhone.setEditable(false);
 		GridBagConstraints gbc_textPhone = new GridBagConstraints();
 		gbc_textPhone.insets = new Insets(0, 0, 0, 5);
@@ -354,6 +357,7 @@ public class LoanMenuPanel extends JPanel {
 		textPhone.setColumns(10);
 		
 		textEmail = new JTextField();
+		textEmail.setText("Email");
 		textEmail.setEditable(false);
 		GridBagConstraints gbc_textEmail = new GridBagConstraints();
 		gbc_textEmail.fill = GridBagConstraints.HORIZONTAL;

@@ -41,7 +41,11 @@ public class LeaseCtrl /*implements LeaseCtrlIF*/ {
 	}
 	
 	
-	
+	public void clearLeases() {
+		date = null;
+		products = new ArrayList<>();
+		customer = null;
+	}
 	
 	
 	public boolean validateLeases() {
@@ -84,7 +88,7 @@ public class LeaseCtrl /*implements LeaseCtrlIF*/ {
 				completedLeases.add(lease);
 			}
 		}
-		
+		clearLeases();
 		return completedLeases;
 	}
 

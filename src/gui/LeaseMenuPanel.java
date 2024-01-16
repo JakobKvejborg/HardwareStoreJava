@@ -163,6 +163,11 @@ public class LeaseMenuPanel extends JPanel {
 		panelFinalButtons.add(btnCheckOut, gbc_btnCheckOut);
 		
 		btnCancel = new JButton("Afbryd");
+		btnCancel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				cancelClicked();
+			}
+		});
 		GridBagConstraints gbc_btnCancel = new GridBagConstraints();
 		gbc_btnCancel.anchor = GridBagConstraints.NORTHWEST;
 		gbc_btnCancel.gridx = 1;
@@ -454,15 +459,15 @@ public class LeaseMenuPanel extends JPanel {
 	}
 
 
+	private void cancelClicked() {
+		leaseCtrl.clearLeases();
+        leaseTableModel.setData(leaseCtrl.getProducts());
+	}
+
+
 	private void barcodeEntered() {
 		String barcode = txtFieldBarcode.getText();
         LeaseableIF product = leaseCtrl.addProduct(barcode);
-        if(product != null) {
-    		System.out.println(product.getName());
-        }
-        else {
-        	System.out.println("product not found!");
-        }
         leaseTableModel.setData(leaseCtrl.getProducts());
 	}
 

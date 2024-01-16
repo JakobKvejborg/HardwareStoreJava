@@ -58,8 +58,6 @@ public class SaleMenuPanel extends JPanel {
 	private JTextField textEmail;
 	private JLabel lblCustomerDiscount;
 	private JLabel lblTotal;
-	private JTextField textStock;
-	private JTextField textPrice;
 	private JTextField textBarcode;
 	private JTextField textTotalPrice;
 	private JButton btnCheckout;
@@ -68,6 +66,8 @@ public class SaleMenuPanel extends JPanel {
 	private JButton btnBarcodeEnter;
 	private JTextField textDiscountPercentage;
 	private JTextPane txtpnProductDescription;
+	private JTextField textStock;
+	private JTextField textPrice;
 
 	private class SaleTable extends AbstractTableModel {
 
@@ -105,8 +105,20 @@ public class SaleMenuPanel extends JPanel {
 			return 5;
 		}
 		
+		public SellableIF getProduct(int row) {
+			return sale.getSaleOrderLine(row).getProduct();
+		}
+		
 		public String getDescription(int row) {
 			return sale.getSaleOrderLine(row).getProduct().getDescription();
+		}
+		
+		public double getPriceText(int row) {
+			return sale.getSaleOrderLine(row).getProduct().getPrice(LocalDateTime.now());
+		}
+		
+		public int getStockText(int row) {
+			return sale.getSaleOrderLine(row).getProduct().getStock(location);
 		}
 
 		@Override
@@ -377,7 +389,8 @@ public class SaleMenuPanel extends JPanel {
 			public void valueChanged(ListSelectionEvent e) {
 				
 				if (tableSale.getSelectedRow() != -1) {
-					setProductInfo();
+					SellableIF product = saleTableModel.getProduct(tableSale.getSelectedRow());
+					setProductInfo(product);
 				
 				
 				}
@@ -403,7 +416,7 @@ public class SaleMenuPanel extends JPanel {
 
 		txtpnProductDescription = new JTextPane();
 		txtpnProductDescription.setEditable(false);
-		txtpnProductDescription.setText("Varens beskrivelse her");
+		txtpnProductDescription.setText("Varens beskrivelse her.");
 		Font font = new Font("Times New Roman", Font.PLAIN, 20);
 		txtpnProductDescription.setFont(font);
 	    scrollPaneDescription.setViewportView(txtpnProductDescription);
@@ -418,7 +431,7 @@ public class SaleMenuPanel extends JPanel {
 				Double.MIN_VALUE };
 		panelDescriptionSideBar.setLayout(gbl_panelDescriptionSideBar);
 
-		JLabel lblPrice = new JLabel("Pris m/ rabat");
+		JLabel lblPrice = new JLabel("Lager antal");
 		GridBagConstraints gbc_lblPrice = new GridBagConstraints();
 		gbc_lblPrice.insets = new Insets(0, 0, 5, 0);
 		gbc_lblPrice.gridx = 0;
@@ -435,7 +448,7 @@ public class SaleMenuPanel extends JPanel {
 		panelDescriptionSideBar.add(textStock, gbc_textStock);
 		textStock.setColumns(10);
 
-        JLabel lblStock = new JLabel("Lager antal");
+        JLabel lblStock = new JLabel("Pris m/ rabat");
         GridBagConstraints gbc_lblStock = new GridBagConstraints();
         gbc_lblStock.insets = new Insets(0, 0, 5, 0);
         gbc_lblStock.gridx = 0;
@@ -482,7 +495,8 @@ public class SaleMenuPanel extends JPanel {
 				String totalPrice = "Betalt: " + payment + "kr Tilbage: " + (payment - sale.getPrice()) + "kr";
 				showTotalPrice(totalPrice);
 				textTotalPrice.setText(sale.getPrice() + "kr");
-				// TODO reset JTable slet alle produkter fra indkøbskurven osv.
+				System.out.println(sale.getPrice());
+				
 			}
 		});
 
@@ -546,8 +560,8 @@ public class SaleMenuPanel extends JPanel {
 		SellableIF product = saleCtrl.addProduct(barcode);
 
 		saleTableModel.setData(saleCtrl.getSale());
-
-		txtpnProductDescription.setText(product.getDescription());
+		setProductInfo(product);
+		
 	}
 
 	/**
@@ -559,8 +573,10 @@ public class SaleMenuPanel extends JPanel {
 		lblTotalPrice.setText(totalPrice);
 	}
 	
-	private void setProductInfo() {
-		txtpnProductDescription.setText(saleTableModel.getDescription(tableSale.getSelectedRow()));
+	private void setProductInfo(SellableIF product) {
+		txtpnProductDescription.setText(product.getDescription());
+		textPrice.setText(product.getPrice(LocalDateTime.now()) + "kr,-");
+//		textStock.setText(saleTableModel.getStockText(tableSale.getSelectedRow()) + "stk.");
 		
 	}
 

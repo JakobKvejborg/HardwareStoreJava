@@ -2,22 +2,23 @@ package gui;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 import controller.CustomerCtrl;
 import model.Customer;
-
-import java.awt.GridBagLayout;
-import javax.swing.JLabel;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
-import javax.swing.JTextField;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+import java.awt.Color;
+import java.awt.Font;
 
 public class CreateCustomerWindow extends JDialog {
 
@@ -27,6 +28,7 @@ public class CreateCustomerWindow extends JDialog {
 	private JTextField txtFieldPhone;
 	private JTextField txtFieldAddress;
 	private JTextField txtFieldName;
+	private JLabel lblErrorLabelCCW;
 	private CustomerCtrl customerCtrl;
 	private Customer customer = null;
 	private boolean okClicked = false;
@@ -104,7 +106,7 @@ public class CreateCustomerWindow extends JDialog {
 			gbc_txtFieldAddress.gridy = 1;
 			contentPanel.add(txtFieldAddress, gbc_txtFieldAddress);
 			txtFieldAddress.setColumns(10);
-		}
+		} 
 		{
 			JLabel lblPhone = new JLabel("Telefon:");
 			GridBagConstraints gbc_lblPhone = new GridBagConstraints();
@@ -143,13 +145,10 @@ public class CreateCustomerWindow extends JDialog {
 			txtFieldEmail.setColumns(10);
 		}
 		{
-			JButton okButton = new JButton("OK");
-			okButton.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					okClicked();
-				}
-			});
-			okButton.setActionCommand("OK");
+
+			JPanel buttonPane = new JPanel();
+			buttonPane.setBorder(new EmptyBorder(0, 0, 5, 5));
+			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			
 			JButton cancelButton = new JButton("Anuller");
 			cancelButton.addActionListener(new ActionListener() {
@@ -157,17 +156,40 @@ public class CreateCustomerWindow extends JDialog {
 					cancelClicked();
 				}
 			});
-			cancelButton.setActionCommand("Anuller");
-
-			JPanel buttonPane = new JPanel();
-			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
-			getContentPane().add(buttonPane, BorderLayout.SOUTH);
+			JButton okButton = new JButton("OK");
+			okButton.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					okClicked();
+				}
+			});
+			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT, 0, 0));
+			{
+				lblErrorLabelCCW = new JLabel("");
+				lblErrorLabelCCW.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 11));
+				lblErrorLabelCCW.setForeground(new Color(255, 0, 0));
+				buttonPane.add(lblErrorLabelCCW);
+			}
+			{
+				JPanel panel = new JPanel();
+				FlowLayout flowLayout = (FlowLayout) panel.getLayout();
+				flowLayout.setHgap(4);
+				flowLayout.setVgap(0);
+				buttonPane.add(panel);
+			}
+			okButton.setActionCommand("OK");
 			{
 				getRootPane().setDefaultButton(okButton);
 				buttonPane.add(okButton);
 			}
 			{
-
+				JPanel panel = new JPanel();
+				FlowLayout flowLayout = (FlowLayout) panel.getLayout();
+				flowLayout.setHgap(2);
+				flowLayout.setVgap(0);
+				buttonPane.add(panel);
+			}
+			cancelButton.setActionCommand("Anuller");
+			{
 				buttonPane.add(cancelButton);
 			}
 		}
@@ -179,18 +201,16 @@ public class CreateCustomerWindow extends JDialog {
 	
 	private void okClicked() {
 		okClicked = true;
-		customer = customerCtrl.createCustomer(getName(), getAddress(), getPhone(), getEmail());
-		setVisible(false);
-//		if (txtFieldName.getText().equals("") || txtFieldAddress.getText().equals("") || txtFieldPhone.getText().equals("")
-//				|| txtFieldEmail.getText().equals("")) {
-//			//TODO complain about the textfields being empty
-//		} else {
-//			customer = customerCtrl.createCustomer(txtFieldName.getText(), txtFieldAddress.getText(),
-//					txtFieldPhone.getText(), txtFieldEmail.getText());
-//			this.dispose();
-//		}
-//
+
+		if (txtFieldName.getText().isEmpty() || txtFieldAddress.getText().isEmpty() || txtFieldPhone.getText().isEmpty() || txtFieldEmail.getText().isEmpty()) {
+//		if (txtFieldName.getText().equals("") || txtFieldAddress.getText().equals("") || txtFieldPhone.getText().equals("") || txtFieldEmail.getText().equals("")) {
+			lblErrorLabelCCW.setText("En fejl er opstået "); //TODO Change to other error message
+		} else {
+			setVisible(false);
+			customer = customerCtrl.createCustomer(txtFieldName.getText(), txtFieldAddress.getText(), txtFieldPhone.getText(), txtFieldEmail.getText());
+			this.dispose(); //TODO this.dispose() is causing errors
 	}
+}
 
 	public Customer getCustomer() {
 		return customer;

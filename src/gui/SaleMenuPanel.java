@@ -80,6 +80,9 @@ public class SaleMenuPanel extends JPanel {
 		}
 
 		public void setData(Sale sale) {
+			if(sale == null) {
+				sale = new Sale(null);
+			}
 			this.sale = sale;
 			super.fireTableDataChanged();
 		}
@@ -472,10 +475,7 @@ public class SaleMenuPanel extends JPanel {
 		btnCancel.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				DefaultTableModel model = (DefaultTableModel) tableSale.getModel();
-				for (int i = 0; i < model.getRowCount(); i++) {
-					model.removeRow(i);
-				}
+				cancelClicked();
 			}
 		});
 		lblTotalPrice = new JLabel();
@@ -486,6 +486,11 @@ public class SaleMenuPanel extends JPanel {
 		gbc_lblTotalPrice.gridy = 0; //
 		panelSaleGridSouth.add(lblTotalPrice, gbc_lblTotalPrice);
 
+	}
+
+	private void cancelClicked() {
+		saleCtrl.clearSale();
+		saleTableModel.setData(saleCtrl.getSale());
 	}
 
 	/**

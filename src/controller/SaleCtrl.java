@@ -119,6 +119,10 @@ public class SaleCtrl implements SaleCtrlIF {
 		return sale;
 	}
 
+	public void clearSale() {
+		sale = null;
+	}
+	
 	/**
 	 * completes a sale, checks payment, and makes sure everything is correctly set up.
 	 * persists the sale.

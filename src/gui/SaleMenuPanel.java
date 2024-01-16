@@ -80,7 +80,7 @@ public class SaleMenuPanel extends JPanel {
 		}
 
 		public void setData(Sale sale) {
-			if(sale == null) {
+			if (sale == null) {
 				sale = new Sale(null);
 			}
 			this.sale = sale;
@@ -137,6 +137,7 @@ public class SaleMenuPanel extends JPanel {
 		this.employee = employee;
 		this.location = location;
 		saleCtrl = new SaleCtrl(employee, location);
+		customerCtrl = new CustomerCtrl();
 		sale = saleCtrl.makeSale();
 		createLayout();
 	}
@@ -212,7 +213,7 @@ public class SaleMenuPanel extends JPanel {
 		});
 		txtFindCustomer.addKeyListener(new KeyAdapter() {
 			public void keyPressed(KeyEvent e) {
-				if(e.getKeyCode() == 10) {
+				if (e.getKeyCode() == 10) {
 					Customer customer = saleCtrl.setCustomer(txtFindCustomer.getText());
 					textName.setText(customer.getName());
 					textAddress.setText(customer.getAddress());
@@ -222,7 +223,7 @@ public class SaleMenuPanel extends JPanel {
 				}
 			}
 		});
-		
+
 		GridBagConstraints gbc_txtFindCustomer = new GridBagConstraints();
 		gbc_txtFindCustomer.insets = new Insets(0, 0, 5, 5);
 		gbc_txtFindCustomer.fill = GridBagConstraints.HORIZONTAL;
@@ -246,16 +247,14 @@ public class SaleMenuPanel extends JPanel {
 				customerWindow.setVisible(true);
 
 				if (customerWindow.isOkClicked()) {
-
-					String name = customerWindow.getName();
-					String address = customerWindow.getAddress();
-					String phone = customerWindow.getPhone();
-					String email = customerWindow.getEmail();
-
-					textName.setText(name);
-					textAddress.setText(address);
-					textPhone.setText(phone);
-					textEmail.setText(email);
+					//TODO make sure customer is persisted
+					Customer customer = saleCtrl.setCustomer(customerWindow.getPhone());
+					if (customer != null) {
+						textName.setText(customer.getName());
+						textAddress.setText(customer.getAddress());
+						textPhone.setText(customer.getPhone());
+						textEmail.setText(customer.getEmail());
+					}
 				}
 			}
 		});
@@ -499,47 +498,44 @@ public class SaleMenuPanel extends JPanel {
 	 * @param totalPrice
 	 */
 
-	/*private void setProductDescription(JTextPane txtpnProductDescription) {
-
-        lblTotalPrice = new JLabel();
-        GridBagConstraints gbc_lblTotalPrice = new GridBagConstraints();
-        gbc_lblTotalPrice.insets = new Insets(0, 0, 0, 5);
-        gbc_lblTotalPrice.anchor = GridBagConstraints.NORTHWEST;
-        gbc_lblTotalPrice.gridx = 10;
-        gbc_lblTotalPrice.gridy = 0; //
-        //Sorry, can't make this work rn, no idea what this code does - Penrose
-        //panelSaleGridSouth.add(lblTotalPrice, gbc_lblTotalPrice);
-
-		lblTotalPrice = new JLabel();
-		GridBagConstraints gbc_lblTotalPrice = new GridBagConstraints();
-		gbc_lblTotalPrice.insets = new Insets(0, 0, 0, 5);
-		gbc_lblTotalPrice.anchor = GridBagConstraints.NORTHWEST;
-		gbc_lblTotalPrice.gridx = 10;
-		gbc_lblTotalPrice.gridy = 0; //
-		// Sorry, can't make this work rn - Penrose
-		// panelSaleGridSouth.add(lblTotalPrice, gbc_lblTotalPrice);
-
-	}*/
+	/*
+	 * private void setProductDescription(JTextPane txtpnProductDescription) {
+	 * 
+	 * lblTotalPrice = new JLabel(); GridBagConstraints gbc_lblTotalPrice = new
+	 * GridBagConstraints(); gbc_lblTotalPrice.insets = new Insets(0, 0, 0, 5);
+	 * gbc_lblTotalPrice.anchor = GridBagConstraints.NORTHWEST;
+	 * gbc_lblTotalPrice.gridx = 10; gbc_lblTotalPrice.gridy = 0; // //Sorry, can't
+	 * make this work rn, no idea what this code does - Penrose
+	 * //panelSaleGridSouth.add(lblTotalPrice, gbc_lblTotalPrice);
+	 * 
+	 * lblTotalPrice = new JLabel(); GridBagConstraints gbc_lblTotalPrice = new
+	 * GridBagConstraints(); gbc_lblTotalPrice.insets = new Insets(0, 0, 0, 5);
+	 * gbc_lblTotalPrice.anchor = GridBagConstraints.NORTHWEST;
+	 * gbc_lblTotalPrice.gridx = 10; gbc_lblTotalPrice.gridy = 0; // // Sorry, can't
+	 * make this work rn - Penrose // panelSaleGridSouth.add(lblTotalPrice,
+	 * gbc_lblTotalPrice);
+	 * 
+	 * }
+	 */
 
 	private void barcodeEntered() {
 		String barcode = textBarcode.getText();
 		SellableIF product = saleCtrl.addProduct(barcode);
-
-
-        saleTableModel.setData(saleCtrl.getSale());
-        
-        //DefaultTableModel model = (DefaultTableModel) tableSale.getModel();
-        //model.addRow(new Object[]{product.getName(), 1, product.getPrice(LocalDateTime.now()), "???"});
-        //setProductDescription(txtpnProductDescription);
 
 		saleTableModel.setData(saleCtrl.getSale());
 
 		// DefaultTableModel model = (DefaultTableModel) tableSale.getModel();
 		// model.addRow(new Object[]{product.getName(), 1,
 		// product.getPrice(LocalDateTime.now()), "???"});
-		//setProductDescription(txtpnProductDescription);
-	}
+		// setProductDescription(txtpnProductDescription);
 
+		saleTableModel.setData(saleCtrl.getSale());
+
+		// DefaultTableModel model = (DefaultTableModel) tableSale.getModel();
+		// model.addRow(new Object[]{product.getName(), 1,
+		// product.getPrice(LocalDateTime.now()), "???"});
+		// setProductDescription(txtpnProductDescription);
+	}
 
 	/**
 	 * This method sets the label in the right bottom corner to the total price

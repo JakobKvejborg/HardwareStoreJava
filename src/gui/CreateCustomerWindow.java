@@ -179,6 +179,7 @@ public class CreateCustomerWindow extends JDialog {
 	
 	private void okClicked() {
 		okClicked = true;
+		customer = customerCtrl.createCustomer(getName(), getAddress(), getPhone(), getEmail());
 		setVisible(false);
 //		if (txtFieldName.getText().equals("") || txtFieldAddress.getText().equals("") || txtFieldPhone.getText().equals("")
 //				|| txtFieldEmail.getText().equals("")) {

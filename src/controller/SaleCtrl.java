@@ -147,7 +147,7 @@ public class SaleCtrl implements SaleCtrlIF {
 			
 			orderContainer.addOrder(sale);
 			res = sale;
-			sale = null;
+			clearSale();
 		}
 		return res;
 	}

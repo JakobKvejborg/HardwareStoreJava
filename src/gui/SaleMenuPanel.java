@@ -377,7 +377,9 @@ public class SaleMenuPanel extends JPanel {
 			public void valueChanged(ListSelectionEvent e) {
 				
 				if (tableSale.getSelectedRow() != -1) {
-				txtpnProductDescription.setText(saleTableModel.getDescription(tableSale.getSelectedRow()));
+					setProductInfo();
+				
+				
 				}
 				
 			}
@@ -416,7 +418,7 @@ public class SaleMenuPanel extends JPanel {
 				Double.MIN_VALUE };
 		panelDescriptionSideBar.setLayout(gbl_panelDescriptionSideBar);
 
-		JLabel lblPrice = new JLabel("Lager antal");
+		JLabel lblPrice = new JLabel("Pris m/ rabat");
 		GridBagConstraints gbc_lblPrice = new GridBagConstraints();
 		gbc_lblPrice.insets = new Insets(0, 0, 5, 0);
 		gbc_lblPrice.gridx = 0;
@@ -433,7 +435,7 @@ public class SaleMenuPanel extends JPanel {
 		panelDescriptionSideBar.add(textStock, gbc_textStock);
 		textStock.setColumns(10);
 
-        JLabel lblStock = new JLabel("Pris m/ rabat");
+        JLabel lblStock = new JLabel("Lager antal");
         GridBagConstraints gbc_lblStock = new GridBagConstraints();
         gbc_lblStock.insets = new Insets(0, 0, 5, 0);
         gbc_lblStock.gridx = 0;
@@ -555,6 +557,11 @@ public class SaleMenuPanel extends JPanel {
 	 */
 	private void showTotalPrice(String totalPrice) {
 		lblTotalPrice.setText(totalPrice);
+	}
+	
+	private void setProductInfo() {
+		txtpnProductDescription.setText(saleTableModel.getDescription(tableSale.getSelectedRow()));
+		
 	}
 
 }

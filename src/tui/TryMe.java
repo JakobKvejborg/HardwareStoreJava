@@ -46,23 +46,27 @@ public class TryMe {
 		//Aisle aisle = new Aisle("Area 51, shelf 3.", location);
 		
 		productContainer = ProductContainer.getInstance();
-		ShelfProduct product1 = new ShelfProduct("Table", "Has 4 legs", "123456", 9.99, 19.99, 0, LocalDateTime.now());
-		ShelfProduct product2 = new ShelfProduct("Chair", "Only has 3 legs", "654321", 25.99, 35.99, 0.15, LocalDateTime.now());
+		ShelfProduct product1 = new ShelfProduct("Table", "Et langt bord til 6 personer. \n Kan fås i 39 forskellige farver.", "123456", 9.99, 19.99, 0, LocalDateTime.now());
+		ShelfProduct product2 = new ShelfProduct("Chair", "En grim rød stol med kun 3 ben.", "654321", 25.99, 35.99, 0.15, LocalDateTime.now());
+		ShelfProduct product3 = new ShelfProduct("Skruer", "4,5x60/40mm rustfrie skruer. Perfekt til at skrue ned i sin egen finger. \n Kan også bruges til træ.", "1", 30.99, 79.99, 0, LocalDateTime.now());
 		ShelfStock product1Stock = new ShelfStock(location, 5, 2, 20);
 		ShelfStock product2Stock = new ShelfStock(location, 12, 3, 20);
+		ShelfStock product3Stock = new ShelfStock(location, 10, 4, 10);
 
 		product1.addStock(product1Stock);
 		product2.addStock(product2Stock);
+		product3.addStock(product3Stock);
 		
 		productContainer.addProduct(product1);
 		productContainer.addProduct(product2);
-		
-		UniqueProduct product3 = new UniqueProduct("Fridge", "Very cold", "111", 399.99, 699.99, 0.05, LocalDateTime.now(), "This warrenty is a String!");
-		
 		productContainer.addProduct(product3);
 		
-		UniqueCopy copy1 = new UniqueCopy("222", product3);
-		UniqueCopy copy2 = new UniqueCopy("333", product3);
+		UniqueProduct product4 = new UniqueProduct("Fridge", "Very cold", "111", 399.99, 699.99, 0.05, LocalDateTime.now(), "This warrenty is a String!");
+		
+		productContainer.addProduct(product4);
+		
+		UniqueCopy copy1 = new UniqueCopy("222", product4);
+		UniqueCopy copy2 = new UniqueCopy("333", product4);
 		UniqueStock copyStock = new UniqueStock(location, 2, 7);
 		copy1.setStock(copyStock);
 		copy2.setStock(copyStock);

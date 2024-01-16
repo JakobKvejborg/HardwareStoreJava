@@ -38,7 +38,8 @@ public class MainWindowTemp extends JFrame {
 
 		Employee user = new Employee("ProjectGroup", "UCN", "11234567", "noreply@UCN.dk", "PG");
 		Location location = new Location("Hjem & Fix", "Pioner Alle 2");
-
+		
+		setExtendedState(JFrame.MAXIMIZED_BOTH);
 		setTitle("Vestbjerg Byggecenter");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1152, 560);

@@ -398,7 +398,7 @@ public class LoanMenuPanel extends JPanel {
 			},
 			new String[] {
 					
-				"Vare", "Price", "Fjern"
+				"Vare", "Pris", "Fjern"
 			}
 		) {
 			/**

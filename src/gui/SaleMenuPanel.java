@@ -397,7 +397,7 @@ public class SaleMenuPanel extends JPanel {
 				Double.MIN_VALUE };
 		panelDescriptionSideBar.setLayout(gbl_panelDescriptionSideBar);
 
-		JLabel lblPrice = new JLabel("(Lager antal)");
+		JLabel lblPrice = new JLabel("Lager antal");
 		GridBagConstraints gbc_lblPrice = new GridBagConstraints();
 		gbc_lblPrice.insets = new Insets(0, 0, 5, 0);
 		gbc_lblPrice.gridx = 0;
@@ -414,22 +414,22 @@ public class SaleMenuPanel extends JPanel {
 		panelDescriptionSideBar.add(textStock, gbc_textStock);
 		textStock.setColumns(10);
 
-//        JLabel lblStock = new JLabel("(Pris m/ rabat)");
-//        GridBagConstraints gbc_lblStock = new GridBagConstraints();
-//        gbc_lblStock.insets = new Insets(0, 0, 5, 0);
-//        gbc_lblStock.gridx = 0;
-//        gbc_lblStock.gridy = 2;
-//        panelDescriptionSideBar.add(lblStock, gbc_lblStock);
-//
-//        textPrice = new JTextField();
-//        textPrice.setEditable(false);
-//        GridBagConstraints gbc_textPrice = new GridBagConstraints();
-//        gbc_textPrice.insets = new Insets(0, 0, 5, 0);
-//        gbc_textPrice.fill = GridBagConstraints.HORIZONTAL;
-//        gbc_textPrice.gridx = 0;
-//        gbc_textPrice.gridy = 3;
-//        panelDescriptionSideBar.add(textPrice, gbc_textPrice);
-//        textPrice.setColumns(10);
+        JLabel lblStock = new JLabel("Pris m/ rabat");
+        GridBagConstraints gbc_lblStock = new GridBagConstraints();
+        gbc_lblStock.insets = new Insets(0, 0, 5, 0);
+        gbc_lblStock.gridx = 0;
+        gbc_lblStock.gridy = 2;
+        panelDescriptionSideBar.add(lblStock, gbc_lblStock);
+
+        textPrice = new JTextField();
+        textPrice.setEditable(false);
+        GridBagConstraints gbc_textPrice = new GridBagConstraints();
+        gbc_textPrice.insets = new Insets(0, 0, 5, 0);
+        gbc_textPrice.fill = GridBagConstraints.HORIZONTAL;
+        gbc_textPrice.gridx = 0;
+        gbc_textPrice.gridy = 3;
+        panelDescriptionSideBar.add(textPrice, gbc_textPrice);
+        textPrice.setColumns(10);
 
 		JPanel panelSaleSouth = new JPanel();
 		add(panelSaleSouth, BorderLayout.SOUTH);

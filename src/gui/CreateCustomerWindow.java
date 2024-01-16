@@ -172,8 +172,8 @@ public class CreateCustomerWindow extends JDialog {
 			{
 				JPanel panel = new JPanel();
 				FlowLayout flowLayout = (FlowLayout) panel.getLayout();
-				flowLayout.setVgap(0);
 				flowLayout.setHgap(4);
+				flowLayout.setVgap(0);
 				buttonPane.add(panel);
 			}
 			okButton.setActionCommand("OK");
@@ -184,7 +184,7 @@ public class CreateCustomerWindow extends JDialog {
 			{
 				JPanel panel = new JPanel();
 				FlowLayout flowLayout = (FlowLayout) panel.getLayout();
-				flowLayout.setHgap(1);
+				flowLayout.setHgap(2);
 				flowLayout.setVgap(0);
 				buttonPane.add(panel);
 			}
@@ -204,7 +204,7 @@ public class CreateCustomerWindow extends JDialog {
 
 		if (txtFieldName.getText().isEmpty() || txtFieldAddress.getText().isEmpty() || txtFieldPhone.getText().isEmpty() || txtFieldEmail.getText().isEmpty()) {
 //		if (txtFieldName.getText().equals("") || txtFieldAddress.getText().equals("") || txtFieldPhone.getText().equals("") || txtFieldEmail.getText().equals("")) {
-			lblErrorLabelCCW.setText("An Error Occurred "); //TODO Change to other error message
+			lblErrorLabelCCW.setText("En fejl er opstået "); //TODO Change to other error message
 		} else {
 			setVisible(false);
 			customer = customerCtrl.createCustomer(txtFieldName.getText(), txtFieldAddress.getText(), txtFieldPhone.getText(), txtFieldEmail.getText());

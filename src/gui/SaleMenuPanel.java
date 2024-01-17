@@ -74,10 +74,12 @@ public class SaleMenuPanel extends JPanel {
 	private JSplitPane splitPane;
 	private JButton btnNewButton;
 	private JButton btnFindCustomer;
+	private Color yellow = new Color(255, 255, 200);
 
 	private class SaleTable extends AbstractTableModel {
 
 		private Sale sale;
+		
 
 		public SaleTable(Sale sale) {
 			if (sale == null) {
@@ -160,6 +162,24 @@ public class SaleMenuPanel extends JPanel {
 		public boolean isCellEditable(int row, int column) {
 			return column == 1 && !sale.getSaleOrderLine(row).getProduct().isUnique();
 		}
+
+		@Override
+		public void setValueAt(Object value, int rowIndex, int columnIndex) {
+
+			SaleOrderLine saleOrderLine = sale.getSaleOrderLine(rowIndex);
+
+			switch (columnIndex) {
+			case 1:
+				saleOrderLine.setQuantity(Integer.parseInt(value.toString()));
+				updateTable();
+				// TODO needs a check on stock
+				break;
+			default:
+
+			}
+//			 fireTableCellUpdated(rowIndex, columnIndex); // updater saleTable - måske unødvendig
+		}
+
 	}
 
 	/**
@@ -416,7 +436,7 @@ public class SaleMenuPanel extends JPanel {
 		tableSale = new JTable(50, 5);
 		saleTableModel = new SaleTable(saleCtrl.getSale());
 		tableSale.setModel(saleTableModel);
-
+	        
 		int columnIndex = 4;
 //		tableSale.getColumnModel().getColumn(columnIndex).setCellEditor(new CustomTableCellEditor());
 		tableSale.addMouseListener(new MouseAdapter() {
@@ -428,9 +448,8 @@ public class SaleMenuPanel extends JPanel {
 				if (col == COL_NAMES.length - 1 && row != -1) {
 					removeRow(row);
 				}
-					if (col == COL_NAMES.length - 4 && row != - 4) {
-					updateQuantity(row);
-				}
+//					if (col == COL_NAMES.length - 4 && row != - 4) {
+//				}
 			}
 		});
 
@@ -576,32 +595,6 @@ public class SaleMenuPanel extends JPanel {
 		textTotalPrice.setText(saleCtrl.getSale().getPrice() + "");
 	}
 
-	/**
-	 * This method sets the label in the right bottom corner to the total price
-	 *
-	 * @param totalPrice
-	 */
-
-	
-//	  private void setProductDescription(JTextPane txtpnProductDescription) {
-//	  
-//	  lblTotalPrice = new JLabel(); GridBagConstraints gbc_lblTotalPrice = new
-//	  GridBagConstraints(); gbc_lblTotalPrice.insets = new Insets(0, 0, 0, 5);
-//	  gbc_lblTotalPrice.anchor = GridBagConstraints.NORTHWEST;
-//	  gbc_lblTotalPrice.gridx = 10; gbc_lblTotalPrice.gridy = 0; 
-//	  //Sorry, can't make this work rn, no idea what this code does - Penrose
-//	  panelSaleGridSouth.add(lblTotalPrice, gbc_lblTotalPrice);
-//	  
-//	  lblTotalPrice = new JLabel(); GridBagConstraints gbc_lblTotalPrice = new
-//	  GridBagConstraints(); gbc_lblTotalPrice.insets = new Insets(0, 0, 0, 5);
-//	  gbc_lblTotalPrice.anchor = GridBagConstraints.NORTHWEST;
-//	  gbc_lblTotalPrice.gridx = 10; gbc_lblTotalPrice.gridy = 0; 
-//	  // Sorry, can't make this work rn - Penrose // 
-//	  panelSaleGridSouth.add(lblTotalPrice,gbc_lblTotalPrice);
-//	  
-//	  }
-	 
-
 	private void barcodeEntered() {
 		clearTotalPrice();
 
@@ -619,7 +612,8 @@ public class SaleMenuPanel extends JPanel {
 		double payment;
 		payment = Double.parseDouble(paymentInput);
 		sale = saleCtrl.completeSale(payment);
-		String totalPrice = "Total: " + sale.getPrice() + " Betalt: " + payment + "kr Tilbage: " + (payment - sale.getPrice()) + "kr";
+		String totalPrice = "Total: " + sale.getPrice() + " Betalt: " + payment + "kr Tilbage: "
+				+ (payment - sale.getPrice()) + "kr";
 		showTotalPrice(totalPrice);
 		textTotalPrice.setText(sale.getPrice() + "kr");
 		System.out.println(sale.getPrice());
@@ -690,7 +684,4 @@ public class SaleMenuPanel extends JPanel {
 		clearCheckout();
 	}
 
-	private void updateQuantity(int row) {
-		
-	}
 }

@@ -23,6 +23,8 @@ import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -48,6 +50,7 @@ public class SaleMenuPanel extends JPanel {
 	private SaleTable saleTableModel;
 	private JLabel lblTotalPrice;
 	private CustomerCtrl customerCtrl;
+	private static String[] COL_NAMES = { "Vare", "Antal", "Styk pris", "Total Pris", "Fjern" };
 
 	private static final long serialVersionUID = 1L;
 	private JTextField txtFindCustomer;
@@ -74,7 +77,6 @@ public class SaleMenuPanel extends JPanel {
 
 	private class SaleTable extends AbstractTableModel {
 
-		private static final String[] COL_NAMES = { "Vare", "Antal", "Styk pris", "Total Pris", "Fjern" };
 		private Sale sale;
 
 		public SaleTable(Sale sale) {
@@ -406,14 +408,24 @@ public class SaleMenuPanel extends JPanel {
 		panelCenterNorthWest.add(scrollPaneSale, BorderLayout.CENTER);
 
 		tableSale = new JTable(50, 5);
-		/*
-		 * tableSale.setModel(new DefaultTableModel( new Object[][]{ // {null, null,
-		 * null, null}, // x50 ned af }, new String[]{ "Indk\u00F8bskurv", "Antal",
-		 * "Pris", "Fjern" } ));
-		 */
 		saleTableModel = new SaleTable(saleCtrl.getSale());
 		tableSale.setModel(saleTableModel);
-
+		
+		tableSale.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				int row = tableSale.rowAtPoint(e.getPoint());
+				int col = tableSale.columnAtPoint(e.getPoint());
+				
+				if (col == COL_NAMES.length - 1 && row != - 1) {
+					removeRow(row);
+				}
+				if (col == COL_NAMES.length - 4 && row != - 4) {
+					removeRow(row);
+				}
+			}
+			});
+		
 		tableSale.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 
 			@Override
@@ -665,5 +677,8 @@ public class SaleMenuPanel extends JPanel {
 		textTotalPrice.setText("");
 		lblTotalPrice.setText("");
 	}
-
+	
+	private void removeRow(int row) {
+		System.out.println("hej");
+	}
 }

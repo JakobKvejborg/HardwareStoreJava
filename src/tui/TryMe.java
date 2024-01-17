@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import model.Aisle;
 import model.Customer;
 import model.CustomerContainer;
+import model.CustomerGroup;
 import model.LendableCopy;
 import model.LendableProduct;
 import model.Location;
@@ -33,6 +34,7 @@ public class TryMe {
 		customerContainer = CustomerContainer.getInstance();
 		Customer customer1 = new Customer("John", "UCN", "12345678", "School@UCN.dk");
 		Customer customer2 = new Customer("Jane", "The Moon", "87654321", "Moonbase@Alpha.dk");
+		customer2.setCustomerGroup(new CustomerGroup("Cool dudes club","Cool Private Customers",0.2,LocalDateTime.now()));
 		
 		customerContainer.addCustomer(customer1);
 		customerContainer.addCustomer(customer2);

@@ -434,7 +434,7 @@ public class SaleMenuPanel extends JPanel {
 		splitPaneSale.setRightComponent(panelDescription);
 		panelDescription.setLayout(new BorderLayout(0, 0));
 
-		lblProductName = new JLabel("Varens navn her");
+		lblProductName = new JLabel("Produkt");
 		lblProductName.setHorizontalAlignment(SwingConstants.CENTER);
 		panelDescription.add(lblProductName, BorderLayout.NORTH);
 
@@ -518,7 +518,21 @@ public class SaleMenuPanel extends JPanel {
 		btnCheckout.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+<<<<<<< Updated upstream
 				checkoutClicked();	
+=======
+				String paymentInput = JOptionPane.showInputDialog("Indtast betaling:");
+				double payment;
+				payment = Double.parseDouble(paymentInput);
+				sale = saleCtrl.completeSale(payment);
+				String totalPrice = "Betalt: " + payment + "kr Tilbage: " + (payment - sale.getPrice()) + "kr";
+				showTotalPrice(totalPrice);
+				textTotalPrice.setText(sale.getPrice() + "kr");
+				System.out.println(sale.getPrice());
+				saleCtrl.makeSale();
+				clearCustomer();
+				clearCheckout();
+>>>>>>> Stashed changes
 			}
 		});
 
@@ -578,6 +592,8 @@ public class SaleMenuPanel extends JPanel {
 	 */
 
 	private void barcodeEntered() {
+		clearTotalPrice();
+		
 		String barcode = textBarcode.getText();
 		SaleOrderLine saleOrderLine = saleCtrl.addProduct(barcode);
 	
@@ -619,7 +635,7 @@ public class SaleMenuPanel extends JPanel {
 
 	}
 
-	private void getCustomer() {
+	private void clearCustomer() {
 		Customer customer = saleCtrl.getSale().getCustomer();
 
 		if (customer == null) {
@@ -643,6 +659,18 @@ public class SaleMenuPanel extends JPanel {
 				textEmail.setText(customer.getEmail());
 			}
 		}
+	}
+	
+	private void clearCheckout() { 
+		saleTableModel.setData(saleCtrl.getSale());
+		textPrice.setText("");
+		txtpnProductDescription.setText("Varens beskrivelse her.");
+		lblProductName.setText("Produkt");
+	}
+	
+	private void clearTotalPrice() {
+		textTotalPrice.setText("");
+		lblTotalPrice.setText("");
 	}
 
 }

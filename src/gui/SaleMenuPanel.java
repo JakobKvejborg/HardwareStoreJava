@@ -417,6 +417,8 @@ public class SaleMenuPanel extends JPanel {
 		saleTableModel = new SaleTable(saleCtrl.getSale());
 		tableSale.setModel(saleTableModel);
 
+		int columnIndex = 4;
+//		tableSale.getColumnModel().getColumn(columnIndex).setCellEditor(new CustomTableCellEditor());
 		tableSale.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -426,8 +428,8 @@ public class SaleMenuPanel extends JPanel {
 				if (col == COL_NAMES.length - 1 && row != -1) {
 					removeRow(row);
 				}
-				if (col == COL_NAMES.length - 4 && row != -4) {
-					removeRow(row);
+					if (col == COL_NAMES.length - 4 && row != - 4) {
+					updateQuantity(row);
 				}
 			}
 		});
@@ -580,25 +582,25 @@ public class SaleMenuPanel extends JPanel {
 	 * @param totalPrice
 	 */
 
-	/*
-	 * private void setProductDescription(JTextPane txtpnProductDescription) {
-	 * 
-	 * lblTotalPrice = new JLabel(); GridBagConstraints gbc_lblTotalPrice = new
-	 * GridBagConstraints(); gbc_lblTotalPrice.insets = new Insets(0, 0, 0, 5);
-	 * gbc_lblTotalPrice.anchor = GridBagConstraints.NORTHWEST;
-	 * gbc_lblTotalPrice.gridx = 10; gbc_lblTotalPrice.gridy = 0; // //Sorry, can't
-	 * make this work rn, no idea what this code does - Penrose
-	 * //panelSaleGridSouth.add(lblTotalPrice, gbc_lblTotalPrice);
-	 * 
-	 * lblTotalPrice = new JLabel(); GridBagConstraints gbc_lblTotalPrice = new
-	 * GridBagConstraints(); gbc_lblTotalPrice.insets = new Insets(0, 0, 0, 5);
-	 * gbc_lblTotalPrice.anchor = GridBagConstraints.NORTHWEST;
-	 * gbc_lblTotalPrice.gridx = 10; gbc_lblTotalPrice.gridy = 0; // // Sorry, can't
-	 * make this work rn - Penrose // panelSaleGridSouth.add(lblTotalPrice,
-	 * gbc_lblTotalPrice);
-	 * 
-	 * }
-	 */
+	
+//	  private void setProductDescription(JTextPane txtpnProductDescription) {
+//	  
+//	  lblTotalPrice = new JLabel(); GridBagConstraints gbc_lblTotalPrice = new
+//	  GridBagConstraints(); gbc_lblTotalPrice.insets = new Insets(0, 0, 0, 5);
+//	  gbc_lblTotalPrice.anchor = GridBagConstraints.NORTHWEST;
+//	  gbc_lblTotalPrice.gridx = 10; gbc_lblTotalPrice.gridy = 0; 
+//	  //Sorry, can't make this work rn, no idea what this code does - Penrose
+//	  panelSaleGridSouth.add(lblTotalPrice, gbc_lblTotalPrice);
+//	  
+//	  lblTotalPrice = new JLabel(); GridBagConstraints gbc_lblTotalPrice = new
+//	  GridBagConstraints(); gbc_lblTotalPrice.insets = new Insets(0, 0, 0, 5);
+//	  gbc_lblTotalPrice.anchor = GridBagConstraints.NORTHWEST;
+//	  gbc_lblTotalPrice.gridx = 10; gbc_lblTotalPrice.gridy = 0; 
+//	  // Sorry, can't make this work rn - Penrose // 
+//	  panelSaleGridSouth.add(lblTotalPrice,gbc_lblTotalPrice);
+//	  
+//	  }
+	 
 
 	private void barcodeEntered() {
 		clearTotalPrice();
@@ -617,7 +619,7 @@ public class SaleMenuPanel extends JPanel {
 		double payment;
 		payment = Double.parseDouble(paymentInput);
 		sale = saleCtrl.completeSale(payment);
-		String totalPrice = "Betalt: " + payment + "kr Tilbage: " + (payment - sale.getPrice()) + "kr";
+		String totalPrice = "Total: " + sale.getPrice() + " Betalt: " + payment + "kr Tilbage: " + (payment - sale.getPrice()) + "kr";
 		showTotalPrice(totalPrice);
 		textTotalPrice.setText(sale.getPrice() + "kr");
 		System.out.println(sale.getPrice());
@@ -684,6 +686,11 @@ public class SaleMenuPanel extends JPanel {
 	}
 
 	private void removeRow(int row) {
-		System.out.println("hej");
+		saleCtrl.removeProduct(row);
+		clearCheckout();
+	}
+
+	private void updateQuantity(int row) {
+		
 	}
 }

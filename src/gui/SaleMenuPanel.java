@@ -158,7 +158,7 @@ public class SaleMenuPanel extends JPanel {
 
 		@Override
 		public boolean isCellEditable(int row, int column) {
-			return column == 1;
+			return column == 1 && !sale.getSaleOrderLine(row).getProduct().isUnique();
 		}
 	}
 

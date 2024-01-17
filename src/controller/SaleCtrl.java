@@ -52,6 +52,8 @@ public class SaleCtrl implements SaleCtrlIF {
 		sale.setCustomer(customer);
 		return customer;
 	}
+	
+	
 
 	public void removeProduct(int index) {
 		sale.removeSaleOrderLine(index);

@@ -89,7 +89,9 @@ public class SaleTUI {
 
 
     private SellableIF addProduct(String barcode) {
-        SellableIF product = saleCtrl.addProduct(barcode);
+    	SaleOrderLine saleOrderLine = saleCtrl.addProduct(barcode);
+        SellableIF product = saleOrderLine.getProduct();
+        
         if (product == null) {
             System.out.println("Could not read barcode, or product could not be sold, try again.");
         } else {

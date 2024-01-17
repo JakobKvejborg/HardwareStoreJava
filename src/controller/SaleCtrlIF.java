@@ -2,6 +2,7 @@ package controller;
 
 import model.Customer;
 import model.Sale;
+import model.SaleOrderLine;
 import model.SellableIF;
 
 
@@ -17,7 +18,7 @@ public interface SaleCtrlIF {
 
 	public Customer setCustomer(String phone);
 	public Customer setCustomer(Customer customer);
-	public SellableIF addProduct(String barcode);
+	public SaleOrderLine addProduct(String barcode);
 	public boolean setQuantity(int quantity);
 	public Sale makeSale();
 	public Sale completeSale(double payment);

@@ -110,6 +110,10 @@ public class SaleMenuPanel extends JPanel {
 			return sale.getSaleOrderLine(row).getProduct();
 		}
 		
+		public SaleOrderLine getSaleOrderLine(int row) {
+			return sale.getSaleOrderLine(row);
+		}
+		
 		public String getDescription(int row) {
 			return sale.getSaleOrderLine(row).getProduct().getDescription();
 		}
@@ -147,7 +151,6 @@ public class SaleMenuPanel extends JPanel {
 			}
 			return res;
 		}
-
 	}
 
 	/**
@@ -380,7 +383,7 @@ public class SaleMenuPanel extends JPanel {
 			public void valueChanged(ListSelectionEvent e) {
 				
 				if (tableSale.getSelectedRow() != -1) {
-					SellableIF product = saleTableModel.getProduct(tableSale.getSelectedRow());
+					SaleOrderLine product = saleTableModel.getSaleOrderLine(tableSale.getSelectedRow());
 					setProductInfo(product);
 				
 				
@@ -479,16 +482,7 @@ public class SaleMenuPanel extends JPanel {
 		btnCheckout.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				String paymentInput = JOptionPane.showInputDialog("Indtast betaling:");
-				double payment;
-				payment = Double.parseDouble(paymentInput);
-				sale = saleCtrl.completeSale(payment);
-				String totalPrice = "Betalt: " + payment + "kr Tilbage: " + (payment - sale.getPrice()) + "kr";
-				showTotalPrice(totalPrice);
-				textTotalPrice.setText(sale.getPrice() + "kr");
-				System.out.println(sale.getPrice());
-				saleCtrl.makeSale();
-				getCustomer();
+				checkoutClicked();	
 			}
 		});
 
@@ -549,13 +543,26 @@ public class SaleMenuPanel extends JPanel {
 
 	private void barcodeEntered() {
 		String barcode = textBarcode.getText();
-		SellableIF product = saleCtrl.addProduct(barcode);
-
+		SaleOrderLine saleOrderLine = saleCtrl.addProduct(barcode);
+	
 		saleTableModel.setData(saleCtrl.getSale());
-		setProductInfo(product);
+		setProductInfo(saleOrderLine);
 		
 	}
 
+	private void checkoutClicked() {
+		String paymentInput = JOptionPane.showInputDialog("Indtast betaling:");
+		double payment;
+		payment = Double.parseDouble(paymentInput);
+		sale = saleCtrl.completeSale(payment);
+		String totalPrice = "Betalt: " + payment + "kr Tilbage: " + (payment - sale.getPrice()) + "kr";
+		showTotalPrice(totalPrice);
+		textTotalPrice.setText(sale.getPrice() + "kr");
+		System.out.println(sale.getPrice());
+		saleCtrl.makeSale();
+		getCustomer();
+	}
+	
 	/**
 	 * This method sets the label in the right bottom corner to the total price
 	 *
@@ -565,11 +572,12 @@ public class SaleMenuPanel extends JPanel {
 		lblTotalPrice.setText(totalPrice);
 	}
 	
-	private void setProductInfo(SellableIF product) {
+	private void setProductInfo(SaleOrderLine saleOrderLine) {
+		SellableIF product = saleOrderLine.getProduct();
 		txtpnProductDescription.setText(product.getDescription());
 		textPrice.setText(product.getPrice(LocalDateTime.now()) + "kr,-");
 		lblProductName.setText(product.getName());
-//		textStock.setText(saleTableModel.getStockText(tableSale.getSelectedRow()) + "stk.");
+		textStock.setText(saleOrderLine.getQuantity() + " stk.");
 		
 	}
 	

@@ -63,20 +63,22 @@ public class SaleCtrl implements SaleCtrlIF {
 	 */
 	//Maybe this function should throw exceptions if the product isn't sellable,
 	//or if no product is found.
-	public SellableIF addProduct(String barcode) {
+	public SaleOrderLine addProduct(String barcode) {
 		SellableIF product = productCtrl.findSellable(barcode);
+		SaleOrderLine saleOrderLine = null;
 		if(product != null) {
 			//TODO: prevent multiple of the same unique item being added
 			//TODO: handle when two of the same non-unique item is added.
 			//check if there's at least one of the item.
 			if(product.getStock(location) >= 1) {
-				sale.addSaleOrderLine(new SaleOrderLine(product, 1));
+				saleOrderLine = new SaleOrderLine(product, 1);
+				sale.addSaleOrderLine(saleOrderLine);
 			}
 			else {
 				product = null;
 			}
 		}
-		return product;
+		return saleOrderLine;
 	}
 	
 	/**

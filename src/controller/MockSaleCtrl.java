@@ -35,9 +35,9 @@ public class MockSaleCtrl implements SaleCtrlIF {
 	}
 
 	@Override
-	public SellableIF addProduct(String barcode) {
+	public SaleOrderLine addProduct(String barcode) {
 		product = new ShelfProduct("Desk", "A desk.", barcode, 300.0d, 700.0d, 0, LocalDateTime.of(2022,1,1,1,1));
-		return product;
+		return new SaleOrderLine(product, 1);
 	}
 
 	@Override

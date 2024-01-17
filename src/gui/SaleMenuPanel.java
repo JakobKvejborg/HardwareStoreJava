@@ -548,7 +548,12 @@ public class SaleMenuPanel extends JPanel {
 	private void cancelClicked() {
 		saleCtrl.clearSale();
 		saleCtrl.makeSale();
+		updateTable();
+	}
+
+	private void updateTable() {
 		saleTableModel.setData(saleCtrl.getSale());
+		textTotalPrice.setText(saleCtrl.getSale().getPrice()+ "");
 	}
 
 	/**
@@ -583,7 +588,7 @@ public class SaleMenuPanel extends JPanel {
 		String barcode = textBarcode.getText();
 		SaleOrderLine saleOrderLine = saleCtrl.addProduct(barcode);
 	
-		saleTableModel.setData(saleCtrl.getSale());
+		updateTable();
 		setProductInfo(saleOrderLine);
 		textBarcode.setText("");
 
@@ -649,7 +654,7 @@ public class SaleMenuPanel extends JPanel {
 	}
 	
 	private void clearCheckout() { 
-		saleTableModel.setData(saleCtrl.getSale());
+		updateTable();
 		textPrice.setText("");
 		txtpnProductDescription.setText("Varens beskrivelse her.");
 		lblProductName.setText("Produkt");

@@ -140,10 +140,10 @@ public class SaleMenuPanel extends JPanel {
 				res = saleOrderLine.getQuantity();
 				break;
 			case 2:
-				res = saleOrderLine.getPrice(LocalDateTime.now());
+				res = saleOrderLine.getProduct().getPrice(LocalDateTime.now());
 				break;
 			case 3:
-				res = saleOrderLine.getPrice(LocalDateTime.now()) * saleOrderLine.getQuantity();
+				res = saleOrderLine.getPrice(LocalDateTime.now());
 				break;
 			case 4:
 				res = "-";

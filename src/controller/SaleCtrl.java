@@ -66,7 +66,21 @@ public class SaleCtrl implements SaleCtrlIF {
 	public SaleOrderLine addProduct(String barcode) {
 		SellableIF product = productCtrl.findSellable(barcode);
 		SaleOrderLine saleOrderLine = null;
-		if(product != null) {
+		if(!product.isUnique()) {
+			for(int i = 0; i < sale.getSaleOrderLinesSize(); i++) {
+				if(sale.getSaleOrderLine(i).getProduct().equals(product)) {
+					//TODO determine if this check should be here
+					if(sale.getSaleOrderLine(i).getQuantity() +1 <= product.getStock(location)) {
+						saleOrderLine = sale.getSaleOrderLine(i);
+						saleOrderLine.setQuantity(saleOrderLine.getQuantity() +1);		
+					}
+					else {
+						product = null;
+					}
+				}
+			}
+		}
+		if(product != null && saleOrderLine == null) {
 			//TODO: prevent multiple of the same unique item being added
 			//TODO: handle when two of the same non-unique item is added.
 			//check if there's at least one of the item.

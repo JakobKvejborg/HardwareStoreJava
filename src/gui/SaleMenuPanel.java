@@ -107,19 +107,19 @@ public class SaleMenuPanel extends JPanel {
 		public int getColumnCount() {
 			return 5;
 		}
-		
+
 		public SellableIF getProduct(int row) {
 			return sale.getSaleOrderLine(row).getProduct();
 		}
-		
+
 		public String getDescription(int row) {
 			return sale.getSaleOrderLine(row).getProduct().getDescription();
 		}
-		
+
 		public double getPriceText(int row) {
 			return sale.getSaleOrderLine(row).getProduct().getPrice(LocalDateTime.now());
 		}
-		
+
 		public int getStockText(int row) {
 			return sale.getSaleOrderLine(row).getProduct().getStock(location);
 		}
@@ -185,6 +185,7 @@ public class SaleMenuPanel extends JPanel {
 		panelBarcode.setLayout(new BorderLayout(0, 0));
 
 		textBarcode = new JTextField();
+		textBarcode.setText("Indtast stregkode");
 		textBarcode.setColumns(10);
 		panelBarcode.add(textBarcode);
 		textBarcode.addKeyListener(new KeyAdapter() {
@@ -194,7 +195,7 @@ public class SaleMenuPanel extends JPanel {
 				}
 			}
 		});
-		btnBarcodeEnter = new JButton("Enter");
+		btnBarcodeEnter = new JButton("Tilføj");
 		panelBarcode.add(btnBarcodeEnter, BorderLayout.EAST);
 		btnBarcodeEnter.addActionListener(new ActionListener() {
 			@Override
@@ -223,9 +224,8 @@ public class SaleMenuPanel extends JPanel {
 			public void focusGained(FocusEvent e) {
 				if (!txtFindCustomer.getText().isEmpty()) {
 					txtFindCustomer.setText("");
-				}
 			}
-
+		}
 			@Override
 			public void focusLost(FocusEvent e) {
 				if (txtFindCustomer.getText().isEmpty()) {
@@ -233,6 +233,27 @@ public class SaleMenuPanel extends JPanel {
 				}
 			}
 		});
+		
+		textBarcode.addFocusListener(new FocusAdapter() {
+		    @Override
+		    public void focusGained(FocusEvent e) {
+		        if (!textBarcode.getText().isEmpty()) {
+		            textBarcode.setText("");
+		        }
+		        
+		        if (txtFindCustomer.getText().isEmpty()) {
+		            txtFindCustomer.setText("Indtast tlf.nr.");
+		        }
+		    }
+		    
+		    @Override
+		    public void focusLost(FocusEvent e) {
+		        if (textBarcode.getText().isEmpty()) {
+		            textBarcode.setText("Indtast stregkode");
+		        }
+		    }
+		});
+		        
 		txtFindCustomer.addKeyListener(new KeyAdapter() {
 			public void keyPressed(KeyEvent e) {
 				if (e.getKeyCode() == 10) {
@@ -253,7 +274,7 @@ public class SaleMenuPanel extends JPanel {
 		gbc_txtFindCustomer.gridy = 0;
 		panelCenterSouthWest.add(txtFindCustomer, gbc_txtFindCustomer);
 		txtFindCustomer.setColumns(10);
-		
+
 		splitPane = new JSplitPane();
 		GridBagConstraints gbc_splitPane = new GridBagConstraints();
 		gbc_splitPane.insets = new Insets(0, 0, 5, 0);
@@ -261,7 +282,7 @@ public class SaleMenuPanel extends JPanel {
 		gbc_splitPane.gridx = 1;
 		gbc_splitPane.gridy = 0;
 		panelCenterSouthWest.add(splitPane, gbc_splitPane);
-		
+
 		btnFindCustomer = new JButton("      Find kunde      ");
 		btnFindCustomer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -274,7 +295,7 @@ public class SaleMenuPanel extends JPanel {
 			}
 		});
 		splitPane.setLeftComponent(btnFindCustomer);
-		
+
 		btnNewButton = new JButton("Opret ny kunde");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -389,19 +410,18 @@ public class SaleMenuPanel extends JPanel {
 		 */
 		saleTableModel = new SaleTable(saleCtrl.getSale());
 		tableSale.setModel(saleTableModel);
-		
+
 		tableSale.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-			
+
 			@Override
 			public void valueChanged(ListSelectionEvent e) {
-				
+
 				if (tableSale.getSelectedRow() != -1) {
 					SellableIF product = saleTableModel.getProduct(tableSale.getSelectedRow());
 					setProductInfo(product);
-				
-				
+
 				}
-				
+
 			}
 		});
 
@@ -426,7 +446,7 @@ public class SaleMenuPanel extends JPanel {
 		txtpnProductDescription.setText("Varens beskrivelse her.");
 		Font font = new Font("Times New Roman", Font.PLAIN, 20);
 		txtpnProductDescription.setFont(font);
-	    scrollPaneDescription.setViewportView(txtpnProductDescription);
+		scrollPaneDescription.setViewportView(txtpnProductDescription);
 
 		JPanel panelDescriptionSideBar = new JPanel();
 		splitPaneDescription.setLeftComponent(panelDescriptionSideBar);
@@ -455,22 +475,22 @@ public class SaleMenuPanel extends JPanel {
 		panelDescriptionSideBar.add(textStock, gbc_textStock);
 		textStock.setColumns(10);
 
-        JLabel lblStock = new JLabel("Pris m/ rabat");
-        GridBagConstraints gbc_lblStock = new GridBagConstraints();
-        gbc_lblStock.insets = new Insets(0, 0, 5, 0);
-        gbc_lblStock.gridx = 0;
-        gbc_lblStock.gridy = 2;
-        panelDescriptionSideBar.add(lblStock, gbc_lblStock);
+		JLabel lblStock = new JLabel("Pris m/ rabat");
+		GridBagConstraints gbc_lblStock = new GridBagConstraints();
+		gbc_lblStock.insets = new Insets(0, 0, 5, 0);
+		gbc_lblStock.gridx = 0;
+		gbc_lblStock.gridy = 2;
+		panelDescriptionSideBar.add(lblStock, gbc_lblStock);
 
-        textPrice = new JTextField();
-        textPrice.setEditable(false);
-        GridBagConstraints gbc_textPrice = new GridBagConstraints();
-        gbc_textPrice.insets = new Insets(0, 0, 5, 0);
-        gbc_textPrice.fill = GridBagConstraints.HORIZONTAL;
-        gbc_textPrice.gridx = 0;
-        gbc_textPrice.gridy = 3;
-        panelDescriptionSideBar.add(textPrice, gbc_textPrice);
-        textPrice.setColumns(10);
+		textPrice = new JTextField();
+		textPrice.setEditable(false);
+		GridBagConstraints gbc_textPrice = new GridBagConstraints();
+		gbc_textPrice.insets = new Insets(0, 0, 5, 0);
+		gbc_textPrice.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textPrice.gridx = 0;
+		gbc_textPrice.gridy = 3;
+		panelDescriptionSideBar.add(textPrice, gbc_textPrice);
+		textPrice.setColumns(10);
 
 		JPanel panelSaleSouth = new JPanel();
 		add(panelSaleSouth, BorderLayout.SOUTH);
@@ -569,7 +589,8 @@ public class SaleMenuPanel extends JPanel {
 
 		saleTableModel.setData(saleCtrl.getSale());
 		setProductInfo(product);
-		
+		textBarcode.setText("");
+
 	}
 
 	/**
@@ -580,31 +601,31 @@ public class SaleMenuPanel extends JPanel {
 	private void showTotalPrice(String totalPrice) {
 		lblTotalPrice.setText(totalPrice);
 	}
-	
+
 	private void setProductInfo(SellableIF product) {
 		txtpnProductDescription.setText(product.getDescription());
 		textPrice.setText(product.getPrice(LocalDateTime.now()) + "kr,-");
 		lblProductName.setText(product.getName());
 //		textStock.setText(saleTableModel.getStockText(tableSale.getSelectedRow()) + "stk.");
-		
+
 	}
-	
+
 	private void getCustomer() {
 		Customer customer = saleCtrl.getSale().getCustomer();
-		
+
 		if (customer == null) {
-		textName.setText("Navn");
-		textAddress.setText("Adresse");
-		textPhone.setText("Telefonnummer");
-		textEmail.setText("Email");
+			textName.setText("Navn");
+			textAddress.setText("Adresse");
+			textPhone.setText("Telefonnummer");
+			textEmail.setText("Email");
 		}
 	}
-	
+
 	private void createCustomerWindow() {
 		CreateCustomerWindow customerWindow = new CreateCustomerWindow(customerCtrl);
 		customerWindow.setVisible(true);
 		if (customerWindow.isOkClicked()) {
-			//TODO make sure customer is persisted
+			// TODO make sure customer is persisted
 			Customer customer = saleCtrl.setCustomer(customerWindow.getPhone());
 			if (customer != null) {
 				textName.setText(customer.getName());

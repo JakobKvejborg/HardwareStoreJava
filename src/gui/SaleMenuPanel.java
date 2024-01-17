@@ -113,11 +113,11 @@ public class SaleMenuPanel extends JPanel {
 		public SellableIF getProduct(int row) {
 			return sale.getSaleOrderLine(row).getProduct();
 		}
-		
+
 		public SaleOrderLine getSaleOrderLine(int row) {
 			return sale.getSaleOrderLine(row);
 		}
-		
+
 		public String getDescription(int row) {
 			return sale.getSaleOrderLine(row).getProduct().getDescription();
 		}
@@ -154,6 +154,11 @@ public class SaleMenuPanel extends JPanel {
 				res = "<UNKNOWN " + columnIndex + ">";
 			}
 			return res;
+		}
+
+		@Override
+		public boolean isCellEditable(int row, int column) {
+			return column == 1;
 		}
 	}
 
@@ -229,8 +234,9 @@ public class SaleMenuPanel extends JPanel {
 			public void focusGained(FocusEvent e) {
 				if (!txtFindCustomer.getText().isEmpty()) {
 					txtFindCustomer.setText("");
+				}
 			}
-		}
+
 			@Override
 			public void focusLost(FocusEvent e) {
 				if (txtFindCustomer.getText().isEmpty()) {
@@ -238,27 +244,27 @@ public class SaleMenuPanel extends JPanel {
 				}
 			}
 		});
-		
+
 		textBarcode.addFocusListener(new FocusAdapter() {
-		    @Override
-		    public void focusGained(FocusEvent e) {
-		        if (!textBarcode.getText().isEmpty()) {
-		            textBarcode.setText("");
-		        }
-		        
-		        if (txtFindCustomer.getText().isEmpty()) {
-		            txtFindCustomer.setText("Indtast tlf.nr.");
-		        }
-		    }
-		    
-		    @Override
-		    public void focusLost(FocusEvent e) {
-		        if (textBarcode.getText().isEmpty()) {
-		            textBarcode.setText("Indtast stregkode");
-		        }
-		    }
+			@Override
+			public void focusGained(FocusEvent e) {
+				if (!textBarcode.getText().isEmpty()) {
+					textBarcode.setText("");
+				}
+
+				if (txtFindCustomer.getText().isEmpty()) {
+					txtFindCustomer.setText("Indtast tlf.nr.");
+				}
+			}
+
+			@Override
+			public void focusLost(FocusEvent e) {
+				if (textBarcode.getText().isEmpty()) {
+					textBarcode.setText("Indtast stregkode");
+				}
+			}
 		});
-		        
+
 		txtFindCustomer.addKeyListener(new KeyAdapter() {
 			public void keyPressed(KeyEvent e) {
 				if (e.getKeyCode() == 10) {
@@ -410,22 +416,22 @@ public class SaleMenuPanel extends JPanel {
 		tableSale = new JTable(50, 5);
 		saleTableModel = new SaleTable(saleCtrl.getSale());
 		tableSale.setModel(saleTableModel);
-		
+
 		tableSale.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				int row = tableSale.rowAtPoint(e.getPoint());
 				int col = tableSale.columnAtPoint(e.getPoint());
-				
-				if (col == COL_NAMES.length - 1 && row != - 1) {
+
+				if (col == COL_NAMES.length - 1 && row != -1) {
 					removeRow(row);
 				}
-				if (col == COL_NAMES.length - 4 && row != - 4) {
+				if (col == COL_NAMES.length - 4 && row != -4) {
 					removeRow(row);
 				}
 			}
-			});
-		
+		});
+
 		tableSale.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 
 			@Override
@@ -530,7 +536,7 @@ public class SaleMenuPanel extends JPanel {
 		btnCheckout.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				checkoutClicked();	
+				checkoutClicked();
 			}
 		});
 
@@ -565,7 +571,7 @@ public class SaleMenuPanel extends JPanel {
 
 	private void updateTable() {
 		saleTableModel.setData(saleCtrl.getSale());
-		textTotalPrice.setText(saleCtrl.getSale().getPrice()+ "");
+		textTotalPrice.setText(saleCtrl.getSale().getPrice() + "");
 	}
 
 	/**
@@ -596,10 +602,10 @@ public class SaleMenuPanel extends JPanel {
 
 	private void barcodeEntered() {
 		clearTotalPrice();
-		
+
 		String barcode = textBarcode.getText();
 		SaleOrderLine saleOrderLine = saleCtrl.addProduct(barcode);
-	
+
 		updateTable();
 		setProductInfo(saleOrderLine);
 		textBarcode.setText("");
@@ -619,7 +625,7 @@ public class SaleMenuPanel extends JPanel {
 		clearCustomer();
 		clearCheckout();
 	}
-	
+
 	/**
 	 * This method sets the label in the right bottom corner to the total price
 	 *
@@ -628,14 +634,13 @@ public class SaleMenuPanel extends JPanel {
 	private void showTotalPrice(String totalPrice) {
 		lblTotalPrice.setText(totalPrice);
 	}
-	
+
 	private void setProductInfo(SaleOrderLine saleOrderLine) {
 		SellableIF product = saleOrderLine.getProduct();
 		txtpnProductDescription.setText(product.getDescription());
 		textPrice.setText(product.getPrice(LocalDateTime.now()) + "kr,-");
 		lblProductName.setText(product.getName());
 		textStock.setText(product.getStock(location) + " stk.");
-		
 
 	}
 
@@ -664,20 +669,20 @@ public class SaleMenuPanel extends JPanel {
 			}
 		}
 	}
-	
-	private void clearCheckout() { 
+
+	private void clearCheckout() {
 		updateTable();
 		textPrice.setText("");
 		txtpnProductDescription.setText("Varens beskrivelse her.");
 		lblProductName.setText("Produkt");
 		textStock.setText("");
 	}
-	
+
 	private void clearTotalPrice() {
 		textTotalPrice.setText("");
 		lblTotalPrice.setText("");
 	}
-	
+
 	private void removeRow(int row) {
 		System.out.println("hej");
 	}

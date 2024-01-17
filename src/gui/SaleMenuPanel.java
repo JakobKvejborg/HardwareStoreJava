@@ -69,8 +69,8 @@ public class SaleMenuPanel extends JPanel {
 	private JTextField textPrice;
 	private JLabel lblProductName;
 	private JSplitPane splitPane;
-	private JButton btnFindCustomer;
 	private JButton btnNewButton;
+	private JButton btnFindCustomer;
 
 	private class SaleTable extends AbstractTableModel {
 
@@ -653,6 +653,7 @@ public class SaleMenuPanel extends JPanel {
 		textPrice.setText("");
 		txtpnProductDescription.setText("Varens beskrivelse her.");
 		lblProductName.setText("Produkt");
+		textStock.setText("");
 	}
 	
 	private void clearTotalPrice() {

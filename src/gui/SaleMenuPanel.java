@@ -614,7 +614,7 @@ public class SaleMenuPanel extends JPanel {
 		txtpnProductDescription.setText(product.getDescription());
 		textPrice.setText(product.getPrice(LocalDateTime.now()) + "kr,-");
 		lblProductName.setText(product.getName());
-		textStock.setText(saleOrderLine.getQuantity() + " stk.");
+		textStock.setText(product.getStock(location) + " stk.");
 		
 
 	}

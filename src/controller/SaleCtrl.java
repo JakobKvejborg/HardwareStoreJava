@@ -52,13 +52,35 @@ public class SaleCtrl implements SaleCtrlIF {
 		sale.setCustomer(customer);
 		return customer;
 	}
-	
-	
 
 	public void removeProduct(int index) {
 		sale.removeSaleOrderLine(index);
 	}
-	
+
+	public boolean setQuantity(int index, int quantity) {
+		// make sure that you cannot add 0 or negative quantities (guard clause)
+		if (quantity < 1) {
+			return false;
+		}
+
+		// get the last SaleOrderLine in the sale
+		SaleOrderLine saleOrderLine = sale.getSaleOrderLine(index);
+		// check if the SaleOrderLine exists and if the quantity can be anything other
+		// than 1 (guard clause)
+		if (saleOrderLine == null || saleOrderLine.getProduct().isUnique()) {
+			return false;
+		}
+
+		// check if there's enough stock:
+		if (saleOrderLine.getProduct().getStock(location) < quantity) {
+			return false;
+		}
+
+		// set the quantity
+		saleOrderLine.setQuantity(quantity);
+		return true;
+	}
+
 	/**
 	 * finds a product, checks if it can be sold, and adds it to the sale in the
 	 * form of a <code>SaleOrderLine</code>.
@@ -109,27 +131,7 @@ public class SaleCtrl implements SaleCtrlIF {
 	 * @return returns true if the quantity was successfully set.
 	 */
 	public boolean setQuantity(int quantity) {
-		// make sure that you cannot add 0 or negative quantities (guard clause)
-		if (quantity < 1) {
-			return false;
-		}
-
-		// get the last SaleOrderLine in the sale
-		SaleOrderLine saleOrderLine = sale.getSaleOrderLine(sale.getSaleOrderLinesSize() - 1);
-		// check if the SaleOrderLine exists and if the quantity can be anything other
-		// than 1 (guard clause)
-		if (saleOrderLine == null || saleOrderLine.getProduct().isUnique()) {
-			return false;
-		}
-
-		// check if there's enough stock:
-		if (saleOrderLine.getProduct().getStock(location) < quantity) {
-			return false;
-		}
-
-		// set the quantity
-		saleOrderLine.setQuantity(quantity);
-		return true;
+		return setQuantity(sale.getSaleOrderLinesSize() - 1, quantity);
 	}
 
 	/**

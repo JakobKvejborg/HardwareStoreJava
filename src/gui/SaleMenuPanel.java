@@ -150,13 +150,14 @@ public class SaleMenuPanel extends JPanel {
 				res = saleOrderLine.getPrice(LocalDateTime.now());
 				break;
 			case 4:
-				res = "-";
+				res = "<html><font face='Times New Roman' size='4' color='red'>x</font></html>";
 				break;
 			default:
 				res = "<UNKNOWN " + columnIndex + ">";
 			}
 			return res;
 		}
+
 
 		@Override
 		public boolean isCellEditable(int row, int column) {
@@ -436,6 +437,7 @@ public class SaleMenuPanel extends JPanel {
 		tableSale = new JTable(50, 5);
 		saleTableModel = new SaleTable(saleCtrl.getSale());
 		tableSale.setModel(saleTableModel);
+
 	        
 		int columnIndex = 4;
 //		tableSale.getColumnModel().getColumn(columnIndex).setCellEditor(new CustomTableCellEditor());

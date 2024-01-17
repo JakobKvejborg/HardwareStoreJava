@@ -518,21 +518,7 @@ public class SaleMenuPanel extends JPanel {
 		btnCheckout.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-<<<<<<< Updated upstream
 				checkoutClicked();	
-=======
-				String paymentInput = JOptionPane.showInputDialog("Indtast betaling:");
-				double payment;
-				payment = Double.parseDouble(paymentInput);
-				sale = saleCtrl.completeSale(payment);
-				String totalPrice = "Betalt: " + payment + "kr Tilbage: " + (payment - sale.getPrice()) + "kr";
-				showTotalPrice(totalPrice);
-				textTotalPrice.setText(sale.getPrice() + "kr");
-				System.out.println(sale.getPrice());
-				saleCtrl.makeSale();
-				clearCustomer();
-				clearCheckout();
->>>>>>> Stashed changes
 			}
 		});
 
@@ -613,7 +599,8 @@ public class SaleMenuPanel extends JPanel {
 		textTotalPrice.setText(sale.getPrice() + "kr");
 		System.out.println(sale.getPrice());
 		saleCtrl.makeSale();
-		getCustomer();
+		clearCustomer();
+		clearCheckout();
 	}
 	
 	/**

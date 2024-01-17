@@ -53,6 +53,10 @@ public class SaleCtrl implements SaleCtrlIF {
 		return customer;
 	}
 
+	public void removeProduct(int index) {
+		sale.removeSaleOrderLine(index);
+	}
+	
 	/**
 	 * finds a product, checks if it can be sold, and adds it to the sale in the
 	 * form of a <code>SaleOrderLine</code>.

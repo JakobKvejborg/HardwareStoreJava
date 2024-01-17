@@ -80,5 +80,9 @@ public class Sale extends AbstractOrder {
         return saleOrderLines.size();
     }
 
+	public void removeSaleOrderLine(int index) {
+		saleOrderLines.remove(index);
+	}
+
 
 }

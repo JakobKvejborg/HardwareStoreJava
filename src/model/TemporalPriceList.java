@@ -39,6 +39,9 @@ public class TemporalPriceList {
 			}
 		}
 		//TODO: throw an error when no price is found.
+		if(found = false) {
+			throw new RuntimeException("there is no price before the date of " + prices.get(0));
+		}
 		return res;
 	}
 	

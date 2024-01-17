@@ -20,14 +20,14 @@ import model.SellableIF;
  */
 //TODO: add null checks to everything
 public class SaleCtrl implements SaleCtrlIF {
-	
+
 	private Employee employee;
 	private Location location;
 	private OrderContainer orderContainer;
 	private ProductCtrl productCtrl;
 	private CustomerCtrl customerCtrl;
 	private Sale sale;
-	
+
 	public SaleCtrl(Employee employee, Location location) {
 		this.employee = employee;
 		this.location = location;
@@ -37,8 +37,8 @@ public class SaleCtrl implements SaleCtrlIF {
 	}
 
 	/**
-	 * finds a customer by their phone number and adds them to the sale.
-	 * it is not necessary to add a customer to complete a sale.
+	 * finds a customer by their phone number and adds them to the sale. it is not
+	 * necessary to add a customer to complete a sale.
 	 * 
 	 * @return returns the customer added to the sale.
 	 */
@@ -47,54 +47,55 @@ public class SaleCtrl implements SaleCtrlIF {
 		sale.setCustomer(customer);
 		return customer;
 	}
-	
+
 	public Customer setCustomer(Customer customer) {
 		sale.setCustomer(customer);
 		return customer;
 	}
-	
-	
+
 	/**
-	 * finds a product, checks if it can be sold, and adds it to the sale in the form of a <code>SaleOrderLine</code>.
+	 * finds a product, checks if it can be sold, and adds it to the sale in the
+	 * form of a <code>SaleOrderLine</code>.
 	 * 
 	 * @param the barcode of the product to be added
-	 * @return the found product in the form of a <code>SellableIF</code>.
-	 * returns null if the no product has the barcode or the product cannot be sold.
+	 * @return the found product in the form of a <code>SellableIF</code>. returns
+	 *         null if the no product has the barcode or the product cannot be sold.
 	 */
-	//Maybe this function should throw exceptions if the product isn't sellable,
-	//or if no product is found.
+	// Maybe this function should throw exceptions if the product isn't sellable,
+	// or if no product is found.
 	public SaleOrderLine addProduct(String barcode) {
 		SellableIF product = productCtrl.findSellable(barcode);
 		SaleOrderLine saleOrderLine = null;
-		if(!product.isUnique()) {
-			for(int i = 0; i < sale.getSaleOrderLinesSize(); i++) {
-				if(sale.getSaleOrderLine(i).getProduct().equals(product)) {
-					//TODO determine if this check should be here
-					if(sale.getSaleOrderLine(i).getQuantity() +1 <= product.getStock(location)) {
+		for (int i = 0; i < sale.getSaleOrderLinesSize(); i++) {
+			if (sale.getSaleOrderLine(i).getProduct().equals(product)) {
+				if (product.isUnique()) {
+					product = null;
+				} else {
+					// TODO determine if this check should be here
+					if (sale.getSaleOrderLine(i).getQuantity() + 1 <= product.getStock(location)) {
 						saleOrderLine = sale.getSaleOrderLine(i);
-						saleOrderLine.setQuantity(saleOrderLine.getQuantity() +1);		
-					}
-					else {
+						saleOrderLine.setQuantity(saleOrderLine.getQuantity() + 1);
+					} else {
 						product = null;
 					}
 				}
 			}
 		}
-		if(product != null && saleOrderLine == null) {
-			//TODO: prevent multiple of the same unique item being added
-			//TODO: handle when two of the same non-unique item is added.
-			//check if there's at least one of the item.
-			if(product.getStock(location) >= 1) {
+
+		if (product != null && saleOrderLine == null) {
+			// TODO: prevent multiple of the same unique item being added
+			// TODO: handle when two of the same non-unique item is added.
+			// check if there's at least one of the item.
+			if (product.getStock(location) >= 1) {
 				saleOrderLine = new SaleOrderLine(product, 1);
 				sale.addSaleOrderLine(saleOrderLine);
-			}
-			else {
+			} else {
 				product = null;
 			}
 		}
 		return saleOrderLine;
 	}
-	
+
 	/**
 	 * sets the quantity of the last added OrderLine.
 	 * 
@@ -102,34 +103,36 @@ public class SaleCtrl implements SaleCtrlIF {
 	 * @return returns true if the quantity was successfully set.
 	 */
 	public boolean setQuantity(int quantity) {
-		//make sure that you cannot add 0 or negative quantities (guard clause)
-		if(quantity < 1) {
+		// make sure that you cannot add 0 or negative quantities (guard clause)
+		if (quantity < 1) {
 			return false;
 		}
-		
-		//get the last SaleOrderLine in the sale
+
+		// get the last SaleOrderLine in the sale
 		SaleOrderLine saleOrderLine = sale.getSaleOrderLine(sale.getSaleOrderLinesSize() - 1);
-		//check if the SaleOrderLine exists and if the quantity can be anything other than 1 (guard clause)
-		if(saleOrderLine == null || saleOrderLine.getProduct().isUnique()) {
+		// check if the SaleOrderLine exists and if the quantity can be anything other
+		// than 1 (guard clause)
+		if (saleOrderLine == null || saleOrderLine.getProduct().isUnique()) {
 			return false;
 		}
-		
-		//check if there's enough stock:
-		if(saleOrderLine.getProduct().getStock(location) < quantity) {
+
+		// check if there's enough stock:
+		if (saleOrderLine.getProduct().getStock(location) < quantity) {
 			return false;
 		}
-		
-		//set the quantity
+
+		// set the quantity
 		saleOrderLine.setQuantity(quantity);
 		return true;
 	}
 
 	/**
 	 * creates a new sale.
+	 * 
 	 * @return returns the created sale.
 	 */
 	public Sale makeSale() {
-		//orderNo is now assigned at completion
+		// orderNo is now assigned at completion
 //		int newOrderNumber = ++lastOrderNumber; // delete
 		sale = new Sale(LocalDateTime.now());
 		return sale;
@@ -138,29 +141,30 @@ public class SaleCtrl implements SaleCtrlIF {
 	public void clearSale() {
 		sale = null;
 	}
-	
+
 	/**
-	 * completes a sale, checks payment, and makes sure everything is correctly set up.
-	 * persists the sale.
+	 * completes a sale, checks payment, and makes sure everything is correctly set
+	 * up. persists the sale.
 	 * 
-	 * @return returns the created sale. returns null if the sale was improperly created, or not enough was paid.
+	 * @return returns the created sale. returns null if the sale was improperly
+	 *         created, or not enough was paid.
 	 */
-	//TODO: figure out what to do if the customer overpays.
+	// TODO: figure out what to do if the customer overpays.
 	public Sale completeSale(double payment) {
 		// TODO make sure the sale has proper values
 		Sale res = null;
-		if(payment >= sale.getPrice()) {
+		if (payment >= sale.getPrice()) {
 			sale.setEmployee(employee);
 			sale.setOrderNo(orderContainer.generateOrderNO());
-			
-			for(int i = 0; i < sale.getSaleOrderLinesSize(); i++) {
-				//reduce the stock of each item in the sale
-				boolean success = sale.getSaleOrderLine(i).getProduct().decrementStock(
-						sale.getSaleOrderLine(i).getQuantity(), location);
-				//if success is false, the stock was not handled correctly.
-				//TODO: figure out what to do.
+
+			for (int i = 0; i < sale.getSaleOrderLinesSize(); i++) {
+				// reduce the stock of each item in the sale
+				boolean success = sale.getSaleOrderLine(i).getProduct()
+						.decrementStock(sale.getSaleOrderLine(i).getQuantity(), location);
+				// if success is false, the stock was not handled correctly.
+				// TODO: figure out what to do.
 			}
-			
+
 			orderContainer.addOrder(sale);
 			res = sale;
 			clearSale();
@@ -171,19 +175,19 @@ public class SaleCtrl implements SaleCtrlIF {
 	public AbstractOrder findOrder(int orderNO) {
 		return orderContainer.findOrder(orderNO);
 	}
-	
+
 	public Sale createOrder(int orderNO, LocalDateTime date) {
 		Sale order = new Sale(date);
 		boolean success = orderContainer.addOrder(order);
-		if(!success) {
+		if (!success) {
 			order = null;
 		}
 		return order;
 	}
-	
+
 	public void updateOrder(int orderNO, LocalDateTime date) {
 		AbstractOrder order = findOrder(orderNO);
-		if(order != null) {
+		if (order != null) {
 			order.setOrderNo(orderNO);
 			order.setCustomer(null);
 			order.setEmployee(employee);

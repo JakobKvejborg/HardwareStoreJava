@@ -288,10 +288,7 @@ public class SaleMenuPanel extends JPanel {
 			public void keyPressed(KeyEvent e) {
 				if (e.getKeyCode() == 10) {
 					Customer customer = saleCtrl.setCustomer(txtFindCustomer.getText());
-					textName.setText(customer.getName());
-					textAddress.setText(customer.getAddress());
-					textPhone.setText(customer.getPhone());
-					textEmail.setText(customer.getEmail());
+					setCustomerData(customer);
 					txtFindCustomer.setText("");
 				}
 			}
@@ -638,7 +635,7 @@ public class SaleMenuPanel extends JPanel {
 		textAddress.setText(customer.getAddress());
 		textPhone.setText(customer.getPhone());
 		textEmail.setText(customer.getEmail());
-		textDiscountPercentage.setText(customer.getCustomerGroup().getMaxDiscount(LocalDateTime.now())+ "");
+		textDiscountPercentage.setText(customer.getCustomerGroup().getMaxDiscount(LocalDateTime.now())*100+ "%");
 	}
 	
 

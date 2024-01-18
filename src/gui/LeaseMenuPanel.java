@@ -30,6 +30,8 @@ import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.awt.Component;
@@ -66,12 +68,10 @@ public class LeaseMenuPanel extends JPanel {
 	private Employee employee;
 	private Location location;
 	private LeaseCtrl leaseCtrl;
+	private static String[] COL_NAMES = {	"Vare", "Pris", "Fjern"};
 
 	private class LeaseTable extends AbstractTableModel {
 
-    	private static final String[] COL_NAMES = {
-    			"Vare", "Pris", "Fjern"
-    	};
     	private ArrayList<LeaseableIF> products;
     	
     	public LeaseTable(ArrayList<LeaseableIF> products) {
@@ -317,6 +317,18 @@ public class LeaseMenuPanel extends JPanel {
 		panelTotal.add(textTotalPrice, gbc_textTotalPrice);
 		textTotalPrice.setColumns(10);
 		
+//		tableLease.addMouseListener(new MouseAdapter() {
+//			@Override
+//			public void mouseClicked(MouseEvent e) {
+//				int row = tableLease.rowAtPoint(e.getPoint());
+//				int col = tableLease.columnAtPoint(e.getPoint());
+//
+//				if (col == COL_NAMES.length - 1 && row != -1) {
+//					removeRow(row);
+//				}
+//			}
+//		});
+		
 		JPanel panelDate = new JPanel();
 		panelAtBottom.add(panelDate);
 		GridBagLayout gbl_panelDate = new GridBagLayout();
@@ -471,4 +483,7 @@ public class LeaseMenuPanel extends JPanel {
         leaseTableModel.setData(leaseCtrl.getProducts());
 	}
 
+//	private void removeRow(int row) {
+//		LeaseCtrl.removeLease(row);
+//	}
 }

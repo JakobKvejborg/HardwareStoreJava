@@ -435,9 +435,6 @@ public class SaleMenuPanel extends JPanel {
 		saleTableModel = new SaleTable(saleCtrl.getSale());
 		tableSale.setModel(saleTableModel);
 
-	        
-		int columnIndex = 4;
-//		tableSale.getColumnModel().getColumn(columnIndex).setCellEditor(new CustomTableCellEditor());
 		tableSale.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -447,8 +444,6 @@ public class SaleMenuPanel extends JPanel {
 				if (col == COL_NAMES.length - 1 && row != -1) {
 					removeRow(row);
 				}
-//					if (col == COL_NAMES.length - 4 && row != - 4) {
-//				}
 			}
 		});
 

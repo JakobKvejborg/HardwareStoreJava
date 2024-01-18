@@ -110,4 +110,14 @@ public class ShelfProduct extends AbstractProduct implements SellableIF {
 		}
 		return res;
 	}
+
+	@Override
+	public double getOriginalPrice(LocalDateTime date) {
+		return price.getPrice(date);
+	}
+
+	@Override
+	public double getDiscount(LocalDateTime date) {
+		return discount.getPrice(date);
+	}
 }

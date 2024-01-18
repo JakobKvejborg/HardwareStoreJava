@@ -14,6 +14,9 @@ public interface SellableIF {
 	 * @return price in double
 	 */
 	double getPrice(LocalDateTime date);
+	
+	double getOriginalPrice(LocalDateTime date);
+	double getDiscount(LocalDateTime date);
 	/**
 	 * @return true if the Sellable is only allowed to sell in quantities of 1
 	 */

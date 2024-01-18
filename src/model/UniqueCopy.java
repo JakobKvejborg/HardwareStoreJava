@@ -42,6 +42,18 @@ public class UniqueCopy extends AbstractCopy implements SellableIF{
 		return product.getDescription();
 	}
 
+	@Override
+	public double getOriginalPrice(LocalDateTime date) {
+		// TODO Auto-generated method stub
+		return product.getOriginalPrice(date);
+	}
+
+	@Override
+	public double getDiscount(LocalDateTime date) {
+		// TODO Auto-generated method stub
+		return product.getDiscount(date);
+	}
+
 	
 	
 }

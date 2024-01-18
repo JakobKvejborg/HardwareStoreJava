@@ -11,8 +11,8 @@ import java.util.ArrayList;
  * @since 14/12/2023 
  */
 public class CompositeProduct implements SellableIF {
-	private double price;
-	private double discount;
+	private TemporalPriceList price;
+	private TemporalPriceList discount;
 	private ArrayList<CompositeLine> compositeLines;
 	
 	/**
@@ -20,18 +20,21 @@ public class CompositeProduct implements SellableIF {
 	 * @param price		
 	 * @param discount	
 	 */
-	public CompositeProduct(double price, double discount) {
+	public CompositeProduct(double price, double discount, LocalDateTime creationDate) {
 		compositeLines = new ArrayList<>();
-		this.price = price;
-		this.discount = discount;
+		this.price = new TemporalPriceList();
+		this.price.addPrice(price, creationDate);
+		this.discount = new TemporalPriceList();
+		this.discount.addPrice(discount, creationDate);
+		
 	}
 
 	public double getPrice(LocalDateTime date) {
-		return price;
+		return price.getPrice(date) * (1 - discount.getPrice(date));
 	}
 
-	public double getDiscount() {
-		return discount;
+	public double getDiscount(LocalDateTime date) {
+		return discount.getPrice(date);
 	}
 
 	@Override
@@ -79,6 +82,14 @@ public class CompositeProduct implements SellableIF {
 		//do something
 		return false;
 	}
+
+	@Override
+	public double getOriginalPrice(LocalDateTime date) {
+		
+		return price.getPrice(date);
+	}
+
+
 	
 	
 	

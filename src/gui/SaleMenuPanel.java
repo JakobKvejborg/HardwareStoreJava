@@ -3,6 +3,7 @@ package gui;
 import controller.CustomerCtrl;
 import controller.SaleCtrl;
 import model.Customer;
+import model.CustomerGroup;
 import model.Employee;
 import model.Location;
 import model.Sale;
@@ -624,7 +625,8 @@ public class SaleMenuPanel extends JPanel {
 	private void setProductInfo(SaleOrderLine saleOrderLine) {
 		SellableIF product = saleOrderLine.getProduct();
 		txtpnProductDescription.setText(product.getDescription());
-		textPrice.setText(product.getPrice(LocalDateTime.now()) + "kr,-");
+		textPrice.setText(product.getPrice(LocalDateTime.now()) + "kr,-" + (product.getDiscount(LocalDateTime.now())*100+ "%"));
+		//textPrice.setText(CustomerGroup.getDefaultCustomerGroup().getMaxDiscount(LocalDateTime.now())*100+ "%");
 		lblProductName.setText(product.getName());
 		textStock.setText(product.getStock(location) + " stk.");
 

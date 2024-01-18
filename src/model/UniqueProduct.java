@@ -44,6 +44,16 @@ public class UniqueProduct extends AbstractProduct {
 	public boolean isUnique() {
 		return true;
 	}
+
+	public double getOriginalPrice(LocalDateTime date) {
+		// TODO Auto-generated method stub
+		return price.getPrice(date);
+	}
+
+	public double getDiscount(LocalDateTime date) {
+		// TODO Auto-generated method stub
+		return discount.getPrice(date);
+	}
 	
 
 }

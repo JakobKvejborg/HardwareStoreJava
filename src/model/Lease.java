@@ -21,7 +21,10 @@ public class Lease extends AbstractOrder {
 		this.totalPaid = totalPaid;
 		this.paymentDueDate = date.plusMonths(1);
 		this.state = "Leased";
-
+	}
+	
+	public Lease(LocalDateTime date) {
+		super(date);
 	}
 
 	public double getTotalPaid() {

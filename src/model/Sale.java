@@ -59,10 +59,13 @@ public class Sale extends AbstractOrder {
         } else {
             maxDiscount = super.getCustomer().getMaxDiscount(super.getDate());
         }
+        //TODO: make this thing not dumb
         if (totalDiscount > maxDiscount) {
             totalDiscount = maxDiscount;
         }
-        return total * (1 - totalDiscount);
+        //return total * (1.0d - totalDiscount)
+        return total * (1.0d - maxDiscount);
+
     }
 
     /**

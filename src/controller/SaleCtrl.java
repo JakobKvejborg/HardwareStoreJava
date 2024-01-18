@@ -58,11 +58,16 @@ public class SaleCtrl implements SaleCtrlIF {
 	}
 
 	public boolean setQuantity(int index, int quantity) {
-		// make sure that you cannot add 0 or negative quantities (guard clause)
-		if (quantity < 1) {
+		
+		if(quantity == 0) {
+			removeProduct(index);
+		}
+		
+		// make sure that you cannot set negative quantities (guard clause)
+		if (quantity < 0) {
 			return false;
 		}
-
+		
 		// get the last SaleOrderLine in the sale
 		SaleOrderLine saleOrderLine = sale.getSaleOrderLine(index);
 		// check if the SaleOrderLine exists and if the quantity can be anything other

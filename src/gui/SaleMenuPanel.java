@@ -175,6 +175,7 @@ public class SaleMenuPanel extends JPanel {
 					System.out.println("please insert an integer value!");
 				}
 				updateTable();
+
 			}
 		}
 
@@ -316,10 +317,7 @@ public class SaleMenuPanel extends JPanel {
 		btnFindCustomer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Customer customer = saleCtrl.setCustomer(txtFindCustomer.getText());
-				textName.setText(customer.getName());
-				textAddress.setText(customer.getAddress());
-				textPhone.setText(customer.getPhone());
-				textEmail.setText(customer.getEmail());
+				setCustomerData(customer);
 				txtFindCustomer.setText("");
 			}
 		});
@@ -639,6 +637,15 @@ public class SaleMenuPanel extends JPanel {
 		textStock.setText(product.getStock(location) + " stk.");
 
 	}
+	
+	private void setCustomerData(Customer customer) {
+		textName.setText(customer.getName());
+		textAddress.setText(customer.getAddress());
+		textPhone.setText(customer.getPhone());
+		textEmail.setText(customer.getEmail());
+		textDiscountPercentage.setText(customer.getCustomerGroup().getMaxDiscount(LocalDateTime.now())+ "");
+	}
+	
 
 	private void clearCustomer() {
 		Customer customer = saleCtrl.getSale().getCustomer();
@@ -658,10 +665,7 @@ public class SaleMenuPanel extends JPanel {
 			// TODO make sure customer is persisted
 			Customer customer = saleCtrl.setCustomer(customerWindow.getPhone());
 			if (customer != null) {
-				textName.setText(customer.getName());
-				textAddress.setText(customer.getAddress());
-				textPhone.setText(customer.getPhone());
-				textEmail.setText(customer.getEmail());
+				setCustomerData(customer);
 			}
 		}
 	}

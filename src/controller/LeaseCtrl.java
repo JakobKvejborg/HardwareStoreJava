@@ -143,8 +143,8 @@ public class LeaseCtrl /*implements LeaseCtrlIF*/ {
 		}
 	}
 	
-	public Lease getLease() {
-		return lease;
+	public ArrayList<LeaseableIF> getLease() {
+		return products;
 	}
 	
 }

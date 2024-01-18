@@ -40,6 +40,8 @@ import javax.swing.JTextPane;
 import javax.swing.SwingConstants;
 import javax.swing.JEditorPane;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.ScrollPaneConstants;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -318,18 +320,25 @@ public class LeaseMenuPanel extends JPanel {
 		panelTotal.add(textTotalPrice, gbc_textTotalPrice);
 		textTotalPrice.setColumns(10);
 		
-//		tableLease.addMouseListener(new MouseAdapter() {
-//			@Override
-//			public void mouseClicked(MouseEvent e) {
-//				int row = tableLease.rowAtPoint(e.getPoint());
-//				int col = tableLease.columnAtPoint(e.getPoint());
-//
-//				if (col == COL_NAMES.length - 1 && row != -1) {
-//					removeRow(row);
-//				}
-//			}
-//		});
+		JScrollPane scrollPaneLease = new JScrollPane();
+		panelMain.add(scrollPaneLease, BorderLayout.CENTER);
 		
+		tableLease = new JTable(50, 5);
+		leaseTableModel = new LeaseTable(leaseCtrl.getLease());
+		tableLease.setModel(leaseTableModel);
+		
+		tableLease.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				int row = tableLease.rowAtPoint(e.getPoint());
+				int col = tableLease.columnAtPoint(e.getPoint());
+
+				if (col == COL_NAMES.length - 1 && row != -1) {
+					removeRow(row);
+				}
+			}
+		});
+
 		JPanel panelDate = new JPanel();
 		panelAtBottom.add(panelDate);
 		GridBagLayout gbl_panelDate = new GridBagLayout();
@@ -421,19 +430,19 @@ public class LeaseMenuPanel extends JPanel {
 				}
 			}
 		});
-//		
-//		txtFindCustomer.addKeyListener(new KeyAdapter() {
-//			public void keyPressed(KeyEvent e) {
-//				if (e.getKeyCode() == 10) {
-//					Customer customer = leaseCtrl.setCustomer(textFindCustomer.getText());
-//					textName.setText(customer.getName());
-//					textAddress.setText(customer.getAddress());
-//					textPhone.setText(customer.getPhone());
-//					textEmail.setText(customer.getEmail());
-//					textFindCustomer.setText("");
-//				}
-//			}
-//		});
+		
+		textFindCustomer.addKeyListener(new KeyAdapter() {
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode() == 10) {
+					Customer customer = leaseCtrl.setCustomer(textFindCustomer.getText());
+					textName.setText(customer.getName());
+					textAddress.setText(customer.getAddress());
+					textPhone.setText(customer.getPhone());
+					textEmail.setText(customer.getEmail());
+					textFindCustomer.setText("");
+				}
+			}
+		});
 		
 		GridBagConstraints gbc_textFindCustomer = new GridBagConstraints();
 		gbc_textFindCustomer.insets = new Insets(0, 0, 5, 5);
@@ -493,8 +502,7 @@ public class LeaseMenuPanel extends JPanel {
 		panelCustomer.add(textEmail, gbc_textEmail);
 		textEmail.setColumns(10);
 		
-		JScrollPane scrollPaneLease = new JScrollPane();
-		panelMain.add(scrollPaneLease, BorderLayout.CENTER);
+		scrollPaneLease.setViewportView(tableLease);
 		
 		tableLease = new JTable();
 		//TODO insert controller data
@@ -516,7 +524,7 @@ public class LeaseMenuPanel extends JPanel {
         leaseTableModel.setData(leaseCtrl.getProducts());
 	}
 
-//	private void removeRow(int row) {
-//		LeaseCtrl.removeLease(row);
-//	}
+	private void removeRow(int row) {
+		leaseCtrl.removeProduct(row);
+	}
 }

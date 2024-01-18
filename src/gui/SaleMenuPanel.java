@@ -166,9 +166,6 @@ public class SaleMenuPanel extends JPanel {
 
 		@Override
 		public void setValueAt(Object value, int rowIndex, int columnIndex) {
-
-			SaleOrderLine saleOrderLine = sale.getSaleOrderLine(rowIndex);
-
 			if (columnIndex == 1) {
 				try {
 					int quantity = Integer.parseInt(value.toString());
@@ -178,9 +175,7 @@ public class SaleMenuPanel extends JPanel {
 					System.out.println("please insert an integer value!");
 				}
 				updateTable();
-				// TODO needs a check on stock
 			}
-//			 fireTableCellUpdated(rowIndex, columnIndex); // updater saleTable - måske unødvendig
 		}
 
 	}

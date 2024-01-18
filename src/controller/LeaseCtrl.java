@@ -20,6 +20,8 @@ public class LeaseCtrl /*implements LeaseCtrlIF*/ {
 	private Location location;
 	private Customer customer;
 	private Employee employee;
+	private Lease lease;
+	private CustomerCtrl customerCtrl;
 
 	public LeaseCtrl(Employee employee, Location location) {
 		orderContainer = OrderContainer.getInstance();
@@ -31,6 +33,17 @@ public class LeaseCtrl /*implements LeaseCtrlIF*/ {
 		this.products = new ArrayList<>();
 	}
 
+	public Customer setCustomer(String phone) {
+		Customer customer = customerCtrl.findCustomer(phone);
+		lease.setCustomer(customer);
+		return customer;
+	}
+	
+	public Customer setCustomer(Customer customer) {
+		lease.setCustomer(customer);
+		return customer;
+	}
+	
 	public LeaseableIF addProduct(String barcode) {
 		LeaseableIF product = productCtrl.findLeaseable(barcode);
 		//TODO make sure the copy has not yet been added.
@@ -96,5 +109,8 @@ public class LeaseCtrl /*implements LeaseCtrlIF*/ {
 		return products;
 	}
 
+	public Lease getLease() {
+		return lease;
+	}
 	
 }

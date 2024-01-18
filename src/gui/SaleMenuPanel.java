@@ -76,6 +76,10 @@ public class SaleMenuPanel extends JPanel {
 	private JButton btnNewButton;
 	private JButton btnFindCustomer;
 	private Color yellow = new Color(255, 255, 200);
+	private JLabel lblDiscountedPrice;
+	private JTextField textDiscountedPrice;
+	private JTextField textDiscount;
+	private JLabel lblDiscount;
 
 	private class SaleTable extends AbstractTableModel {
 
@@ -491,12 +495,12 @@ public class SaleMenuPanel extends JPanel {
 				Double.MIN_VALUE };
 		panelDescriptionSideBar.setLayout(gbl_panelDescriptionSideBar);
 
-		JLabel lblPrice = new JLabel("Lager antal");
-		GridBagConstraints gbc_lblPrice = new GridBagConstraints();
-		gbc_lblPrice.insets = new Insets(0, 0, 5, 0);
-		gbc_lblPrice.gridx = 0;
-		gbc_lblPrice.gridy = 0;
-		panelDescriptionSideBar.add(lblPrice, gbc_lblPrice);
+		JLabel lblStock = new JLabel("Lager antal");
+		GridBagConstraints gbc_lblStock = new GridBagConstraints();
+		gbc_lblStock.insets = new Insets(0, 0, 5, 0);
+		gbc_lblStock.gridx = 0;
+		gbc_lblStock.gridy = 0;
+		panelDescriptionSideBar.add(lblStock, gbc_lblStock);
 
 		textStock = new JTextField();
 		textStock.setEditable(false);
@@ -508,12 +512,12 @@ public class SaleMenuPanel extends JPanel {
 		panelDescriptionSideBar.add(textStock, gbc_textStock);
 		textStock.setColumns(10);
 
-		JLabel lblStock = new JLabel("Pris m/ rabat");
-		GridBagConstraints gbc_lblStock = new GridBagConstraints();
-		gbc_lblStock.insets = new Insets(0, 0, 5, 0);
-		gbc_lblStock.gridx = 0;
-		gbc_lblStock.gridy = 2;
-		panelDescriptionSideBar.add(lblStock, gbc_lblStock);
+		JLabel lblFullPrice = new JLabel("Pris");
+		GridBagConstraints gbc_lblFullPrice = new GridBagConstraints();
+		gbc_lblFullPrice.insets = new Insets(0, 0, 5, 0);
+		gbc_lblFullPrice.gridx = 0;
+		gbc_lblFullPrice.gridy = 2;
+		panelDescriptionSideBar.add(lblFullPrice, gbc_lblFullPrice);
 
 		textPrice = new JTextField();
 		textPrice.setEditable(false);
@@ -524,6 +528,40 @@ public class SaleMenuPanel extends JPanel {
 		gbc_textPrice.gridy = 3;
 		panelDescriptionSideBar.add(textPrice, gbc_textPrice);
 		textPrice.setColumns(10);
+		
+		lblDiscountedPrice = new JLabel("Pris med rabat");
+		GridBagConstraints gbc_lblDiscountedPrice = new GridBagConstraints();
+		gbc_lblDiscountedPrice.insets = new Insets(0, 0, 5, 0);
+		gbc_lblDiscountedPrice.gridx = 0;
+		gbc_lblDiscountedPrice.gridy = 4;
+		panelDescriptionSideBar.add(lblDiscountedPrice, gbc_lblDiscountedPrice);
+		
+		textDiscountedPrice = new JTextField();
+		textDiscountedPrice.setEditable(false);
+		GridBagConstraints gbc_textDiscountedPrice = new GridBagConstraints();
+		gbc_textDiscountedPrice.insets = new Insets(0, 0, 5, 0);
+		gbc_textDiscountedPrice.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textDiscountedPrice.gridx = 0;
+		gbc_textDiscountedPrice.gridy = 5;
+		panelDescriptionSideBar.add(textDiscountedPrice, gbc_textDiscountedPrice);
+		textDiscountedPrice.setColumns(10);
+		
+		lblDiscount = new JLabel("Rabat");
+		lblDiscount.setToolTipText("");
+		GridBagConstraints gbc_lblDiscount = new GridBagConstraints();
+		gbc_lblDiscount.insets = new Insets(0, 0, 5, 0);
+		gbc_lblDiscount.gridx = 0;
+		gbc_lblDiscount.gridy = 6;
+		panelDescriptionSideBar.add(lblDiscount, gbc_lblDiscount);
+		
+		textDiscount = new JTextField();
+		textDiscount.setEditable(false);
+		GridBagConstraints gbc_textDiscount = new GridBagConstraints();
+		gbc_textDiscount.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textDiscount.gridx = 0;
+		gbc_textDiscount.gridy = 7;
+		panelDescriptionSideBar.add(textDiscount, gbc_textDiscount);
+		textDiscount.setColumns(10);
 
 		JPanel panelSaleSouth = new JPanel();
 		add(panelSaleSouth, BorderLayout.SOUTH);
@@ -625,8 +663,9 @@ public class SaleMenuPanel extends JPanel {
 	private void setProductInfo(SaleOrderLine saleOrderLine) {
 		SellableIF product = saleOrderLine.getProduct();
 		txtpnProductDescription.setText(product.getDescription());
-		textPrice.setText(product.getPrice(LocalDateTime.now()) + "kr,-" + (product.getDiscount(LocalDateTime.now())*100+ "%"));
-		//textPrice.setText(CustomerGroup.getDefaultCustomerGroup().getMaxDiscount(LocalDateTime.now())*100+ "%");
+		textPrice.setText(product.getOriginalPrice(LocalDateTime.now()) + "kr,-");
+		textDiscountedPrice.setText(product.getPrice(LocalDateTime.now()) + "kr,-" );
+		textDiscount.setText((product.getDiscount(LocalDateTime.now())*100+ "%"));
 		lblProductName.setText(product.getName());
 		textStock.setText(product.getStock(location) + " stk.");
 

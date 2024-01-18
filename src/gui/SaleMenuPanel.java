@@ -169,14 +169,16 @@ public class SaleMenuPanel extends JPanel {
 
 			SaleOrderLine saleOrderLine = sale.getSaleOrderLine(rowIndex);
 
-			switch (columnIndex) {
-			case 1:
-				saleOrderLine.setQuantity(Integer.parseInt(value.toString()));
+			if (columnIndex == 1) {
+				try {
+					int quantity = Integer.parseInt(value.toString());
+					saleCtrl.setQuantity(rowIndex, quantity);
+				}
+				catch (Exception e){
+					System.out.println("please insert an integer value!");
+				}
 				updateTable();
 				// TODO needs a check on stock
-				break;
-			default:
-
 			}
 //			 fireTableCellUpdated(rowIndex, columnIndex); // updater saleTable - måske unødvendig
 		}
@@ -461,6 +463,7 @@ public class SaleMenuPanel extends JPanel {
 			public void valueChanged(ListSelectionEvent e) {
 
 				if (tableSale.getSelectedRow() != -1) {
+					
 					SaleOrderLine product = saleTableModel.getSaleOrderLine(tableSale.getSelectedRow());
 					setProductInfo(product);
 

@@ -14,6 +14,7 @@ import javax.swing.table.DefaultTableModel;
 
 import controller.LeaseCtrl;
 import controller.SaleCtrl;
+import model.Customer;
 import model.Employee;
 import model.LeaseableIF;
 import model.Location;
@@ -385,7 +386,6 @@ public class LeaseMenuPanel extends JPanel {
 		panelCustomer.setLayout(gbl_panelCustomer);
 		
 		textFindCustomer = new JTextField();
-		textFindCustomer.setText("Indsæt Tlf:");
 		textFindCustomer.addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusGained(FocusEvent e) {
@@ -401,6 +401,39 @@ public class LeaseMenuPanel extends JPanel {
 				}
 			}
 		});
+
+		txtFieldBarcode.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent e) {
+				if (!txtFieldBarcode.getText().isEmpty()) {
+					txtFieldBarcode.setText("");
+				}
+
+				if (textFindCustomer.getText().isEmpty()) {
+					textFindCustomer.setText("Indtast tlf.nr.");
+				}
+			}
+
+			@Override
+			public void focusLost(FocusEvent e) {
+				if (txtFieldBarcode.getText().isEmpty()) {
+					txtFieldBarcode.setText("Indtast stregkode");
+				}
+			}
+		});
+//		
+//		txtFindCustomer.addKeyListener(new KeyAdapter() {
+//			public void keyPressed(KeyEvent e) {
+//				if (e.getKeyCode() == 10) {
+//					Customer customer = leaseCtrl.setCustomer(textFindCustomer.getText());
+//					textName.setText(customer.getName());
+//					textAddress.setText(customer.getAddress());
+//					textPhone.setText(customer.getPhone());
+//					textEmail.setText(customer.getEmail());
+//					textFindCustomer.setText("");
+//				}
+//			}
+//		});
 		
 		GridBagConstraints gbc_textFindCustomer = new GridBagConstraints();
 		gbc_textFindCustomer.insets = new Insets(0, 0, 5, 5);

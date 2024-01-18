@@ -24,12 +24,12 @@ public class LeaseCtrl /*implements LeaseCtrlIF*/ {
 	private CustomerCtrl customerCtrl;
 
 	public LeaseCtrl(Employee employee, Location location) {
-		orderContainer = OrderContainer.getInstance();
 		this.employee = employee;
 		this.location = location;
 		this.date = LocalDateTime.now();
 		this.orderContainer = OrderContainer.getInstance();
 		this.productCtrl = new ProductCtrl();
+		this.customerCtrl = new CustomerCtrl();
 		this.products = new ArrayList<>();
 	}
 
@@ -44,6 +44,10 @@ public class LeaseCtrl /*implements LeaseCtrlIF*/ {
 		return customer;
 	}
 	
+	public void removeProduct(int index) {
+		products.remove(index);
+	}
+	
 	public LeaseableIF addProduct(String barcode) {
 		LeaseableIF product = productCtrl.findLeaseable(barcode);
 		//TODO make sure the copy has not yet been added.
@@ -53,6 +57,11 @@ public class LeaseCtrl /*implements LeaseCtrlIF*/ {
 		return product;
 	}
 	
+	public Lease makeLease() {
+		lease = new Lease(LocalDateTime.now());
+		return lease;
+	}
+
 	
 	public void clearLeases() {
 		date = null;
@@ -109,6 +118,31 @@ public class LeaseCtrl /*implements LeaseCtrlIF*/ {
 		return products;
 	}
 
+	public AbstractOrder findOrder(int orderNO) {
+		return orderContainer.findOrder(orderNO);
+	}
+
+	public Lease createOrder(int orderNO, LocalDateTime date) {
+		Lease order = new Lease(date);
+		boolean success = orderContainer.addOrder(order);
+		if (!success) {
+			order = null;
+		}
+		return order;
+	}
+
+	public void updateOrder(int orderNO, LocalDateTime date) {
+		AbstractOrder order = findOrder(orderNO);
+		if (order != null) {
+			order.setOrderNo(orderNO);
+			order.setCustomer(null);
+			order.setEmployee(employee);
+			System.out.println("Order has been updated: " + order);
+		} else {
+			System.out.println("Order could not be found: " + orderNO);
+		}
+	}
+	
 	public Lease getLease() {
 		return lease;
 	}

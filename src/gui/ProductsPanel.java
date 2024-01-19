@@ -18,6 +18,7 @@ import javax.swing.SwingConstants;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableModel;
 
+import controller.ProductCtrl;
 import model.AbstractProduct;
 import model.LeaseableIF;
 import model.OrderContainer;
@@ -40,10 +41,11 @@ public class ProductsPanel extends JPanel {
 	private JTable table;
 	private JButton btnBarcodeEnter;
 	private ProductTable productTable;
-	private static String[] COL_NAMES = { "Vare", "Antal", "Styk pris", "Total Pris", "Fjern" };
-	
+	private static String[] COL_NAMES = { "Vare", "Antal", "Pris", "Rabat", "Fjern" };
+	private ProductCtrl productCtrl;
+
 	private class ProductTable extends AbstractTableModel {
-		
+
 		private ArrayList<AbstractProduct> products;
 
 		@Override
@@ -68,7 +70,7 @@ public class ProductsPanel extends JPanel {
 			// TODO Auto-generated method stub
 			return null;
 		}
-		
+
 		public void setData(ArrayList<AbstractProduct> products) {
 			if (products == null) {
 				products = new ArrayList<>();
@@ -76,10 +78,9 @@ public class ProductsPanel extends JPanel {
 			this.products = products;
 			super.fireTableDataChanged();
 		}
+
 	
 	}
-	
-
 
 	/**
 	 * Create the panel.
@@ -106,20 +107,35 @@ public class ProductsPanel extends JPanel {
 		textBarcode.addKeyListener(new KeyAdapter() {
         	public void keyPressed(KeyEvent e) {
         		if(e.getKeyCode() == 10) {
-        			barcodeEntered();
+//        			barcodeEntered();
         		}
         	}
         });
 		
 		panel_1.add(textBarcode, BorderLayout.CENTER);
 		textBarcode.setColumns(10);
+		textBarcode.addKeyListener(new KeyAdapter() {
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode() == 10) {
+//					barcodeEntered();
+				}
+			}
+		});
 		
 		btnBarcodeEnter = new JButton("Enter");
 		btnBarcodeEnter.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				productTable.setData(ProductContainer.getInstance().getProducts()); 
-					barcodeEntered();
-			}
+//					barcodeEntered();
+
+			
+//		JButton btnEnter = new JButton("Find produkt");
+//		btnEnter.addActionListener(new ActionListener() {
+//			public void actionPerformed(ActionEvent e) {
+////				productTable.setData(ProductContainer.getInstance().getProducts()); // updates the jtable
+////				barcodeEntered()
+//			}
+		}
 		});
 		panel_1.add(btnBarcodeEnter, BorderLayout.EAST);
 		
@@ -133,6 +149,12 @@ public class ProductsPanel extends JPanel {
 		panel_2.setLayout(gbl_panel_2);
 		
 		JButton btnAddProduct = new JButton("Tilføj nyt produkt      ");
+		btnAddProduct.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				CreateProductWindow createProductWindow = new CreateProductWindow(productCtrl);
+				createProductWindow.setVisible(true);
+			}
+		});
 		GridBagConstraints gbc_btnAddProduct = new GridBagConstraints();
 		gbc_btnAddProduct.insets = new Insets(0, 0, 5, 5);
 		gbc_btnAddProduct.gridx = 0;
@@ -209,9 +231,6 @@ public class ProductsPanel extends JPanel {
 			}
 		});
 
-		private void barcodeEntered() {
-			//TODO Not done
-		}
+		
 	}
-
 }

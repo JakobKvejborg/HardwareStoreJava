@@ -83,6 +83,8 @@ public class SaleMenuPanel extends JPanel {
 	
 	
 
+	
+	
 	private class SaleTable extends AbstractTableModel {
 
 		private Sale sale;

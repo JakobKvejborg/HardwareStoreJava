@@ -28,6 +28,10 @@ public class ShelfProduct extends AbstractProduct implements SellableIF {
 		stocks = new ArrayList<>();
 	}
 	
+	public ShelfProduct(String name, String descripton, String barcode, String purchasePrice) {
+		super(name, descripton, barcode, purchasePrice);
+	}
+	
 	public ShelfProduct(String name, String description, String barcode, double purchasePrice) {
 		super(name, description, barcode, purchasePrice);
 	}

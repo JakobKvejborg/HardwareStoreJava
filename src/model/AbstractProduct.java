@@ -30,6 +30,20 @@ public abstract class AbstractProduct {
 		this.purchasePrice = purchasePrice;
 	}
 	
+	public AbstractProduct(String name, String description, String barcode, String purchasePrice) {
+        this.name = name;
+        this.description = description;
+        this.barcode = barcode;
+
+        try {
+            this.purchasePrice = Double.parseDouble(purchasePrice);
+        } catch (NumberFormatException e) {
+            System.err.println("Error: Invalid purchase price format");
+        }
+    }
+	
+	
+	
 	/**
 	 * This method checks if a product is unique or not.
 	 * @return a boolean true or false indicating whether the product is unique: <code>true</code>, or not: <code>false</code>.  

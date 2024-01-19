@@ -30,7 +30,7 @@ import java.awt.event.ActionEvent;
 public class ProductsPanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-	private JTextField textField;
+	private JTextField textBarcode;
 	private JTable table;
 	private ProductTable productTable;
 	private static String[] COL_NAMES = { "Vare", "Antal", "Styk pris", "Total Pris", "Fjern" };
@@ -93,9 +93,9 @@ public class ProductsPanel extends JPanel {
 		panel.add(panel_1, BorderLayout.NORTH);
 		panel_1.setLayout(new BorderLayout(0, 0));
 		
-		textField = new JTextField();
-		panel_1.add(textField, BorderLayout.CENTER);
-		textField.setColumns(10);
+		textBarcode = new JTextField();
+		panel_1.add(textBarcode, BorderLayout.CENTER);
+		textBarcode.setColumns(10);
 		
 		JButton btnEnter = new JButton("Enter");
 		btnEnter.addActionListener(new ActionListener() {

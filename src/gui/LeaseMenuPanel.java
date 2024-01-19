@@ -24,6 +24,7 @@ import model.SaleOrderLine;
 import model.SellableIF;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JFormattedTextField;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
@@ -65,7 +66,7 @@ public class LeaseMenuPanel extends JPanel {
 	private JTextField textFieldToDate;
 	private JTextField textFieldLeaseDuration;
 	private JTextField textFindCustomer;
-	private JButton btnCheckOut;
+	private JButton btnCheckout;
 	private JButton btnCancel;
 	private JButton btnCreateCustomer;
 	private JButton btnBarcodeEnter;
@@ -167,14 +168,19 @@ public class LeaseMenuPanel extends JPanel {
 		gbl_panelFinalButtons.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panelFinalButtons.setLayout(gbl_panelFinalButtons);
 		
-		btnCheckOut = new JButton("Færdiggør");
-		GridBagConstraints gbc_btnCheckOut = new GridBagConstraints();
-		gbc_btnCheckOut.anchor = GridBagConstraints.NORTHWEST;
-		gbc_btnCheckOut.insets = new Insets(0, 0, 0, 5);
-		gbc_btnCheckOut.gridx = 0;
-		gbc_btnCheckOut.gridy = 0;
-		panelFinalButtons.add(btnCheckOut, gbc_btnCheckOut);
-		
+		btnCheckout = new JButton("Færdiggør");
+		GridBagConstraints gbc_btnCheckout = new GridBagConstraints();
+		gbc_btnCheckout.anchor = GridBagConstraints.NORTHWEST;
+		gbc_btnCheckout.insets = new Insets(0, 0, 0, 5);
+		gbc_btnCheckout.gridx = 0;
+		gbc_btnCheckout.gridy = 0;
+		panelFinalButtons.add(btnCheckout, gbc_btnCheckout);
+		btnCheckout.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				checkoutClicked();
+			}
+		});
 		btnCancel = new JButton("Afbryd");
 		btnCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -606,7 +612,18 @@ public class LeaseMenuPanel extends JPanel {
 		txtFieldBarcode.setText("");
 	}
 	
-	//TODO private void checkoutClicked(
+/*	private void checkoutClicked() {
+		String paymentInput = JOptionPane.showInputDialog("Indtast betaling:");
+		double payment;
+		payment = Double.parseDouble(paymentInput);
+		leases = leaseCtrl.completeLease(payment);
+		String totalPrice = "Total: " + leases.getPrice() + " Betalt: " + payment + "kr Tilbage: "
+				+ (payment - leases.getLeasePrice()) + "kr";
+		System.out.println(leases.getLeasePrice());
+		leaseCtrl.makeLease();
+		updateData();
+		clearCheckout();
+	}*/ //TODO this class need fixing ^
 	
 	private void showTotalPrice(String totalPrice) {
 		lblTotalPrice.setText(totalPrice);

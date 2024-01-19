@@ -26,6 +26,7 @@ import model.Sale;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
+import java.awt.Font;
 
 public class ProductsPanel extends JPanel {
 
@@ -170,8 +171,10 @@ public class ProductsPanel extends JPanel {
 		JScrollPane scrollPane_1 = new JScrollPane();
 		panel_4.add(scrollPane_1, BorderLayout.CENTER);
 		
-		JTextPane textPane = new JTextPane();
-		scrollPane_1.setViewportView(textPane);
+		JTextPane txtpnVarensBeskrivelseHer = new JTextPane();
+		txtpnVarensBeskrivelseHer.setText("Varens beskrivelse her.");
+		txtpnVarensBeskrivelseHer.setFont(new Font("Times New Roman", Font.PLAIN, 20));
+		scrollPane_1.setViewportView(txtpnVarensBeskrivelseHer);
 
 	}
 

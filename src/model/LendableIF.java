@@ -18,4 +18,8 @@ public interface LendableIF {
 	 * @return The name of the Lendable.
 	 */
 	String getName();
+	
+	public int getStock(Location location);
+
+	public boolean decrementStock(int quantity, Location location);
 }

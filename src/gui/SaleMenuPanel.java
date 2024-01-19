@@ -80,6 +80,8 @@ public class SaleMenuPanel extends JPanel {
 	private JTextField textDiscountedPrice;
 	private JTextField textDiscount;
 	private JLabel lblDiscount;
+	
+	
 
 	private class SaleTable extends AbstractTableModel {
 

@@ -24,6 +24,10 @@ public class ProductContainer {
 		return instance;
 	}
 	
+	public ArrayList<AbstractProduct> getProducts() {
+		return products;
+	}
+	
 	/** 
 	 * Finds a product by barcode
 	 * is O(n) 

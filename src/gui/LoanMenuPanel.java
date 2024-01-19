@@ -52,7 +52,6 @@ public class LoanMenuPanel extends JPanel {
 	private JTextField textFindCustomer;
 	private JButton btnCheckOut;
 	private JButton btnCancel;
-	private JButton btnNewCustomer;
 	private JButton btnBarcodeEnter;
 	private Object loanCtrl;
 
@@ -212,6 +211,7 @@ public class LoanMenuPanel extends JPanel {
 		
 		textDiscountPercentage = new JTextField();
 		textDiscountPercentage.setEditable(false);
+		textDiscountPercentage.setText("0%");
 		GridBagConstraints gbc_textDiscountPercentage = new GridBagConstraints();
 		gbc_textDiscountPercentage.anchor = GridBagConstraints.NORTHWEST;
 		gbc_textDiscountPercentage.insets = new Insets(0, 0, 0, 5);
@@ -285,16 +285,17 @@ public class LoanMenuPanel extends JPanel {
 		textFieldLoanDuration.setColumns(10);
 		
 		JPanel panelCustomer = new JPanel();
+		panelCustomer.setBorder(new EmptyBorder(5, 0, 0, 0));
 		panelAtBottom.add(panelCustomer);
 		GridBagLayout gbl_panelCustomer = new GridBagLayout();
-		gbl_panelCustomer.columnWidths = new int[]{0, 0, 0};
+		gbl_panelCustomer.columnWidths = new int[]{161, 233, 0};
 		gbl_panelCustomer.rowHeights = new int[]{0, 0, 0, 0};
 		gbl_panelCustomer.columnWeights = new double[]{1.0, 1.0, Double.MIN_VALUE};
-		gbl_panelCustomer.rowWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_panelCustomer.rowWeights = new double[]{1.0, 0.0, 0.0, Double.MIN_VALUE};
 		panelCustomer.setLayout(gbl_panelCustomer);
 		
 		textFindCustomer = new JTextField();
-		textFindCustomer.setText("Indsæt Tlf:");
+		textFindCustomer.setText("Indtast tlf.nr.");
 		textFindCustomer.addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusGained(FocusEvent e) {
@@ -337,14 +338,20 @@ public class LoanMenuPanel extends JPanel {
 		gbc_textFindCustomer.gridx = 0;
 		gbc_textFindCustomer.gridy = 0;
 		panelCustomer.add(textFindCustomer, gbc_textFindCustomer);
-			
-		btnNewCustomer = new JButton("Opret ny Kunde");
-		GridBagConstraints gbc_btnNewCustomer = new GridBagConstraints();
-		gbc_btnNewCustomer.fill = GridBagConstraints.HORIZONTAL;
-		gbc_btnNewCustomer.insets = new Insets(0, 0, 5, 0);
-		gbc_btnNewCustomer.gridx = 1;
-		gbc_btnNewCustomer.gridy = 0;
-		panelCustomer.add(btnNewCustomer, gbc_btnNewCustomer);
+		
+		JSplitPane splitPane = new JSplitPane();
+		GridBagConstraints gbc_splitPane = new GridBagConstraints();
+		gbc_splitPane.insets = new Insets(0, 0, 5, 0);
+		gbc_splitPane.fill = GridBagConstraints.BOTH;
+		gbc_splitPane.gridx = 1;
+		gbc_splitPane.gridy = 0;
+		panelCustomer.add(splitPane, gbc_splitPane);
+		
+		JButton btnFindCustomer = new JButton("      Find kunde      ");
+		splitPane.setLeftComponent(btnFindCustomer);
+		
+		JButton btnCreateCustomer = new JButton("Opret ny kunde");
+		splitPane.setRightComponent(btnCreateCustomer);
 		
 		textName = new JTextField();
 		textName.setText("Navn");

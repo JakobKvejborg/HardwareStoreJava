@@ -151,8 +151,8 @@ public class ProductsPanel extends JPanel {
 		JButton btnAddProduct = new JButton("Tilføj nyt produkt      ");
 		btnAddProduct.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				CreateProductWindow createProductWindow = new CreateProductWindow(productCtrl);
-				createProductWindow.setVisible(true);
+				CreateNewProductWindow CreateNewProductWindow = new CreateNewProductWindow(productCtrl);
+				CreateNewProductWindow.setVisible(true);
 			}
 		});
 		GridBagConstraints gbc_btnAddProduct = new GridBagConstraints();

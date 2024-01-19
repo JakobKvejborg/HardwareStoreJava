@@ -271,6 +271,10 @@ public class CreateProductWindow extends JDialog {
 	private void okClicked() {
 		okClicked = true;
 		System.out.println("ping" + textFieldPurchasePrice.getText());
+		System.out.println("ping" + textFieldPurchasePrice.getText().trim());
+		System.out.println("Text length: " + textFieldPurchasePrice.getText().length());
+		System.out.println("Text content: [" + textFieldPurchasePrice.getText() + "]");
+
 //			    double purchasePriceAsString = Integer.parseInt(textFieldPurchasePrice.getText().trim());
 //
 //			    if (textFieldName.getText().isEmpty() || textFieldDescription.getText().isEmpty() || textFieldBarcode.getText().isEmpty() || textFieldPurchasePrice.getText().isEmpty()) {

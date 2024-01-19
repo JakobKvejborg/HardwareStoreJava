@@ -178,7 +178,7 @@ public class LeaseMenuPanel extends JPanel {
 		btnCheckout.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				checkoutClicked();
+//				checkoutClicked();
 			}
 		});
 		btnCancel = new JButton("Afbryd");
@@ -446,9 +446,10 @@ public class LeaseMenuPanel extends JPanel {
 		panelDate.add(textFieldLeaseDuration, gbc_textFieldLeaseDuration);
 		
 		JPanel panelCustomer = new JPanel();
+		panelCustomer.setBorder(new EmptyBorder(5, 0, 0, 0));
 		panelAtBottom.add(panelCustomer);
 		GridBagLayout gbl_panelCustomer = new GridBagLayout();
-		gbl_panelCustomer.columnWidths = new int[]{161, 0, 0};
+		gbl_panelCustomer.columnWidths = new int[]{161, 223, 0};
 		gbl_panelCustomer.rowHeights = new int[]{0, 0, 0, 0};
 		gbl_panelCustomer.columnWeights = new double[]{1.0, 1.0, Double.MIN_VALUE};
 		gbl_panelCustomer.rowWeights = new double[]{1.0, 0.0, 0.0, Double.MIN_VALUE};
@@ -517,7 +518,7 @@ public class LeaseMenuPanel extends JPanel {
 		gbc_splitPane.gridy = 0;
 		panelCustomer.add(splitPane, gbc_splitPane);
 		
-		btnCreateCustomer = new JButton("Opret ny Kunde");
+		btnCreateCustomer = new JButton("Opret ny kunde");
 		btnCreateCustomer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				createCustomerWindow();

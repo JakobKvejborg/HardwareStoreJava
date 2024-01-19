@@ -245,6 +245,7 @@ public class SaleMenuPanel extends JPanel {
 		panelWestCenter.setLayout(new BorderLayout(0, 0));
 
 		JPanel panelCenterSouthWest = new JPanel();
+		panelCenterSouthWest.setBorder(new EmptyBorder(5, 0, 0, 0));
 		panelWestCenter.add(panelCenterSouthWest, BorderLayout.SOUTH);
 		GridBagLayout gbl_panelCenterSouthWest = new GridBagLayout();
 		gbl_panelCenterSouthWest.columnWidths = new int[] { 161, 85, 0 };

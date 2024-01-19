@@ -31,6 +31,24 @@ public class LendableCopy extends AbstractCopy implements LendableIF, LeaseableI
 		return product.getLeasePrice(date);
 
 	}
+
+	@Override
+	public double getOriginalLeasePrice(LocalDateTime date) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public double getDiscountLease(LocalDateTime date) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public String getDescription() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 	
 }

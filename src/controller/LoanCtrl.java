@@ -4,10 +4,12 @@ import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 
+import model.Customer;
 import model.Employee;
 import model.LendableIF;
 import model.Loan;
 import model.Location;
+import model.OrderContainer;
 
 public class LoanCtrl {
 
@@ -16,8 +18,17 @@ public class LoanCtrl {
 	private Location location;
 	private Employee employee;
 	private ArrayList<LendableIF> products;
+	private Customer customer;
 	
 	
+	public Customer getCustomer() {
+		return customer;
+	}
+
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
+	}
+
 	public LoanCtrl(Employee employee, Location location) {
 		this.employee = employee;
 		this.location = location;
@@ -33,12 +44,26 @@ public class LoanCtrl {
 	public ArrayList<Loan> completeLoans(){
 		boolean success = validateLoans();
 		
+		for(int i = 0; i < products.size(); i++) {
+			LendableIF product = products.get(i);
+			product.decrementStock(1, location);
+			Loan loan = new Loan(startDate, endDate, product);
+			loan.setCustomer(customer);
+			loan.setEmployee(employee);
+			loan.setOrderNo(OrderContainer.getInstance().generateOrderNO());
+			OrderContainer.getInstance().addOrder(loan);
+		
+		}
 		return null;
 	}
 	
 	
 	public boolean validateLoans() {
-		//check that the loan is at least 1 day long
+		if(employee == null || location == null || customer == null || startDate == null || endDate == null ) {
+			return false;
+		}
+		
+		//check that the loan is at least 1 day long.
 		if(startDate.until(endDate, ChronoUnit.DAYS) < 1) {
 			return false;
 		}
@@ -54,10 +79,19 @@ public class LoanCtrl {
 				return false;
 			}
 		}
-		
 		return true;
-		
-		
+	}
+	
+	public double getLoanPrice(){
+		double total = 0.0d;
+		for(int i = 0; i < products.size(); i++) {
+			total += products.get(i).getLoanPrice(startDate);
+		}
+		return total * getDuration();
+	}
+
+	private double getDuration() {
+		return startDate.until(endDate, ChronoUnit.DAYS);
 	}
 
 	public boolean setDates(LocalDateTime startDate, LocalDateTime endDate) {

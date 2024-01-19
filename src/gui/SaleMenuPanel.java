@@ -84,7 +84,6 @@ public class SaleMenuPanel extends JPanel {
 	private class SaleTable extends AbstractTableModel {
 
 		private Sale sale;
-		
 
 		public SaleTable(Sale sale) {
 			if (sale == null) {
@@ -163,7 +162,6 @@ public class SaleMenuPanel extends JPanel {
 			return res;
 		}
 
-
 		@Override
 		public boolean isCellEditable(int row, int column) {
 			return column == 1 && !sale.getSaleOrderLine(row).getProduct().isUnique();
@@ -175,11 +173,10 @@ public class SaleMenuPanel extends JPanel {
 				try {
 					int quantity = Integer.parseInt(value.toString());
 					saleCtrl.setQuantity(rowIndex, quantity);
-				}
-				catch (Exception e){
+				} catch (Exception e) {
 					System.out.println("please insert an integer value!");
 				}
-				updateTable();
+				updateData();
 
 			}
 		}
@@ -196,6 +193,7 @@ public class SaleMenuPanel extends JPanel {
 		customerCtrl = new CustomerCtrl();
 		sale = saleCtrl.makeSale();
 		createLayout();
+		updateData();
 	}
 
 	private void createLayout() {
@@ -292,8 +290,8 @@ public class SaleMenuPanel extends JPanel {
 		txtFindCustomer.addKeyListener(new KeyAdapter() {
 			public void keyPressed(KeyEvent e) {
 				if (e.getKeyCode() == 10) {
-					Customer customer = saleCtrl.setCustomer(txtFindCustomer.getText());
-					setCustomerData(customer);
+					saleCtrl.setCustomer(txtFindCustomer.getText());
+					updateData();
 					txtFindCustomer.setText("");
 				}
 			}
@@ -318,8 +316,8 @@ public class SaleMenuPanel extends JPanel {
 		btnFindCustomer = new JButton("      Find kunde      ");
 		btnFindCustomer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Customer customer = saleCtrl.setCustomer(txtFindCustomer.getText());
-				setCustomerData(customer);
+				saleCtrl.setCustomer(txtFindCustomer.getText());
+				updateData();
 				txtFindCustomer.setText("");
 			}
 		});
@@ -453,7 +451,7 @@ public class SaleMenuPanel extends JPanel {
 			public void valueChanged(ListSelectionEvent e) {
 
 				if (tableSale.getSelectedRow() != -1) {
-					
+
 					SaleOrderLine product = saleTableModel.getSaleOrderLine(tableSale.getSelectedRow());
 					setProductInfo(product);
 
@@ -528,14 +526,14 @@ public class SaleMenuPanel extends JPanel {
 		gbc_textPrice.gridy = 3;
 		panelDescriptionSideBar.add(textPrice, gbc_textPrice);
 		textPrice.setColumns(10);
-		
+
 		lblDiscountedPrice = new JLabel("Pris med rabat");
 		GridBagConstraints gbc_lblDiscountedPrice = new GridBagConstraints();
 		gbc_lblDiscountedPrice.insets = new Insets(0, 0, 5, 0);
 		gbc_lblDiscountedPrice.gridx = 0;
 		gbc_lblDiscountedPrice.gridy = 4;
 		panelDescriptionSideBar.add(lblDiscountedPrice, gbc_lblDiscountedPrice);
-		
+
 		textDiscountedPrice = new JTextField();
 		textDiscountedPrice.setEditable(false);
 		GridBagConstraints gbc_textDiscountedPrice = new GridBagConstraints();
@@ -545,7 +543,7 @@ public class SaleMenuPanel extends JPanel {
 		gbc_textDiscountedPrice.gridy = 5;
 		panelDescriptionSideBar.add(textDiscountedPrice, gbc_textDiscountedPrice);
 		textDiscountedPrice.setColumns(10);
-		
+
 		lblDiscount = new JLabel("Rabat");
 		lblDiscount.setToolTipText("");
 		GridBagConstraints gbc_lblDiscount = new GridBagConstraints();
@@ -553,7 +551,7 @@ public class SaleMenuPanel extends JPanel {
 		gbc_lblDiscount.gridx = 0;
 		gbc_lblDiscount.gridy = 6;
 		panelDescriptionSideBar.add(lblDiscount, gbc_lblDiscount);
-		
+
 		textDiscount = new JTextField();
 		textDiscount.setEditable(false);
 		GridBagConstraints gbc_textDiscount = new GridBagConstraints();
@@ -616,12 +614,11 @@ public class SaleMenuPanel extends JPanel {
 	private void cancelClicked() {
 		saleCtrl.clearSale();
 		saleCtrl.makeSale();
-		updateTable();
+		updateData();
 	}
 
 	private void updateTable() {
 		saleTableModel.setData(saleCtrl.getSale());
-		textTotalPrice.setText(saleCtrl.getSale().getPrice() + "");
 	}
 
 	private void barcodeEntered() {
@@ -630,7 +627,7 @@ public class SaleMenuPanel extends JPanel {
 		String barcode = textBarcode.getText();
 		SaleOrderLine saleOrderLine = saleCtrl.addProduct(barcode);
 
-		updateTable();
+		updateData();
 		setProductInfo(saleOrderLine);
 		textBarcode.setText("");
 
@@ -643,42 +640,31 @@ public class SaleMenuPanel extends JPanel {
 		sale = saleCtrl.completeSale(payment);
 		String totalPrice = "Total: " + sale.getPrice() + " Betalt: " + payment + "kr Tilbage: "
 				+ (payment - sale.getPrice()) + "kr";
-		showTotalPrice(totalPrice);
-		textTotalPrice.setText(sale.getPrice() + "kr");
 		System.out.println(sale.getPrice());
 		saleCtrl.makeSale();
-		clearCustomer();
+		updateData();
 		clearCheckout();
 	}
 
-	/**
-	 * This method sets the label in the right bottom corner to the total price
-	 *
-	 * @param totalPrice
-	 */
-	private void showTotalPrice(String totalPrice) {
-		lblTotalPrice.setText(totalPrice);
-	}
 
 	private void setProductInfo(SaleOrderLine saleOrderLine) {
 		SellableIF product = saleOrderLine.getProduct();
 		txtpnProductDescription.setText(product.getDescription());
 		textPrice.setText(product.getOriginalPrice(LocalDateTime.now()) + "kr,-");
-		textDiscountedPrice.setText(product.getPrice(LocalDateTime.now()) + "kr,-" );
-		textDiscount.setText((product.getDiscount(LocalDateTime.now())*100+ "%"));
+		textDiscountedPrice.setText(product.getPrice(LocalDateTime.now()) + "kr,-");
+		textDiscount.setText((product.getDiscount(LocalDateTime.now()) * 100 + "%"));
 		lblProductName.setText(product.getName());
 		textStock.setText(product.getStock(location) + " stk.");
 
 	}
-	
+
 	private void setCustomerData(Customer customer) {
 		textName.setText(customer.getName());
 		textAddress.setText(customer.getAddress());
 		textPhone.setText(customer.getPhone());
 		textEmail.setText(customer.getEmail());
-		textDiscountPercentage.setText(customer.getCustomerGroup().getMaxDiscount(LocalDateTime.now())*100+ "%");
+		textDiscountPercentage.setText(customer.getCustomerGroup().getMaxDiscount(LocalDateTime.now()) * 100 + "%");
 	}
-	
 
 	private void clearCustomer() {
 		Customer customer = saleCtrl.getSale().getCustomer();
@@ -688,6 +674,19 @@ public class SaleMenuPanel extends JPanel {
 			textAddress.setText("Adresse");
 			textPhone.setText("Telefonnummer");
 			textEmail.setText("Email");
+			textDiscountPercentage.setText(CustomerGroup.getDefaultCustomerGroup().getMaxDiscount(LocalDateTime.now())*100 + "%");
+
+		}
+	}
+
+	private void updateData() {
+		Sale sale = saleCtrl.getSale();
+		updateTable();
+		textTotalPrice.setText(saleCtrl.getSale().getPrice() + "kr");
+		if (sale.getCustomer() != null) {
+			setCustomerData(sale.getCustomer());
+		} else {
+			clearCustomer();
 		}
 	}
 
@@ -695,16 +694,13 @@ public class SaleMenuPanel extends JPanel {
 		CreateCustomerWindow customerWindow = new CreateCustomerWindow(customerCtrl);
 		customerWindow.setVisible(true);
 		if (customerWindow.isOkClicked()) {
-			// TODO make sure customer is persisted
-			Customer customer = saleCtrl.setCustomer(customerWindow.getPhone());
-			if (customer != null) {
-				setCustomerData(customer);
-			}
+			saleCtrl.setCustomer(customerWindow.getPhone());
+			updateData();
 		}
 	}
 
 	private void clearCheckout() {
-		updateTable();
+		updateData();
 		textPrice.setText("");
 		txtpnProductDescription.setText("Varens beskrivelse her.");
 		lblProductName.setText("Produkt");

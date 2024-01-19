@@ -1,7 +1,9 @@
 package gui;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -19,20 +21,21 @@ import controller.CustomerCtrl;
 import controller.ProductCtrl;
 import model.AbstractProduct;
 import model.Customer;
+import javax.swing.SwingConstants;
 
 public class CreateProductWindow extends JDialog {
 
 	private static final long serialVersionUID = 1L;
 	private final JPanel contentPanel = new JPanel();
-	
-	private JLabel lblErrorLabelCCW;
 	private ProductCtrl productCtrl;
 	private AbstractProduct product = null;
 	private boolean okClicked = false;
+	private JLabel lblErrorLabelCCW;
 	private JTextField textFieldName;
 	private JTextField textFieldDescription;
 	private JTextField textFieldBarcode;
 	private JTextField textFieldPurchasePrice;
+	private JTextField textFieldQuantity;
 
 	/**
 	 * Launch the application.
@@ -64,9 +67,9 @@ public class CreateProductWindow extends JDialog {
 				getContentPane().add(contentPanel, BorderLayout.CENTER);
 				GridBagLayout gbl_contentPanel = new GridBagLayout();
 				gbl_contentPanel.columnWidths = new int[] { 0, 244, 0 };
-				gbl_contentPanel.rowHeights = new int[] { 0, 0, 0, 0, 0 };
+				gbl_contentPanel.rowHeights = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 				gbl_contentPanel.columnWeights = new double[] { 0.0, 1.0, Double.MIN_VALUE };
-				gbl_contentPanel.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
+				gbl_contentPanel.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE };
 				contentPanel.setLayout(gbl_contentPanel);
 				{
 					JLabel lblName = new JLabel("Navn:");
@@ -158,7 +161,7 @@ public class CreateProductWindow extends JDialog {
 				{
 					JLabel lblPruchasePrice = new JLabel("Indkøbspris:");
 					GridBagConstraints gbc_lblPruchasePrice = new GridBagConstraints();
-					gbc_lblPruchasePrice.insets = new Insets(0, 0, 0, 5);
+					gbc_lblPruchasePrice.insets = new Insets(0, 0, 5, 5);
 					gbc_lblPruchasePrice.anchor = GridBagConstraints.EAST;
 					gbc_lblPruchasePrice.gridx = 0;
 					gbc_lblPruchasePrice.gridy = 3;
@@ -167,6 +170,7 @@ public class CreateProductWindow extends JDialog {
 				{
 					textFieldPurchasePrice = new JTextField();
 					GridBagConstraints gbc_txtFieldEmail = new GridBagConstraints();
+					gbc_txtFieldEmail.insets = new Insets(0, 0, 5, 0);
 					gbc_txtFieldEmail.fill = GridBagConstraints.HORIZONTAL;
 					gbc_txtFieldEmail.gridx = 1;
 					gbc_txtFieldEmail.gridy = 3;
@@ -174,6 +178,7 @@ public class CreateProductWindow extends JDialog {
 					{
 						textFieldPurchasePrice = new JTextField();
 						GridBagConstraints gbc_textFieldPurchasePrice = new GridBagConstraints();
+						gbc_textFieldPurchasePrice.insets = new Insets(0, 0, 5, 0);
 						gbc_textFieldPurchasePrice.fill = GridBagConstraints.HORIZONTAL;
 						gbc_textFieldPurchasePrice.gridx = 1;
 						gbc_textFieldPurchasePrice.gridy = 3;
@@ -182,7 +187,27 @@ public class CreateProductWindow extends JDialog {
 					}
 					textFieldPurchasePrice.setColumns(10);
 				}
-			}
+				{
+					JLabel lblQuantity = new JLabel("Antal:");
+					GridBagConstraints gbc_lblQuantity = new GridBagConstraints();
+					gbc_lblQuantity.anchor = GridBagConstraints.EAST;
+					gbc_lblQuantity.insets = new Insets(0, 0, 5, 5);
+					gbc_lblQuantity.gridx = 0;
+					gbc_lblQuantity.gridy = 4;
+					contentPanel.add(lblQuantity, gbc_lblQuantity);
+				}
+				{
+					textFieldQuantity = new JTextField();
+					GridBagConstraints gbc_textFieldQuantity = new GridBagConstraints();
+					gbc_textFieldQuantity.insets = new Insets(0, 0, 5, 0);
+					gbc_textFieldQuantity.fill = GridBagConstraints.HORIZONTAL;
+					gbc_textFieldQuantity.gridx = 1;
+					gbc_textFieldQuantity.gridy = 4;
+					contentPanel.add(textFieldQuantity, gbc_textFieldQuantity);
+					textFieldQuantity.setColumns(10);
+				}
+				
+				
 				{
 
 					JPanel buttonPane = new JPanel();
@@ -232,49 +257,62 @@ public class CreateProductWindow extends JDialog {
 						buttonPane.add(cancelButton);
 					}
 				}
+			}
 			
+			private void cancelClicked() {
+				okClicked = false;
+				setVisible(false);
+			}
 
 			public boolean isOkClicked() {
 				return okClicked;
 			}
-			
+
 			private void okClicked() {
-				okClicked = true;
+			    okClicked = true;
+			    String purchasePriceAsString = Double.toString(Double.parseDouble(textFieldPurchasePrice.getText()));
 
-				if (textFieldName.getText().isEmpty() || textFieldDescription.getText().isEmpty() || textFieldBarcode.getText().isEmpty() || textFieldPurchasePrice.getText().isEmpty()) {
-					lblErrorLabelCCW.setText("En fejl er opstået "); //TODO Change to other error message
-				} else {
-					setVisible(false);
-					product = productCtrl.createProduct(textFieldName.getText(), textFieldDescription.getText(), textFieldBarcode.getText(), textFieldPurchasePrice.getText());
-					this.dispose(); //TODO this.dispose() is causing errors
+			    if (textFieldName.getText().isEmpty() || textFieldDescription.getText().isEmpty() || textFieldBarcode.getText().isEmpty() || textFieldPurchasePrice.getText().isEmpty()) {
+			        lblErrorLabelCCW.setText("En fejl er opstået "); // TODO Change to other error message
+			    } else {
+			        setVisible(false);
+
+			        // Use the converted purchasePriceAsString
+			        product = productCtrl.createProduct(
+			            textFieldName.getText(),
+			            textFieldDescription.getText(),
+			            textFieldBarcode.getText(),
+			            purchasePriceAsString
+			        );
+
+			        this.dispose(); // TODO this.dispose() is causing errors
+			    }
 			}
-		}
-
+			
 			public AbstractProduct getProduct() {
 				return product;
-			}
-
-			private void cancelClicked() {
-				okClicked = false;
-				setVisible(false);
 			}
 
 			public String getName() {
 				return textFieldName.getText();
 			}
 			
-			public String getAddress() {
+			public String getDescription() {
 				return textFieldDescription.getText();
 			}
 			
-			public String getPhone() {
+			public String getBarcode() {
 				return textFieldBarcode.getText();
 			}
 			
-			public String getEmail() {
+			public String getPurchasePrice() {
 				return textFieldPurchasePrice.getText();
+			}
+			
+			public String getQuantity() {
+				return textFieldQuantity.getText();
 			}
 		}
 
 	
-}
+

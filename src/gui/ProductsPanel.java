@@ -150,11 +150,8 @@ public class ProductsPanel extends JPanel {
 		gbc_btnAddCompositeProduct.gridy = 1;
 		panel_2.add(btnAddCompositeProduct, gbc_btnAddCompositeProduct);
 		
-		JPanel panel_3 = new JPanel();
-		panel.add(panel_3, BorderLayout.CENTER);
-		
 		JScrollPane scrollPane = new JScrollPane();
-		panel_3.add(scrollPane);
+		panel.add(scrollPane, BorderLayout.CENTER);
 		
 		productTable = new ProductTable();
 		table = new JTable(50, 5);
@@ -166,7 +163,7 @@ public class ProductsPanel extends JPanel {
 		splitPane.setRightComponent(panel_4);
 		panel_4.setLayout(new BorderLayout(0, 0));
 		
-		JLabel lblProductLabel = new JLabel("New label");
+		JLabel lblProductLabel = new JLabel("Produkt");
 		lblProductLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		panel_4.add(lblProductLabel, BorderLayout.NORTH);
 		

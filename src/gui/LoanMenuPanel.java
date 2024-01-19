@@ -167,6 +167,7 @@ public class LoanMenuPanel extends JPanel {
 		panelBarcode.setLayout(new BorderLayout(0, 0));
 		
 		txtFieldBarcode = new JTextField();
+		txtFieldBarcode.setText("Indtast stregkode");
 		panelBarcode.add(txtFieldBarcode, BorderLayout.CENTER);
 		txtFieldBarcode.setColumns(10);
 		txtFieldBarcode.addKeyListener(new KeyAdapter() {
@@ -304,6 +305,26 @@ public class LoanMenuPanel extends JPanel {
 			public void focusLost(FocusEvent e) {
 				if (textFindCustomer.getText().isEmpty()) {
 					textFindCustomer.setText("Indtast tlf.nr.");
+				}
+			}
+		});
+
+		txtFieldBarcode.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent e) {
+				if (!txtFieldBarcode.getText().isEmpty()) {
+					txtFieldBarcode.setText("");
+				}
+
+				if (textFindCustomer.getText().isEmpty()) {
+					textFindCustomer.setText("Indtast tlf.nr.");
+				}
+			}
+
+			@Override
+			public void focusLost(FocusEvent e) {
+				if (txtFieldBarcode.getText().isEmpty()) {
+					txtFieldBarcode.setText("Indtast stregkode");
 				}
 			}
 		});

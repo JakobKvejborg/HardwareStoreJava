@@ -67,7 +67,7 @@ public class LeaseMenuPanel extends JPanel {
 	private JTextField textFindCustomer;
 	private JButton btnCheckOut;
 	private JButton btnCancel;
-	private JButton btnNewCustomer;
+	private JButton btnCreateCustomer;
 	private JButton btnBarcodeEnter;
 	private LeaseTable leaseTableModel;
 	private Employee employee;
@@ -80,6 +80,8 @@ public class LeaseMenuPanel extends JPanel {
 	private JTextField textDiscountedPrice;
 	private JLabel lblProductName;
 	private CustomerCtrl customerCtrl;
+	private JSplitPane splitPane;
+	private JButton btnFindCustomer;
 
 	private class LeaseTable extends AbstractTableModel {
 
@@ -345,6 +347,7 @@ public class LeaseMenuPanel extends JPanel {
 		panelTotal.add(lblCustomerDiscount, gbc_lblCustomerDiscount);
 		
 		textDiscountPercentage = new JTextField();
+		textDiscountPercentage.setText("0%");
 		textDiscountPercentage.setEditable(false);
 		GridBagConstraints gbc_textDiscountPercentage = new GridBagConstraints();
 		gbc_textDiscountPercentage.anchor = GridBagConstraints.NORTHWEST;
@@ -439,13 +442,14 @@ public class LeaseMenuPanel extends JPanel {
 		JPanel panelCustomer = new JPanel();
 		panelAtBottom.add(panelCustomer);
 		GridBagLayout gbl_panelCustomer = new GridBagLayout();
-		gbl_panelCustomer.columnWidths = new int[]{0, 0, 0};
+		gbl_panelCustomer.columnWidths = new int[]{161, 0, 0};
 		gbl_panelCustomer.rowHeights = new int[]{0, 0, 0, 0};
 		gbl_panelCustomer.columnWeights = new double[]{1.0, 1.0, Double.MIN_VALUE};
-		gbl_panelCustomer.rowWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_panelCustomer.rowWeights = new double[]{1.0, 0.0, 0.0, Double.MIN_VALUE};
 		panelCustomer.setLayout(gbl_panelCustomer);
 		
 		textFindCustomer = new JTextField();
+		textFindCustomer.setText("Indtast tlf.nr.");
 		textFindCustomer.addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusGained(FocusEvent e) {
@@ -485,11 +489,8 @@ public class LeaseMenuPanel extends JPanel {
 		textFindCustomer.addKeyListener(new KeyAdapter() {
 			public void keyPressed(KeyEvent e) {
 				if (e.getKeyCode() == 10) {
-					Customer customer = leaseCtrl.setCustomer(textFindCustomer.getText());
-					textName.setText(customer.getName());
-					textAddress.setText(customer.getAddress());
-					textPhone.setText(customer.getPhone());
-					textEmail.setText(customer.getEmail());
+					leaseCtrl.setCustomer(textFindCustomer.getText());
+					updateData();
 					textFindCustomer.setText("");
 				}
 			}
@@ -502,13 +503,31 @@ public class LeaseMenuPanel extends JPanel {
 		gbc_textFindCustomer.gridy = 0;
 		panelCustomer.add(textFindCustomer, gbc_textFindCustomer);
 		
-		btnNewCustomer = new JButton("Opret ny Kunde");
-		GridBagConstraints gbc_btnNewCustomer = new GridBagConstraints();
-		gbc_btnNewCustomer.fill = GridBagConstraints.HORIZONTAL;
-		gbc_btnNewCustomer.insets = new Insets(0, 0, 5, 0);
-		gbc_btnNewCustomer.gridx = 1;
-		gbc_btnNewCustomer.gridy = 0;
-		panelCustomer.add(btnNewCustomer, gbc_btnNewCustomer);
+		splitPane = new JSplitPane();
+		GridBagConstraints gbc_splitPane = new GridBagConstraints();
+		gbc_splitPane.insets = new Insets(0, 0, 5, 0);
+		gbc_splitPane.fill = GridBagConstraints.BOTH;
+		gbc_splitPane.gridx = 1;
+		gbc_splitPane.gridy = 0;
+		panelCustomer.add(splitPane, gbc_splitPane);
+		
+		btnCreateCustomer = new JButton("Opret ny Kunde");
+		btnCreateCustomer.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				createCustomerWindow();
+			}
+		});
+		splitPane.setRightComponent(btnCreateCustomer);
+		
+		btnFindCustomer = new JButton("      Find kunde      ");
+		btnFindCustomer.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				leaseCtrl.setCustomer(textFindCustomer.getText());
+				updateData();
+				textFindCustomer.setText("");
+			}
+		});
+		splitPane.setLeftComponent(btnFindCustomer);
 		
 		textName = new JTextField();
 		textName.setText("Navn");

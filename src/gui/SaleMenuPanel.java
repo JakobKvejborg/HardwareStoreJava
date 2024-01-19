@@ -73,7 +73,7 @@ public class SaleMenuPanel extends JPanel {
 	private JTextField textPrice;
 	private JLabel lblProductName;
 	private JSplitPane splitPane;
-	private JButton btnNewButton;
+	private JButton btnCreateCustomer;
 	private JButton btnFindCustomer;
 	private Color yellow = new Color(255, 255, 200);
 	private JLabel lblDiscountedPrice;
@@ -325,13 +325,13 @@ public class SaleMenuPanel extends JPanel {
 		});
 		splitPane.setLeftComponent(btnFindCustomer);
 
-		btnNewButton = new JButton("Opret ny kunde");
-		btnNewButton.addActionListener(new ActionListener() {
+		btnCreateCustomer = new JButton("Opret ny kunde");
+		btnCreateCustomer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				createCustomerWindow();
 			}
 		});
-		splitPane.setRightComponent(btnNewButton);
+		splitPane.setRightComponent(btnCreateCustomer);
 
 		textName = new JTextField();
 		textName.setText("Navn");

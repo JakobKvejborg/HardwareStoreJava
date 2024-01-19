@@ -660,7 +660,7 @@ public class LeaseMenuPanel extends JPanel {
 	}
 	
 	private void updateData() {
-		ArrayList<LeaseableIF> leases = leaseCtrl.getLease();
+		
 		updateTable();
 		textTotalPrice.setText(leaseCtrl.getLeasePrice() + "kr");
 		if (leaseCtrl.getCustomer() != null) {

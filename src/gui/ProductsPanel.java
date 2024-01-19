@@ -19,11 +19,16 @@ import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableModel;
 
 import model.AbstractProduct;
+import model.LeaseableIF;
 import model.OrderContainer;
 import model.ProductContainer;
 import model.Sale;
 
 import java.awt.event.ActionListener;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
@@ -33,6 +38,7 @@ public class ProductsPanel extends JPanel {
 	private static final long serialVersionUID = 1L;
 	private JTextField textBarcode;
 	private JTable table;
+	private JButton btnBarcodeEnter;
 	private ProductTable productTable;
 	private static String[] COL_NAMES = { "Vare", "Antal", "Styk pris", "Total Pris", "Fjern" };
 	
@@ -96,15 +102,26 @@ public class ProductsPanel extends JPanel {
 		
 		textBarcode = new JTextField();
 		panel_1.add(textBarcode, BorderLayout.CENTER);
+		textBarcode.setText("Indtast stregkode");
+		textBarcode.addKeyListener(new KeyAdapter() {
+        	public void keyPressed(KeyEvent e) {
+        		if(e.getKeyCode() == 10) {
+        			barcodeEntered();
+        		}
+        	}
+        });
+		
+		panel_1.add(textBarcode, BorderLayout.CENTER);
 		textBarcode.setColumns(10);
 		
-		JButton btnEnter = new JButton("Enter");
-		btnEnter.addActionListener(new ActionListener() {
+		btnBarcodeEnter = new JButton("Enter");
+		btnBarcodeEnter.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				productTable.setData(ProductContainer.getInstance().getProducts());
+				productTable.setData(ProductContainer.getInstance().getProducts()); 
+					barcodeEntered();
 			}
 		});
-		panel_1.add(btnEnter, BorderLayout.EAST);
+		panel_1.add(btnBarcodeEnter, BorderLayout.EAST);
 		
 		JPanel panel_2 = new JPanel();
 		panel.add(panel_2, BorderLayout.SOUTH);
@@ -176,6 +193,25 @@ public class ProductsPanel extends JPanel {
 		txtpnVarensBeskrivelseHer.setFont(new Font("Times New Roman", Font.PLAIN, 20));
 		scrollPane_1.setViewportView(txtpnVarensBeskrivelseHer);
 
+		textBarcode.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent e) {
+				if (!textBarcode.getText().isEmpty()) {
+					textBarcode.setText("");
+				}
+			}
+
+			@Override
+			public void focusLost(FocusEvent e) {
+				if (textBarcode.getText().isEmpty()) {
+					textBarcode.setText("Indtast stregkode");
+				}
+			}
+		});
+
+		private void barcodeEntered() {
+			//TODO Not done
+		}
 	}
 
 }

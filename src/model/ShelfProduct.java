@@ -66,7 +66,7 @@ public class ShelfProduct extends AbstractProduct implements SellableIF {
 	 * @param date
 	 */
 	@Override
-	public double getPrice(LocalDateTime date) {
+	public double getSalePrice(LocalDateTime date) {
 		return price.getPrice(date) * (1 - discount.getPrice(date));
 	}
 
@@ -112,12 +112,12 @@ public class ShelfProduct extends AbstractProduct implements SellableIF {
 	}
 
 	@Override
-	public double getOriginalPrice(LocalDateTime date) {
+	public double getOriginalSalePrice(LocalDateTime date) {
 		return price.getPrice(date);
 	}
 
 	@Override
-	public double getDiscount(LocalDateTime date) {
+	public double getSaleDiscount(LocalDateTime date) {
 		return discount.getPrice(date);
 	}
 }

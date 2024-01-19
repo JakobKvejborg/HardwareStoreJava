@@ -131,7 +131,7 @@ public class SaleMenuPanel extends JPanel {
 		}
 
 		public double getPriceText(int row) {
-			return sale.getSaleOrderLine(row).getProduct().getPrice(LocalDateTime.now());
+			return sale.getSaleOrderLine(row).getProduct().getSalePrice(LocalDateTime.now());
 		}
 
 		public int getStockText(int row) {
@@ -150,7 +150,7 @@ public class SaleMenuPanel extends JPanel {
 				res = saleOrderLine.getQuantity();
 				break;
 			case 2:
-				res = saleOrderLine.getProduct().getPrice(LocalDateTime.now());
+				res = saleOrderLine.getProduct().getSalePrice(LocalDateTime.now());
 				break;
 			case 3:
 				res = saleOrderLine.getPrice(LocalDateTime.now());
@@ -652,9 +652,9 @@ public class SaleMenuPanel extends JPanel {
 	private void setProductInfo(SaleOrderLine saleOrderLine) {
 		SellableIF product = saleOrderLine.getProduct();
 		txtpnProductDescription.setText(product.getDescription());
-		textPrice.setText(product.getOriginalPrice(LocalDateTime.now()) + "kr,-");
-		textDiscountedPrice.setText(product.getPrice(LocalDateTime.now()) + "kr,-");
-		textDiscount.setText((product.getDiscount(LocalDateTime.now()) * 100 + "%"));
+		textPrice.setText(product.getOriginalSalePrice(LocalDateTime.now()) + "kr,-");
+		textDiscountedPrice.setText(product.getSalePrice(LocalDateTime.now()) + "kr,-");
+		textDiscount.setText((product.getSaleDiscount(LocalDateTime.now()) * 100 + "%"));
 		lblProductName.setText(product.getName());
 		textStock.setText(product.getStock(location) + " stk.");
 

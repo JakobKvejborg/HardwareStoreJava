@@ -37,7 +37,7 @@ public class SaleTest {
 	 */
 	@Test
 	public void GetPriceTest() {
-		double expectedPrice = saleOrderLineTest.getQuantity() * saleOrderLineTest.getProduct().getPrice(LocalDateTime.of(2023, 1, 1, 1, 1));
+		double expectedPrice = saleOrderLineTest.getQuantity() * saleOrderLineTest.getProduct().getSalePrice(LocalDateTime.of(2023, 1, 1, 1, 1));
 		double actualPrice = sale.getPrice();
 		assertEquals(expectedPrice, actualPrice);
 	}

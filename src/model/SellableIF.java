@@ -13,10 +13,10 @@ public interface SellableIF {
 	 * it gets the price of a product
 	 * @return price in double
 	 */
-	double getPrice(LocalDateTime date);
+	double getSalePrice(LocalDateTime date);
 	
-	double getOriginalPrice(LocalDateTime date);
-	double getDiscount(LocalDateTime date);
+	double getOriginalSalePrice(LocalDateTime date);
+	double getSaleDiscount(LocalDateTime date);
 	/**
 	 * @return true if the Sellable is only allowed to sell in quantities of 1
 	 */

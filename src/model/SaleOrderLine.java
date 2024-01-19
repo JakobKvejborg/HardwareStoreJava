@@ -40,7 +40,7 @@ public class SaleOrderLine {
 	 * @return the price from product
 	 */
 	public double getPrice(LocalDateTime date) {
-		return product.getPrice(date) * quantity;
+		return product.getSalePrice(date) * quantity;
 	}
 	
 	/**

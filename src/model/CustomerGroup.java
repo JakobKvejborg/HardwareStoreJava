@@ -69,7 +69,7 @@ public class CustomerGroup {
 	 */
 	public static CustomerGroup getDefaultCustomerGroup() {
 		if(defaultCustomerGroup == null) {
-			defaultCustomerGroup = new CustomerGroup("Default Group", "Default", 0.2d, LocalDateTime.of(2020, 1,1,1,1));
+			defaultCustomerGroup = new CustomerGroup("Default Group", "Default", 0.0d, LocalDateTime.of(2020, 1,1,1,1));
 		}
 		return defaultCustomerGroup;	
 	}

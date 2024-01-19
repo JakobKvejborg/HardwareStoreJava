@@ -8,8 +8,15 @@ public interface LeaseableIF {
 
 	double getLeasePrice(LocalDateTime date);
 	
+	double getOriginalLeasePrice(LocalDateTime date);
+	double getDiscountLease(LocalDateTime date);
+	
 	public int getStock(Location location);
 	
 	public boolean decrementStock(int quantity, Location location);
+	
+	String getDescription();
+	
+	
 	
 }

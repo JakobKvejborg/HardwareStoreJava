@@ -19,6 +19,8 @@ public class LeaseCtrl /*implements LeaseCtrlIF*/ {
 	private ArrayList<LeaseableIF> products;
 	private Location location;
 	private Customer customer;
+	
+
 	private Employee employee;
 	private Lease lease;
 	private CustomerCtrl customerCtrl;
@@ -145,6 +147,14 @@ public class LeaseCtrl /*implements LeaseCtrlIF*/ {
 	
 	public ArrayList<LeaseableIF> getLease() {
 		return products;
+	}
+	
+	public Customer getCustomer() {
+		return customer;
+	}
+
+	public double getLeasePrice() {
+		return 0.0d;
 	}
 	
 }

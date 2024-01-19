@@ -12,6 +12,7 @@ import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableModel;
 
+import controller.CustomerCtrl;
 import controller.LeaseCtrl;
 import controller.SaleCtrl;
 import model.Customer;
@@ -57,8 +58,8 @@ public class LeaseMenuPanel extends JPanel {
 	private JTextField textPhone;
 	private JTextField textAddress;
 	private JTextField textEmail;
-	private JTextField textField;
-	private JTextField textField_1;
+	private JTextField textStock;
+	private JTextField textPrice;
 	private JTextField textFieldFromDate;
 	private JTextField textFieldToDate;
 	private JTextField textFieldLeaseDuration;
@@ -72,6 +73,12 @@ public class LeaseMenuPanel extends JPanel {
 	private Location location;
 	private LeaseCtrl leaseCtrl;
 	private static String[] COL_NAMES = {	"Vare", "Pris", "Fjern"};
+	private JLabel lblTotalPrice;
+	private JEditorPane dtrpnIItemDescription;
+	private JTextField textDiscount;
+	private JTextField textDiscountedPrice;
+	private JLabel lblProductName;
+	private CustomerCtrl customerCtrl;
 
 	private class LeaseTable extends AbstractTableModel {
 
@@ -151,9 +158,9 @@ public class LeaseMenuPanel extends JPanel {
 		panelFinalButtons.setBorder(null);
 		add(panelFinalButtons, BorderLayout.SOUTH);
 		GridBagLayout gbl_panelFinalButtons = new GridBagLayout();
-		gbl_panelFinalButtons.columnWidths = new int[]{79, 63, 0};
+		gbl_panelFinalButtons.columnWidths = new int[]{79, 63, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 		gbl_panelFinalButtons.rowHeights = new int[]{21, 0};
-		gbl_panelFinalButtons.columnWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
+		gbl_panelFinalButtons.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		gbl_panelFinalButtons.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panelFinalButtons.setLayout(gbl_panelFinalButtons);
 		
@@ -172,10 +179,17 @@ public class LeaseMenuPanel extends JPanel {
 			}
 		});
 		GridBagConstraints gbc_btnCancel = new GridBagConstraints();
+		gbc_btnCancel.insets = new Insets(0, 0, 0, 5);
 		gbc_btnCancel.anchor = GridBagConstraints.NORTHWEST;
 		gbc_btnCancel.gridx = 1;
 		gbc_btnCancel.gridy = 0;
 		panelFinalButtons.add(btnCancel, gbc_btnCancel);
+		
+		lblTotalPrice = new JLabel("");
+		GridBagConstraints gbc_lblTotalPrice = new GridBagConstraints();
+		gbc_lblTotalPrice.gridx = 11;
+		gbc_lblTotalPrice.gridy = 0;
+		panelFinalButtons.add(lblTotalPrice, gbc_lblTotalPrice);
 		
 		JPanel panelDescription = new JPanel();
 		panelDescription.setBorder(null);
@@ -192,56 +206,90 @@ public class LeaseMenuPanel extends JPanel {
 		splitPaneDescription.setLeftComponent(panelDescriptionSidebar);
 		GridBagLayout gbl_panelDescriptionSidebar = new GridBagLayout();
 		gbl_panelDescriptionSidebar.columnWidths = new int[] {0, 0};
-		gbl_panelDescriptionSidebar.rowHeights = new int[]{10, 0, 0, 0, 0, 0};
+		gbl_panelDescriptionSidebar.rowHeights = new int[]{10, 0, 0, 0, 0, 0, 0, 0, 0};
 		gbl_panelDescriptionSidebar.columnWeights = new double[]{1.0, Double.MIN_VALUE};
-		gbl_panelDescriptionSidebar.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_panelDescriptionSidebar.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		panelDescriptionSidebar.setLayout(gbl_panelDescriptionSidebar);
 		
-		JLabel lblNewLabel_7 = new JLabel("Lager Antal");
-		GridBagConstraints gbc_lblNewLabel_7 = new GridBagConstraints();
-		gbc_lblNewLabel_7.insets = new Insets(0, 0, 5, 0);
-		gbc_lblNewLabel_7.gridx = 0;
-		gbc_lblNewLabel_7.gridy = 0;
-		panelDescriptionSidebar.add(lblNewLabel_7, gbc_lblNewLabel_7);
+		JLabel lblStock = new JLabel("Lager Antal");
+		GridBagConstraints gbc_lblStock = new GridBagConstraints();
+		gbc_lblStock.insets = new Insets(0, 0, 5, 0);
+		gbc_lblStock.gridx = 0;
+		gbc_lblStock.gridy = 0;
+		panelDescriptionSidebar.add(lblStock, gbc_lblStock);
 		
-		textField = new JTextField();
-		textField.setEditable(false);
-		GridBagConstraints gbc_textField = new GridBagConstraints();
-		gbc_textField.insets = new Insets(0, 0, 5, 0);
-		gbc_textField.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField.gridx = 0;
-		gbc_textField.gridy = 1;
-		panelDescriptionSidebar.add(textField, gbc_textField);
-		textField.setColumns(10);
+		textStock = new JTextField();
+		textStock.setEditable(false);
+		GridBagConstraints gbc_textStock = new GridBagConstraints();
+		gbc_textStock.insets = new Insets(0, 0, 5, 0);
+		gbc_textStock.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textStock.gridx = 0;
+		gbc_textStock.gridy = 1;
+		panelDescriptionSidebar.add(textStock, gbc_textStock);
+		textStock.setColumns(10);
 		
-		JLabel lblNewLabel_1 = new JLabel("Pris /m Rabat");
-		GridBagConstraints gbc_lblNewLabel_1 = new GridBagConstraints();
-		gbc_lblNewLabel_1.insets = new Insets(0, 0, 5, 0);
-		gbc_lblNewLabel_1.gridx = 0;
-		gbc_lblNewLabel_1.gridy = 2;
-		panelDescriptionSidebar.add(lblNewLabel_1, gbc_lblNewLabel_1);
+		JLabel lblFullPrice = new JLabel("Pris /m Rabat");
+		GridBagConstraints gbc_lblFullPrice = new GridBagConstraints();
+		gbc_lblFullPrice.insets = new Insets(0, 0, 5, 0);
+		gbc_lblFullPrice.gridx = 0;
+		gbc_lblFullPrice.gridy = 2;
+		panelDescriptionSidebar.add(lblFullPrice, gbc_lblFullPrice);
 		
-		textField_1 = new JTextField();
-		textField_1.setEditable(false);
-		GridBagConstraints gbc_textField_1 = new GridBagConstraints();
-		gbc_textField_1.insets = new Insets(0, 0, 5, 0);
-		gbc_textField_1.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField_1.gridx = 0;
-		gbc_textField_1.gridy = 3;
-		panelDescriptionSidebar.add(textField_1, gbc_textField_1);
-		textField_1.setColumns(10);
+		textPrice = new JTextField();
+		textPrice.setEditable(false);
+		GridBagConstraints gbc_textPrice = new GridBagConstraints();
+		gbc_textPrice.insets = new Insets(0, 0, 5, 0);
+		gbc_textPrice.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textPrice.gridx = 0;
+		gbc_textPrice.gridy = 3;
+		panelDescriptionSidebar.add(textPrice, gbc_textPrice);
+		textPrice.setColumns(10);
+		
+		JLabel lblDiscountedPrice = new JLabel("Pris med rabat");
+		GridBagConstraints gbc_lblDiscountedPrice = new GridBagConstraints();
+		gbc_lblDiscountedPrice.insets = new Insets(0, 0, 5, 0);
+		gbc_lblDiscountedPrice.gridx = 0;
+		gbc_lblDiscountedPrice.gridy = 4;
+		panelDescriptionSidebar.add(lblDiscountedPrice, gbc_lblDiscountedPrice);
+		
+		textDiscountedPrice = new JTextField();
+		textDiscountedPrice.setEditable(false);
+		textDiscountedPrice.setColumns(10);
+		GridBagConstraints gbc_textDiscountedPrice = new GridBagConstraints();
+		gbc_textDiscountedPrice.insets = new Insets(0, 0, 5, 0);
+		gbc_textDiscountedPrice.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textDiscountedPrice.gridx = 0;
+		gbc_textDiscountedPrice.gridy = 5;
+		panelDescriptionSidebar.add(textDiscountedPrice, gbc_textDiscountedPrice);
+		
+		JLabel lblDiscount = new JLabel("Rabat");
+		lblDiscount.setToolTipText("");
+		GridBagConstraints gbc_lblDiscount = new GridBagConstraints();
+		gbc_lblDiscount.insets = new Insets(0, 0, 5, 0);
+		gbc_lblDiscount.gridx = 0;
+		gbc_lblDiscount.gridy = 6;
+		panelDescriptionSidebar.add(lblDiscount, gbc_lblDiscount);
+		
+		textDiscount = new JTextField();
+		textDiscount.setEditable(false);
+		textDiscount.setColumns(10);
+		GridBagConstraints gbc_textDiscount = new GridBagConstraints();
+		gbc_textDiscount.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textDiscount.gridx = 0;
+		gbc_textDiscount.gridy = 7;
+		panelDescriptionSidebar.add(textDiscount, gbc_textDiscount);
 		
 		JScrollPane scrollPaneDescription = new JScrollPane();
 		scrollPaneDescription.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		scrollPaneDescription.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		splitPaneDescription.setRightComponent(scrollPaneDescription);
 		
-		JEditorPane dtrpnIItemDescription = new JEditorPane();
+		dtrpnIItemDescription = new JEditorPane();
 		dtrpnIItemDescription.setEditable(false);
 		dtrpnIItemDescription.setText("description\r\newiof wei jei jwr ewijdescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescription descriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescription descriptiondescriptiondescription description description descriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptidescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptionondescription");
 		scrollPaneDescription.setViewportView(dtrpnIItemDescription);
 		
-		JLabel lblProductName = new JLabel("Varens Navn");
+		lblProductName = new JLabel("Varens Navn");
 		lblProductName.setHorizontalAlignment(SwingConstants.CENTER);
 		panelDescription.add(lblProductName, BorderLayout.NORTH);
 		
@@ -254,6 +302,7 @@ public class LeaseMenuPanel extends JPanel {
 		panelBarcode.setLayout(new BorderLayout(0, 0));
 		
 		txtFieldBarcode = new JTextField();
+		txtFieldBarcode.setText("Indtast stregkode");
 		txtFieldBarcode.addKeyListener(new KeyAdapter() {
         	public void keyPressed(KeyEvent e) {
         		if(e.getKeyCode() == 10) {
@@ -515,16 +564,99 @@ public class LeaseMenuPanel extends JPanel {
 	private void cancelClicked() {
 		leaseCtrl.clearLeases();
         leaseTableModel.setData(leaseCtrl.getProducts());
+        updateTable();
 	}
-
+	
+	private void updateTable() {
+		leaseTableModel.setData(leaseCtrl.getLease());
+		textTotalPrice.setText(leaseCtrl.getLeasePrice() + "");
+	}
+	
 
 	private void barcodeEntered() {
+		clearTotalPrice();
+		
 		String barcode = txtFieldBarcode.getText();
         LeaseableIF product = leaseCtrl.addProduct(barcode);
         leaseTableModel.setData(leaseCtrl.getProducts());
+        
+        updateTable();
+		setProductInfo(product);
+		txtFieldBarcode.setText("");
+	}
+	
+	//TODO private void checkoutClicked(
+	
+	private void showTotalPrice(String totalPrice) {
+		lblTotalPrice.setText(totalPrice);
+	}
+
+	private void setProductInfo(LeaseableIF product) {
+		dtrpnIItemDescription.setText(product.getDescription());
+		textPrice.setText(product.getOriginalLeasePrice(LocalDateTime.now()) + "kr,-");
+		textDiscountedPrice.setText(product.getLeasePrice(LocalDateTime.now()) + "kr,-" );
+		textDiscount.setText((product.getDiscountLease(LocalDateTime.now())*100+ "%"));
+		lblProductName.setText(product.getName());
+		textStock.setText(product.getStock(location) + " stk.");
+
+	}
+	
+	private void setCustomerData(Customer customer) {
+		textName.setText(customer.getName());
+		textAddress.setText(customer.getAddress());
+		textPhone.setText(customer.getPhone());
+		textEmail.setText(customer.getEmail());
+		textDiscountPercentage.setText(customer.getCustomerGroup().getMaxDiscount(LocalDateTime.now())*100+ "%");
+	}
+	
+
+	private void clearCustomer() {
+		Customer customer = leaseCtrl.getCustomer();
+
+		if (customer == null) {
+			textName.setText("Navn");
+			textAddress.setText("Adresse");
+			textPhone.setText("Telefonnummer");
+			textEmail.setText("Email");
+		}
+	}
+	
+	private void updateData() {
+		ArrayList<LeaseableIF> leases = leaseCtrl.getLease();
+		updateTable();
+		textTotalPrice.setText(leaseCtrl.getLeasePrice() + "kr");
+		if (leaseCtrl.getCustomer() != null) {
+			setCustomerData(leaseCtrl.getCustomer());
+		} else {
+			clearCustomer();
+		}
+	}
+
+	private void createCustomerWindow() {
+		CreateCustomerWindow customerWindow = new CreateCustomerWindow(customerCtrl);
+		customerWindow.setVisible(true);
+		if (customerWindow.isOkClicked()) {
+			leaseCtrl.setCustomer(customerWindow.getPhone());
+			updateData();
+			}
+		}
+	
+
+	private void clearCheckout() {
+		updateData();
+		textPrice.setText("");
+		dtrpnIItemDescription.setText("Varens beskrivelse her.");
+		lblProductName.setText("Produkt");
+		textStock.setText("");
+	}
+
+	private void clearTotalPrice() {
+		textTotalPrice.setText("");
+		lblTotalPrice.setText("");
 	}
 
 	private void removeRow(int row) {
 		leaseCtrl.removeProduct(row);
+		clearCheckout();
 	}
 }

@@ -116,8 +116,6 @@ public class SaleCtrl implements SaleCtrlIF {
 		}
 
 		if (product != null && saleOrderLine == null) {
-			// TODO: prevent multiple of the same unique item being added
-			// TODO: handle when two of the same non-unique item is added.
 			// check if there's at least one of the item.
 			if (product.getStock(location) >= 1) {
 				saleOrderLine = new SaleOrderLine(product, 1);

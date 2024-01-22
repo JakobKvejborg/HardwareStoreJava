@@ -155,7 +155,7 @@ public class SaleMenuPanel extends JPanel {
                     res = saleOrderLine.getPrice(LocalDateTime.now());
                     break;
                 case 4:
-                    res = "<html><font face='Times New Roman' size='4' color='red'>x</font></html>";
+                    res = "<html><font face='Times New Roman' size='4' color='red'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;x</font></html>";
                     break;
                 default:
                     res = "<UNKNOWN " + columnIndex + ">";
@@ -626,15 +626,18 @@ public class SaleMenuPanel extends JPanel {
     }
 
     private void barcodeEntered() {
+
         clearTotalPrice();
 
         String barcode = textBarcode.getText();
         SaleOrderLine saleOrderLine = saleCtrl.addProduct(barcode);
-
-        updateData();
-        setProductInfo(saleOrderLine);
+        if (saleOrderLine != null) {
+            updateData();
+            setProductInfo(saleOrderLine);
+        } else {
+            System.out.println("Product not found or other issue");
+        }
         textBarcode.setText("");
-
     }
 
     private void checkoutClicked() {

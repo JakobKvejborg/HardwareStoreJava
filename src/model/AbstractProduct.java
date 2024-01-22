@@ -78,7 +78,7 @@ public abstract class AbstractProduct {
 		this.purchasePrice = purchasePrice;
 	}
 
-	public void setBarcode(String barcode) {
+	public void setBarcode(int index, String barcode) {
 		this.barcode = barcode;
 	}
 
@@ -89,5 +89,7 @@ public abstract class AbstractProduct {
 	public String getBarcode() {
 		return barcode;
 	}
+
+
 	
 }

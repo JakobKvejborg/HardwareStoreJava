@@ -7,6 +7,8 @@ import model.ProductContainer;
 import model.SellableIF;
 import model.ShelfProduct;
 
+import java.time.LocalDateTime;
+
 /**
  * @author Jonas og Jakob, Penrose
  * 
@@ -36,8 +38,8 @@ public class ProductCtrl {
 		return productContainer.findLendable(barcode);
 	}
 
-	public ShelfProduct createProduct(String name, String barcode, String description, double purchasePrice) {
-		ShelfProduct product = new ShelfProduct(name, barcode, description, purchasePrice);
+	public ShelfProduct createProduct(String name, String barcode, String description, double purchasePrice, double price, double discount, LocalDateTime localDateTime) {
+		ShelfProduct product = new ShelfProduct(name, barcode, description, purchasePrice, price, discount, LocalDateTime.now());
 		boolean success = productContainer.addProduct(product);
 		if(!success) {
 			product = null;
@@ -46,12 +48,12 @@ public class ProductCtrl {
 	}
 	
 	
-	public void updateProduct(String name, String barcode, String description, double purchasePrice) {
+	public void updateProduct(String name, String barcode, String description, double purchasePrice, int index) {
 		AbstractProduct product = findProduct(barcode);
 		if (product != null) {
 			product.setName(name);
 			product.setDescription(description);
-			product.setBarcode(barcode);
+			product.setBarcode(index, barcode);
 			product.setPurchasePrice(purchasePrice);
 			System.out.println("Product has been updated: " + product);
 		} else {

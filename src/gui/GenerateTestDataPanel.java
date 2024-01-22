@@ -15,6 +15,7 @@ public class GenerateTestDataPanel extends JPanel {
     private Employee employee;
     private Location location;
 
+
     private static final long serialVersionUID = 1L;
 
 

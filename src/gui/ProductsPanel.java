@@ -246,7 +246,7 @@ public class ProductsPanel extends JPanel {
             public void valueChanged(ListSelectionEvent e) {
 
                 if (table.getSelectedRow() != -1) {
-
+//                    setProductInfo();
 
 
                 }
@@ -296,6 +296,9 @@ public class ProductsPanel extends JPanel {
         textBarcode.setText("");
     }
 
-
+    private void setProductInfo(SaleOrderLine saleOrderLine) {
+        SellableIF product = saleOrderLine.getProduct();
+        txtpnProductDescription.setText(product.getDescription());
+    }
 
 }

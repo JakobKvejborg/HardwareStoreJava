@@ -16,10 +16,7 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 import controller.ProductCtrl;
-import model.AbstractProduct;
-import model.Customer;
-import model.ProductContainer;
-import model.SellableIF;
+import model.*;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -46,7 +43,7 @@ public class CreateProductWindow extends JDialog {
     private ProductCtrl productCtrl;
     private Customer customer = null;
     private boolean okClicked = false;
-    private AbstractProduct product; // TODO maybe
+    private ShelfProduct product; // TODO maybe AbstractProduct instead
     private static ProductContainer productContainer;
     private ProductsPanel productsPanel;
 
@@ -208,7 +205,7 @@ public class CreateProductWindow extends JDialog {
             JButton okButton = new JButton("OK");
             okButton.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
-                    okClicked();
+                    okClicked(new Location("here h", "address"));
                     printAllProducts();
                 }
             });
@@ -250,7 +247,7 @@ public class CreateProductWindow extends JDialog {
         return okClicked;
     }
 
-    private void okClicked() {
+    private void okClicked(Location location) {
         okClicked = true;
 
         if (txtFieldName.getText().isEmpty() || txtFieldQuantity.getText().isEmpty() || txtFieldPrice.getText().isEmpty() || txtFieldDiscount.getText().isEmpty()) {
@@ -265,7 +262,7 @@ public class CreateProductWindow extends JDialog {
 
 ////
 //			        // Use the converted purchasePriceAsString
-            product = productCtrl.createProduct(
+            product = productCtrl.createProduct (
                     txtFieldName.getText(),
                     txtFieldDescription.getText(),
                     txtFieldBarcode.getText(),
@@ -274,7 +271,11 @@ public class CreateProductWindow extends JDialog {
                     discountValue,
                     LocalDateTime.now()
             );
-            productContainer.addProduct(product);
+
+            ShelfProduct product1 = new ShelfProduct(txtFieldName.getText(), txtFieldDescription.getText(), txtFieldBarcode.getText(), priceValue, priceValue,discountValue, LocalDateTime.now()); // maybe, jakob
+            ShelfStock product1Stock = new ShelfStock(location, 4, 5, 45); // maybe, jakob
+            product1.addStock(product1Stock); // maybe, jakob
+            productContainer.addProduct(product1); // maybe, jakob
             dispose();
            
 

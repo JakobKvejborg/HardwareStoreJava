@@ -1,11 +1,6 @@
 package controller;
 
-import model.AbstractProduct;
-import model.LeaseableIF;
-import model.LendableIF;
-import model.ProductContainer;
-import model.SellableIF;
-import model.ShelfProduct;
+import model.*;
 
 import java.time.LocalDateTime;
 
@@ -40,6 +35,8 @@ public class ProductCtrl {
 
 	public ShelfProduct createProduct(String name, String barcode, String description, double purchasePrice, double price, double discount, LocalDateTime localDateTime) {
 		ShelfProduct product = new ShelfProduct(name, barcode, description, purchasePrice, price, discount, LocalDateTime.now());
+//		ShelfStock productStock = new ShelfStock(new Location("here", "address"), 2,2, 2); // maybe, jakob
+//		product.addStock(productStock);     // maybe, jakob
 		boolean success = productContainer.addProduct(product);
 		if(!success) {
 			product = null;

@@ -35,10 +35,11 @@ public class ProductsPanel extends JPanel {
     private JTextField textBarcode;
     private JTable table;
     private JButton btnBarcodeEnter;
-    private ProductTable productTable;
+    public ProductTable productTable;
     private static String[] COL_NAMES = {"Vare", "Antal", "Pris", "Rabat", "Stregkode", "Fjern"};
     private ProductCtrl productCtrl;
     private JTextPane txtpnProductDescription;
+    private JLabel lblProductLabel;
 
     private class ProductTable extends AbstractTableModel {
 
@@ -147,22 +148,14 @@ public class ProductsPanel extends JPanel {
         textBarcode = new JTextField();
         panel_1.add(textBarcode, BorderLayout.CENTER);
         textBarcode.setText("Indtast stregkode");
-        textBarcode.addKeyListener(new KeyAdapter() {
-            public void keyPressed(KeyEvent e) {
-                if (e.getKeyCode() == 10) {
-//        			barcodeEntered();
-                }
-            }
-        });
 
         panel_1.add(textBarcode, BorderLayout.CENTER);
         textBarcode.setColumns(10);
         textBarcode.addKeyListener(new KeyAdapter() {
-            public void keyPressed(KeyEvent e) {
-                if (e.getKeyCode() == 10) {
-                    barcodeEntered();
-
-                }
+            public void keyReleased(KeyEvent e) {
+//                if (e.getKeyCode() == 10) {
+                barcodeEntered();
+//                }
             }
         });
 
@@ -187,8 +180,10 @@ public class ProductsPanel extends JPanel {
         JButton btnAddProduct = new JButton("Tilføj nyt produkt      ");
         btnAddProduct.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                textBarcode.setText("Indtast stregkode");
                 CreateProductWindow createProductWindow = new CreateProductWindow(productCtrl, ProductContainer.getInstance());
                 createProductWindow.setVisible(true);
+
             }
         });
         GridBagConstraints gbc_btnAddProduct = new GridBagConstraints();
@@ -246,7 +241,9 @@ public class ProductsPanel extends JPanel {
             public void valueChanged(ListSelectionEvent e) {
 
                 if (table.getSelectedRow() != -1) {
-//                    setProductInfo();
+                    int selectedRowIndex = table.getSelectedRow();
+                    AbstractProduct selectedProduct = productTable.products.get(selectedRowIndex);
+                    setProductInfo(selectedProduct);
 
 
                 }
@@ -259,16 +256,17 @@ public class ProductsPanel extends JPanel {
         splitPane.setRightComponent(panel_4);
         panel_4.setLayout(new BorderLayout(0, 0));
 
-        JLabel lblProductLabel = new JLabel("Produkt");
+        lblProductLabel = new JLabel("Produkt");
         lblProductLabel.setHorizontalAlignment(SwingConstants.CENTER);
         panel_4.add(lblProductLabel, BorderLayout.NORTH);
 
         JScrollPane scrollPane_1 = new JScrollPane();
         panel_4.add(scrollPane_1, BorderLayout.CENTER);
 
-        JTextPane txtpnProductDescription = new JTextPane();
+        txtpnProductDescription = new JTextPane();
         txtpnProductDescription.setText("Varens beskrivelse her.");
         txtpnProductDescription.setFont(new Font("Times New Roman", Font.PLAIN, 20));
+        txtpnProductDescription.setEditable(true);
         scrollPane_1.setViewportView(txtpnProductDescription);
 
         textBarcode.addFocusListener(new FocusAdapter() {
@@ -290,15 +288,44 @@ public class ProductsPanel extends JPanel {
     }
 
     private void barcodeEntered() {
-        String barcode = textBarcode.getText();
-        ArrayList<AbstractProduct> updatedProducts = ProductContainer.getInstance().getProducts();
-        productTable.setData(updatedProducts);
-        textBarcode.setText("");
+        String barcode = textBarcode.getText().trim();
+
+        if (!barcode.isEmpty()) {
+            ArrayList<AbstractProduct> products = ProductContainer.getInstance().getProducts();
+            AbstractProduct productFound = null;
+
+
+            for (AbstractProduct product : products) {
+                if (product.getBarcode().startsWith(barcode)) { // startsWith, contains, equals
+                    productFound = product;
+                    break;
+                }
+            }
+
+
+            if (productFound != null) {
+
+                // updates the description to match the found product
+                String productFoundDescription = productFound.getDescription();
+                txtpnProductDescription.setText(productFoundDescription);
+                lblProductLabel.setText(productFound.getName());
+
+
+                products.remove(productFound);
+                products.add(0, productFound);
+                productTable.setData(products);
+                table.scrollRectToVisible(table.getCellRect(0, 0, true));
+            }
+
+        }
     }
 
-    private void setProductInfo(SaleOrderLine saleOrderLine) {
-        SellableIF product = saleOrderLine.getProduct();
-        txtpnProductDescription.setText(product.getDescription());
+    private void setProductInfo(AbstractProduct product) {
+        if (product != null) {
+            txtpnProductDescription.setText(product.getDescription());
+            lblProductLabel.setText(product.getName());
+        }
     }
+
 
 }

@@ -12,9 +12,13 @@ import java.time.LocalDateTime;
  */
 public class ProductCtrl {
 	private ProductContainer productContainer;
+	private Location location;
+	private Employee employee;
 
-	public ProductCtrl() {
+	public ProductCtrl(Employee employee, Location location) {
 		this.productContainer = ProductContainer.getInstance();
+		this.employee = employee;
+		this.location = location;
 	}
 
 	public AbstractProduct findProduct(String barcode) {
@@ -33,15 +37,41 @@ public class ProductCtrl {
 		return productContainer.findLendable(barcode);
 	}
 
-	public ShelfProduct createProduct(String name, String barcode, String description, double purchasePrice, double price, double discount, LocalDateTime date) {
+	public ShelfProduct createShelfProduct(String name, String barcode, String description, double purchasePrice, double price, double discount, LocalDateTime date) {
 		ShelfProduct product = new ShelfProduct(name, barcode, description, purchasePrice, price, discount, date);
 //		ShelfStock productStock = new ShelfStock(new Location("here", "address"), 2,2, 2); // maybe, jakob
 //		product.addStock(productStock);     // maybe, jakob
 		boolean success = productContainer.addProduct(product);
+		
 		if(!success) {
 			product = null;
 		}
-		return product;
+        return product;
+	}
+	
+	public ShelfStock createShelfStock(String barcode, int quantity) 
+	{
+		AbstractProduct product = findProduct(barcode);
+
+		if(product instanceof ShelfProduct) {
+			return createShelfStock((ShelfProduct) product, quantity);
+		}
+		else {
+			return null;
+		}
+	}
+	
+    //TODO: add min and max quantity to this
+	public ShelfStock createShelfStock(ShelfProduct product, int quantity) 
+	{
+		if(product == null) {
+			return null;
+		}
+        ShelfStock shelfStock = new ShelfStock(location, quantity, 5, 45); // maybe, jakob
+        product.addStock(shelfStock); // maybe, jakob
+        productContainer.addProduct(product); // maybe, jakob
+        return shelfStock;
+	
 	}
 	
 	

@@ -20,6 +20,8 @@ import javax.swing.table.AbstractTableModel;
 
 import controller.ProductCtrl;
 import model.AbstractProduct;
+import model.Employee;
+import model.Location;
 import model.ProductContainer;
 import model.SaleOrderLine;
 import model.SellableIF;
@@ -126,9 +128,9 @@ public class ProductsPanel extends JPanel {
     /**
      * Create the panel.
      */
-    public ProductsPanel() {
+    public ProductsPanel(Employee employee, Location location) {
 
-        ProductCtrl productCtrl = new ProductCtrl(); // maybe wrong
+        ProductCtrl productCtrl = new ProductCtrl(employee, location); // maybe wrong
 
         setBorder(new EmptyBorder(10, 10, 35, 10));
         setLayout(new BorderLayout(0, 0));

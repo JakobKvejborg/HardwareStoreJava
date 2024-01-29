@@ -43,7 +43,7 @@ public class CreateProductWindow extends JDialog {
     private ProductCtrl productCtrl;
     private Customer customer = null;
     private boolean okClicked = false;
-    private AbstractProduct product; // TODO maybe AbstractProduct instead
+    private ShelfProduct product; // TODO maybe AbstractProduct instead
     private ProductContainer productContainer;
     private ProductsPanel productsPanel;
 
@@ -251,30 +251,29 @@ public class CreateProductWindow extends JDialog {
         okClicked = true;
 
         if (txtFieldName.getText().isEmpty() || txtFieldQuantity.getText().isEmpty() || txtFieldPrice.getText().isEmpty() || txtFieldDiscount.getText().isEmpty()) {
-            lblErrorLabelCCW.setText("En fejl er opstået "); //TODO Change to other error message
+            lblErrorLabelCCW.setText("Udfyld alle felter!");
         } else {
             double purchasePriceAsString = Integer.parseInt(txtFieldPrice.getText().trim());
             double priceValue = Double.parseDouble(txtFieldPrice.getText().trim());
-            double quantityValue = Integer.parseInt(txtFieldQuantity.getText().trim());
+            int quantityValue = Integer.parseInt(txtFieldQuantity.getText().trim());
             double discountValue = Double.parseDouble(txtFieldDiscount.getText().trim());
 
 
 ////
 //			        // Use the converted purchasePriceAsString
-            product = productCtrl.createProduct (
+            product = productCtrl.createShelfProduct(
                     txtFieldName.getText(),
-                    txtFieldDescription.getText(),
                     txtFieldBarcode.getText(),
+                    txtFieldDescription.getText(),
+                    0, //Insert purchase price
                     priceValue,
-                    quantityValue,
                     discountValue,
                     LocalDateTime.now()
             );
-			
-            ShelfProduct product1 = new ShelfProduct(txtFieldName.getText(), txtFieldDescription.getText(), txtFieldBarcode.getText(), priceValue, priceValue,discountValue, LocalDateTime.now()); // maybe, jakob
-            ShelfStock product1Stock = new ShelfStock(location, 4, 5, 45); // maybe, jakob
-            product1.addStock(product1Stock); // maybe, jakob
-            productContainer.addProduct(product1); // maybe, jakob
+            int quantity;
+            //TODO: add min and max quantity to this
+			productCtrl.createShelfStock(product, quantityValue);
+            
             setVisible(false);
             dispose();
            

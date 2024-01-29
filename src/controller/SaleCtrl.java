@@ -31,7 +31,7 @@ public class SaleCtrl implements SaleCtrlIF {
 	public SaleCtrl(Employee employee, Location location) {
 		this.employee = employee;
 		this.location = location;
-		this.productCtrl = new ProductCtrl();
+		this.productCtrl = new ProductCtrl(employee, location);
 		this.customerCtrl = new CustomerCtrl();
 		this.orderContainer = OrderContainer.getInstance();
 	}

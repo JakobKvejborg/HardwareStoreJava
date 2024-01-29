@@ -30,7 +30,7 @@ public class LeaseCtrl /*implements LeaseCtrlIF*/ {
 		this.location = location;
 		this.date = LocalDateTime.now();
 		this.orderContainer = OrderContainer.getInstance();
-		this.productCtrl = new ProductCtrl();
+		this.productCtrl = new ProductCtrl(employee, location);
 		this.customerCtrl = new CustomerCtrl();
 		this.products = new ArrayList<>();
 	}

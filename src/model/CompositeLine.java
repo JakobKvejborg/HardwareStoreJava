@@ -7,14 +7,14 @@ package model;
  */
 public class CompositeLine {
 	private int quantity;	
-	private SellableIF product;
+	private SemiSellableIF product;
 	
 	/**
 	 * contains a product and the quantity of it
 	 * @param quantity		the amount of a specific product
 	 * @param product		a specific product
 	 */
-	public CompositeLine(int quantity, SellableIF product) {
+	public CompositeLine(int quantity, SemiSellableIF product) {
 		this.quantity = quantity;
 		this.product = product;
 	}
@@ -23,7 +23,7 @@ public class CompositeLine {
 		return quantity;
 	}
 	
-	public SellableIF getProduct() {
+	public SemiSellableIF getProduct() {
 		return product;
 	}
 	

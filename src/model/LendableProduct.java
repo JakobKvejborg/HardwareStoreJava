@@ -14,6 +14,7 @@ public class LendableProduct extends AbstractProduct implements SemiLendableIF, 
 	private double lendDiscount;
 	private double leasePrice;
 	private double leaseDiscount;
+	private UniqueStock stock;
 	
 	public LendableProduct(String name, String descripton, String barcode, double purchasePrice, double lendPrice, double lendDiscount, double leasePrice, double leaseDiscount) {
 		super(name, descripton, barcode, purchasePrice);

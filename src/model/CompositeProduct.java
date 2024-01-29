@@ -10,7 +10,7 @@ import java.util.ArrayList;
  * @version 14/12/2023
  * @since 14/12/2023 
  */
-public class CompositeProduct implements SellableIF {
+public class CompositeProduct implements SemiSellableIF {
 	private TemporalPriceList price;
 	private TemporalPriceList discount;
 	private ArrayList<CompositeLine> compositeLines;
@@ -73,15 +73,15 @@ public class CompositeProduct implements SellableIF {
 
 	
 	//idk this doesn't work
-	@Override
-	public boolean decrementStock(int quantity, Location location) {
-		if(getStock(location) < quantity) {
-			//not enough stock
-			return false;
-		}
-		//do something
-		return false;
-	}
+//	@Override
+//	public boolean decrementStock(int quantity, Location location) {
+//		if(getStock(location) < quantity) {
+//			//not enough stock
+//			return false;
+//		}
+//		//do something
+//		return false;
+//	}
 
 	@Override
 	public double getOriginalSalePrice(LocalDateTime date) {

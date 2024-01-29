@@ -110,7 +110,7 @@ public class ProductsPanel extends JPanel {
                 case 5:
                 	if(product instanceof SemiSellableIF) {
                 		SemiSellableIF sellableProduct = (SemiSellableIF) product;
-                		res = sellableProduct.getSaleDiscount(LocalDateTime.now());
+                		res = sellableProduct.getSaleDiscount(LocalDateTime.now())* 100 + "%";
                 	}
                     break;
                 case 6:	
@@ -122,7 +122,7 @@ public class ProductsPanel extends JPanel {
                 case 7:
                 	if(product instanceof SemiLendableIF) {
                 		SemiLendableIF lendableProduct = (SemiLendableIF) product;
-                		res = lendableProduct.getLoanDiscount(LocalDateTime.now());
+                		res = lendableProduct.getLoanDiscount(LocalDateTime.now())* 100 + "%";
                 	}
                     break; 
                 case 8:
@@ -134,7 +134,7 @@ public class ProductsPanel extends JPanel {
                 case 9:
                 	if(product instanceof SemiLeaseableIF) {
                 		SemiLeaseableIF leaseableProduct = (SemiLeaseableIF) product;
-                		res = leaseableProduct.getLeaseDiscount(LocalDateTime.now());
+                		res = leaseableProduct.getLeaseDiscount(LocalDateTime.now())* 100 + "%";
                 	}
                     break; 
                 case 10:

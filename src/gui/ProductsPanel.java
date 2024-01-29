@@ -3,7 +3,11 @@ package gui;
 import javax.swing.JPanel;
 import java.awt.BorderLayout;
 import java.awt.GridBagLayout;
+
+import javax.swing.AbstractAction;
 import javax.swing.JButton;
+import javax.swing.JComponent;
+
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import javax.swing.JSplitPane;
@@ -12,6 +16,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JLabel;
 import javax.swing.JTextPane;
+import javax.swing.KeyStroke;
 import javax.swing.border.EmptyBorder;
 import javax.swing.SwingConstants;
 import javax.swing.event.ListSelectionEvent;
@@ -236,11 +241,10 @@ public class ProductsPanel extends JPanel {
         panel_2.setLayout(gbl_panel_2);
 
         JButton btnAddProduct = new JButton("Tilføj nyt produkt      ");
+        btnAddProduct.setToolTipText(" ");
         btnAddProduct.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                textBarcode.setText("Indtast stregkode");
-                CreateProductWindow createProductWindow = new CreateProductWindow(productCtrl, ProductContainer.getInstance());
-                createProductWindow.setVisible(true);
+                addProductButton();
 
             }
         });
@@ -249,6 +253,17 @@ public class ProductsPanel extends JPanel {
         gbc_btnAddProduct.gridx = 0;
         gbc_btnAddProduct.gridy = 0;
         panel_2.add(btnAddProduct, gbc_btnAddProduct);
+        
+        // Shortcut ctrl + 1 to open CreateProductWindow
+        KeyStroke ctrl1 = KeyStroke.getKeyStroke(KeyEvent.VK_1, InputEvent.CTRL_DOWN_MASK);
+        btnAddProduct.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(ctrl1, "addProductButton");
+        btnAddProduct.getActionMap().put("addProductButton", new AbstractAction() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				addProductButton();
+			}
+		});
 
         JButton btnAddLoanProduct = new JButton("Tilføj udlånsprodukt");
         GridBagConstraints gbc_btnAddLoanProduct = new GridBagConstraints();
@@ -384,6 +399,12 @@ public class ProductsPanel extends JPanel {
             txtpnProductDescription.setText(product.getDescription());
             lblProductLabel.setText(product.getName());
         }
+    }
+    
+    private void addProductButton() {
+    	textBarcode.setText("Indtast stregkode");
+        CreateProductWindow createProductWindow = new CreateProductWindow(productCtrl, ProductContainer.getInstance());
+        createProductWindow.setVisible(true);
     }
 
 

@@ -43,8 +43,8 @@ public class CreateProductWindow extends JDialog {
     private ProductCtrl productCtrl;
     private Customer customer = null;
     private boolean okClicked = false;
-    private ShelfProduct product; // TODO maybe AbstractProduct instead
-    private static ProductContainer productContainer;
+    private AbstractProduct product; // TODO maybe AbstractProduct instead
+    private ProductContainer productContainer;
     private ProductsPanel productsPanel;
 
 
@@ -57,7 +57,7 @@ public class CreateProductWindow extends JDialog {
         setModal(true);
         this.productCtrl = productCtrl;
         createLayout();
-        this.productContainer = productContainer;
+        this.productContainer = ProductContainer.getInstance();
 
     }
 
@@ -255,10 +255,9 @@ public class CreateProductWindow extends JDialog {
         } else {
             double purchasePriceAsString = Integer.parseInt(txtFieldPrice.getText().trim());
             double priceValue = Double.parseDouble(txtFieldPrice.getText().trim());
-            double quantityValue = Double.parseDouble(txtFieldQuantity.getText().trim());
+            double quantityValue = Integer.parseInt(txtFieldQuantity.getText().trim());
             double discountValue = Double.parseDouble(txtFieldDiscount.getText().trim());
 
-            setVisible(false);
 
 ////
 //			        // Use the converted purchasePriceAsString
@@ -271,11 +270,12 @@ public class CreateProductWindow extends JDialog {
                     discountValue,
                     LocalDateTime.now()
             );
-
+			
             ShelfProduct product1 = new ShelfProduct(txtFieldName.getText(), txtFieldDescription.getText(), txtFieldBarcode.getText(), priceValue, priceValue,discountValue, LocalDateTime.now()); // maybe, jakob
             ShelfStock product1Stock = new ShelfStock(location, 4, 5, 45); // maybe, jakob
             product1.addStock(product1Stock); // maybe, jakob
             productContainer.addProduct(product1); // maybe, jakob
+            setVisible(false);
             dispose();
            
 

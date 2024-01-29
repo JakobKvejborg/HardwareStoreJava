@@ -33,8 +33,8 @@ public class ProductCtrl {
 		return productContainer.findLendable(barcode);
 	}
 
-	public ShelfProduct createProduct(String name, String barcode, String description, double purchasePrice, double price, double discount, LocalDateTime localDateTime) {
-		ShelfProduct product = new ShelfProduct(name, barcode, description, purchasePrice, price, discount, LocalDateTime.now());
+	public ShelfProduct createProduct(String name, String barcode, String description, double purchasePrice, double price, double discount, LocalDateTime date) {
+		ShelfProduct product = new ShelfProduct(name, barcode, description, purchasePrice, price, discount, date);
 //		ShelfStock productStock = new ShelfStock(new Location("here", "address"), 2,2, 2); // maybe, jakob
 //		product.addStock(productStock);     // maybe, jakob
 		boolean success = productContainer.addProduct(product);

@@ -32,6 +32,7 @@ import javax.swing.JEditorPane;
 import javax.swing.border.EmptyBorder;
 import javax.swing.ScrollPaneConstants;
 import java.awt.Font;
+import javax.swing.ListSelectionModel;
 
 public class LoanMenuPanel extends JPanel {
 
@@ -400,6 +401,7 @@ public class LoanMenuPanel extends JPanel {
 		panelMain.add(scrollPaneLoan, BorderLayout.CENTER);
 		
 		tableLoan = new JTable();
+		tableLoan.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		tableLoan.setModel(new DefaultTableModel(
 			new Object[][] {
 

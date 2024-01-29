@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
  * @version 15-12-2023
  * @since 12-12-2023
  */
-public class UniqueProduct extends AbstractProduct {
+public class UniqueProduct extends AbstractProduct implements SemiSellableIF {
 	private String defaultWarranty;
 	private TemporalPriceList price;
 	private TemporalPriceList discount;
@@ -25,7 +25,8 @@ public class UniqueProduct extends AbstractProduct {
 		this.defaultWarranty = warranty;
 	}
 
-	public double getPrice(LocalDateTime date) {
+	@Override
+	public double getSalePrice(LocalDateTime date) {
 		return price.getPrice(date) * (1 - discount.getPrice(date));
 	}
 
@@ -45,13 +46,18 @@ public class UniqueProduct extends AbstractProduct {
 		return true;
 	}
 
-	public double getOriginalPrice(LocalDateTime date) {
+	@Override
+	public int getStock(Location location) {
 		// TODO Auto-generated method stub
+		return 0;
+	}
+	@Override
+	public double getOriginalSalePrice(LocalDateTime date) {
 		return price.getPrice(date);
 	}
 
-	public double getDiscount(LocalDateTime date) {
-		// TODO Auto-generated method stub
+	@Override
+	public double getSaleDiscount(LocalDateTime date) {
 		return discount.getPrice(date);
 	}
 	

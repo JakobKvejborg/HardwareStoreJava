@@ -90,6 +90,6 @@ public abstract class AbstractProduct {
 		return barcode;
 	}
 
-
+	public abstract int getStock(Location location);
 	
 }

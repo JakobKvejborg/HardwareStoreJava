@@ -48,12 +48,14 @@ import javax.swing.ScrollPaneConstants;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
+import javax.swing.ListSelectionModel;
 
 public class LeaseMenuPanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	private JTextField txtFieldBarcode;
 	private JTable tableLease;
+	private JTable tableLease_1;
 	private JTextField textDiscountPercentage;
 	private JTextField textTotalPrice;
 	private JTextField textName;
@@ -384,6 +386,7 @@ public class LeaseMenuPanel extends JPanel {
 		panelMain.add(scrollPaneLease, BorderLayout.CENTER);
 		
 		tableLease = new JTable(50, 5);
+		tableLease.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		leaseTableModel = new LeaseTable(leaseCtrl.getLease());
 		tableLease.setModel(leaseTableModel);
 		
@@ -581,11 +584,12 @@ public class LeaseMenuPanel extends JPanel {
 		
 		scrollPaneLease.setViewportView(tableLease);
 		
-		tableLease = new JTable();
+		tableLease_1 = new JTable();
+		tableLease_1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		//TODO insert controller data
 		leaseTableModel = new LeaseTable(null);
-		tableLease.setModel(leaseTableModel);
-		scrollPaneLease.setViewportView(tableLease);
+		tableLease_1.setModel(leaseTableModel);
+		scrollPaneLease.setViewportView(tableLease_1);
 	}
 
 
@@ -634,7 +638,7 @@ public class LeaseMenuPanel extends JPanel {
 		dtrpnIItemDescription.setText(product.getDescription());
 		textPrice.setText(product.getOriginalLeasePrice(LocalDateTime.now()) + "kr,-");
 		textDiscountedPrice.setText(product.getLeasePrice(LocalDateTime.now()) + "kr,-" );
-		textDiscount.setText((product.getDiscountLease(LocalDateTime.now())*100+ "%"));
+		textDiscount.setText((product.getLeaseDiscount(LocalDateTime.now())*100+ "%"));
 		lblProductName.setText(product.getName());
 		textStock.setText(product.getStock(location) + " stk.");
 

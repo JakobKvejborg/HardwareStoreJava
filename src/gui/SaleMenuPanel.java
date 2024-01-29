@@ -432,6 +432,7 @@ public class SaleMenuPanel extends JPanel {
         panelCenterNorthWest.add(scrollPaneSale, BorderLayout.CENTER);
 
         tableSale = new JTable(50, 5);
+        tableSale.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         saleTableModel = new SaleTable(saleCtrl.getSale());
         tableSale.setModel(saleTableModel);
 
@@ -452,6 +453,7 @@ public class SaleMenuPanel extends JPanel {
             @Override
             public void valueChanged(ListSelectionEvent e) {
 
+            	//make sure that a row is selected
                 if (tableSale.getSelectedRow() != -1) {
 
                     SaleOrderLine product = saleTableModel.getSaleOrderLine(tableSale.getSelectedRow());

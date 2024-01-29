@@ -267,7 +267,7 @@ public class CreateProductWindow extends JDialog {
                     txtFieldDescription.getText(),
                     0, //Insert purchase price
                     priceValue,
-                    discountValue,
+                    discountValue / 100,
                     LocalDateTime.now()
             );
             int quantity;

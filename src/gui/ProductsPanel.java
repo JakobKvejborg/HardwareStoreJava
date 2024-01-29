@@ -21,15 +21,23 @@ import javax.swing.table.AbstractTableModel;
 import controller.ProductCtrl;
 import model.AbstractProduct;
 import model.Employee;
+import model.LendableIF;
 import model.Location;
 import model.ProductContainer;
 import model.SaleOrderLine;
 import model.SellableIF;
+import model.SemiLeaseableIF;
+import model.SemiLendableIF;
+import model.SemiSellableIF;
+import model.LendableIF;
+import model.LeaseableIF;
+
 
 import java.awt.event.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.awt.Font;
+import javax.swing.ListSelectionModel;
 
 public class ProductsPanel extends JPanel {
 
@@ -38,14 +46,26 @@ public class ProductsPanel extends JPanel {
     private JTable table;
     private JButton btnBarcodeEnter;
     public ProductTable productTable;
-    private static String[] COL_NAMES = {"Vare", "Antal", "Pris", "Rabat", "Stregkode", "Fjern"};
+    private static String[] COL_NAMES = {"Vare", "Antal", "Indkøbspris", "Stregkode", "Salgspris", "Salgsrabat", "Lånepris", "Lånerabat", "Leasepris", "Leaserabat", "Fjern"};
     private ProductCtrl productCtrl;
     private JTextPane txtpnProductDescription;
     private JLabel lblProductLabel;
+	private Employee employeee;
+	private Location location;
 
     private class ProductTable extends AbstractTableModel {
 
-        private ArrayList<AbstractProduct> products;
+        /**
+		 * 
+		 */
+		private ArrayList<AbstractProduct> products;
+		
+		public ProductTable(ArrayList<AbstractProduct> products) {
+			if(products == null) {
+				products = new ArrayList<>();
+			}
+			this.products = products;
+		}
 
         @Override
         public String getColumnName(int col) {
@@ -61,7 +81,7 @@ public class ProductsPanel extends JPanel {
         @Override
         public int getColumnCount() {
             // TODO Auto-generated method stub
-            return 6;
+            return COL_NAMES.length;
         }
 
         @Override
@@ -73,18 +93,51 @@ public class ProductsPanel extends JPanel {
                     res = product.getName();
                     break;
                 case 1:
-                    res = null;
+                    res = product.getStock(location);
                     break;
                 case 2:
                     res = product.getPurchasePrice();
                     break;
                 case 3:
-                    res = null;
-                    break;
-                case 4:
                     res = product.getBarcode();
                     break;
+                case 4:
+                	if(product instanceof SemiSellableIF) {
+                		SemiSellableIF sellableProduct = (SemiSellableIF) product;
+                		res = sellableProduct.getOriginalSalePrice(LocalDateTime.now());
+                	}
+                    break;
                 case 5:
+                	if(product instanceof SemiSellableIF) {
+                		SemiSellableIF sellableProduct = (SemiSellableIF) product;
+                		res = sellableProduct.getSaleDiscount(LocalDateTime.now());
+                	}
+                    break;
+                case 6:	
+                	if(product instanceof SemiLendableIF) {
+                		SemiLendableIF lendableProduct = (SemiLendableIF) product;
+                		res = lendableProduct.getOriginalLoanPrice(LocalDateTime.now());
+                	}
+                    break;   
+                case 7:
+                	if(product instanceof SemiLendableIF) {
+                		SemiLendableIF lendableProduct = (SemiLendableIF) product;
+                		res = lendableProduct.getLoanDiscount(LocalDateTime.now());
+                	}
+                    break; 
+                case 8:
+                	if(product instanceof SemiLeaseableIF) {
+                		SemiLeaseableIF leaseableProduct = (SemiLeaseableIF) product;
+                		res = leaseableProduct.getOriginalLeasePrice(LocalDateTime.now());
+                	}
+                    break;  
+                case 9:
+                	if(product instanceof SemiLeaseableIF) {
+                		SemiLeaseableIF leaseableProduct = (SemiLeaseableIF) product;
+                		res = leaseableProduct.getLeaseDiscount(LocalDateTime.now());
+                	}
+                    break; 
+                case 10:
                     res = "<html><font face='Times New Roman' size='4' color='red'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;x</font></html>";
                     break;
                 default:
@@ -130,6 +183,9 @@ public class ProductsPanel extends JPanel {
      */
     public ProductsPanel(Employee employee, Location location) {
 
+    	this.employeee = employee;
+    	this.location = location;
+    	
         ProductCtrl productCtrl = new ProductCtrl(employee, location); // maybe wrong
 
         setBorder(new EmptyBorder(10, 10, 35, 10));
@@ -226,8 +282,9 @@ public class ProductsPanel extends JPanel {
         JScrollPane scrollPane = new JScrollPane();
         panel.add(scrollPane, BorderLayout.CENTER);
 
-        productTable = new ProductTable();
+        productTable = new ProductTable(ProductContainer.getInstance().getProducts());
         table = new JTable(productTable);
+        table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         table.setModel(productTable);
         scrollPane.setViewportView(table);
         table.addMouseListener(new MouseAdapter() {

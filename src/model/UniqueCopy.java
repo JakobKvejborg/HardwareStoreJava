@@ -29,7 +29,7 @@ public class UniqueCopy extends AbstractCopy implements SellableIF{
 
 	@Override
 	public double getSalePrice(LocalDateTime date) {
-		return product.getPrice(date);
+		return product.getSalePrice(date);
 	}
 
 	@Override
@@ -45,13 +45,13 @@ public class UniqueCopy extends AbstractCopy implements SellableIF{
 	@Override
 	public double getOriginalSalePrice(LocalDateTime date) {
 		// TODO Auto-generated method stub
-		return product.getOriginalPrice(date);
+		return product.getOriginalSalePrice(date);
 	}
 
 	@Override
 	public double getSaleDiscount(LocalDateTime date) {
 		// TODO Auto-generated method stub
-		return product.getDiscount(date);
+		return product.getSaleDiscount(date);
 	}
 
 	

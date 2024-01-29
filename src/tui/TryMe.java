@@ -76,6 +76,7 @@ public class TryMe {
 		copyStock.addCopy(copy2);
 		
 		LendableProduct lendableProduct = new LendableProduct("Tractor", "wroom wroom!", "987789", 4999, 12, 0, 13, 0);
+		productContainer.addProduct(lendableProduct);
 		LendableCopy leaseCopy = new LendableCopy("999", lendableProduct);
 		UniqueStock loanLeaseStock = new UniqueStock(location, 2, 7);
 		leaseCopy.setStock(loanLeaseStock);

@@ -38,7 +38,7 @@ public class ProductCtrl {
 	}
 
 	public ShelfProduct createShelfProduct(String name, String barcode, String description, double purchasePrice, double price, double discount, LocalDateTime date) {
-		ShelfProduct product = new ShelfProduct(name, barcode, description, purchasePrice, price, discount, date);
+		ShelfProduct product = new ShelfProduct(name, description, barcode, purchasePrice, price, discount, date);
 //		ShelfStock productStock = new ShelfStock(new Location("here", "address"), 2,2, 2); // maybe, jakob
 //		product.addStock(productStock);     // maybe, jakob
 		boolean success = productContainer.addProduct(product);
@@ -67,7 +67,7 @@ public class ProductCtrl {
 		if(product == null) {
 			return null;
 		}
-        ShelfStock shelfStock = new ShelfStock(location, quantity, 5, 45); // maybe, jakob
+        ShelfStock shelfStock = new ShelfStock(location, 4, 5, 45); // maybe, jakob
         product.addStock(shelfStock); // maybe, jakob
         productContainer.addProduct(product); // maybe, jakob
         return shelfStock;

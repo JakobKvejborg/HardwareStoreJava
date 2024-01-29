@@ -647,6 +647,7 @@ public class SaleMenuPanel extends JPanel {
         sale = saleCtrl.completeSale(payment);
         String totalPrice = "Total: " + sale.getPrice() + " Betalt: " + payment + "kr Tilbage: "
                 + (payment - sale.getPrice()) + "kr";
+        lblTotalPrice.setText(totalPrice);
         System.out.println(sale.getPrice());
         saleCtrl.makeSale();
         updateData();

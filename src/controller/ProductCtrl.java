@@ -67,7 +67,7 @@ public class ProductCtrl {
 		if(product == null) {
 			return null;
 		}
-        ShelfStock shelfStock = new ShelfStock(location, 4, 5, 45); // maybe, jakob
+        ShelfStock shelfStock = new ShelfStock(location, quantity, 5, 45);
         product.addStock(shelfStock); // maybe, jakob
         productContainer.addProduct(product); // maybe, jakob
         return shelfStock;

@@ -439,34 +439,46 @@ public class ProductsPanel extends JPanel {
 	}
 
 	private void barcodeEntered() {
-		String barcode = textBarcode.getText().trim();
+	    String barcode = textBarcode.getText().trim();
 
-		if (!barcode.isEmpty()) {
-			ArrayList<AbstractProduct> products = ProductContainer.getInstance().getProducts();
-			AbstractProduct productFound = null;
+	    if (!barcode.isEmpty()) {
+	        ArrayList<AbstractProduct> products = ProductContainer.getInstance().getProducts();
+	        AbstractProduct productFound = null;
 
-			for (AbstractProduct product : products) {
-				if (product.getBarcode().startsWith(barcode)) { // startsWith, contains, equals
-					productFound = product;
-					break;
-				}
-			}
+	        int rowIndex = 0;
+	        for (AbstractProduct product : products) {
+	            if (product.getBarcode().startsWith(barcode)) {
+	                productFound = product;
+	                break;
+	            }
+	            rowIndex++;
+	        }
 
-			if (productFound != null) {
+	        if (productFound != null) {
+	            // updates the description to match the found product
+	            String productFoundDescription = productFound.getDescription();
+	            txtpnProductDescription.setText(productFoundDescription);
+	            lblProductLabel.setText(productFound.getName());
 
-				// updates the description to match the found product
-				String productFoundDescription = productFound.getDescription();
-				txtpnProductDescription.setText(productFoundDescription);
-				lblProductLabel.setText(productFound.getName());
+	            // Move the found product to the top of the list
+	            products.remove(productFound);
+	            products.add(0, productFound);
 
-				products.remove(productFound);
-				products.add(0, productFound);
-				productTable.setData(products);
-				table.scrollRectToVisible(table.getCellRect(0, 0, true));
-			}
+	            // Update the table data
+	            productTable.setData(products);
 
-		}
+	            // Find the new index of the product in the list
+	            rowIndex = products.indexOf(productFound);
+
+	            // Set the row selection to the new index
+	            table.getSelectionModel().setSelectionInterval(rowIndex, rowIndex);
+
+	            // Scroll to the selected row
+	            table.scrollRectToVisible(table.getCellRect(rowIndex, 0, true));
+	        }
+	    }
 	}
+
 
 	private void setProductInfo(AbstractProduct product) {
 		if (product != null) {

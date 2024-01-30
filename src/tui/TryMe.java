@@ -151,7 +151,10 @@ public class TryMe {
 		copyStock.addCopy(copy1);
 		copyStock.addCopy(copy2);
 		
-		LendableProduct lendableProduct = new LendableProduct("Tractor", "wroom wroom!", "987789", 4999, 12, 0, 13, 0);
+		LendableProduct lendableProduct = new LendableProduct("Tractor", "Traktoren, også kendt som den firehjulede landdansker, er naturens svar på en festvogn med traktordæk, der tramper gennem markerne som et landligt diskotek.\r\n "
+				+ "Med en krop, der skriger \"jeg er klar til at pløje og feste!\", og lyden af motoren, der synger en symfoni af landlivets rytmer, er traktoren som en rockstjerne i agerens verden.\r\n "
+				+ "Den bærer sit eget sæt af \"agrikulære\" moves, når den bevæger sig igennem landskabet og spreder landlig glæde, som om den er på en permanent country-festival på hjul.\r\n"
+				+ "Den er ikke bare en maskine; den er en bondefiesta på fire hjul!", "987789", 4999, 12, 0, 13, 0);
 		productContainer.addProduct(lendableProduct);
 		LendableCopy leaseCopy = new LendableCopy("999", lendableProduct);
 		UniqueStock loanLeaseStock = new UniqueStock(location, 2, 7);

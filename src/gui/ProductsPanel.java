@@ -269,7 +269,7 @@ public class ProductsPanel extends JPanel {
 		this.employeee = employee;
 		this.location = location;
 
-		ProductCtrl productCtrl = new ProductCtrl(employee, location); // maybe wrong
+		productCtrl = new ProductCtrl(employee, location); // maybe wrong
 
 		setBorder(new EmptyBorder(10, 10, 35, 10));
 		setLayout(new BorderLayout(0, 0));

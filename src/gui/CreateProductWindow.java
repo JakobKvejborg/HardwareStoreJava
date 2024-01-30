@@ -265,7 +265,7 @@ public class CreateProductWindow extends JDialog {
                     txtFieldName.getText(),
                     txtFieldBarcode.getText(),
                     txtFieldDescription.getText(),
-                    0, //Insert purchase price
+                    0.0d, //Insert purchase price
                     priceValue,
                     discountValue / 100,
                     LocalDateTime.now()

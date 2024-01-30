@@ -97,31 +97,41 @@ public class SaleCtrl implements SaleCtrlIF {
 	// Maybe this function should throw exceptions if the product isn't sellable,
 	// or if no product is found.
 	public SaleOrderLine addProduct(String barcode) {
+		//find a product with the barcode that can be sold
 		SellableIF product = productCtrl.findSellable(barcode);
+		if (product == null) {
+			return null;
+		}
+		boolean productAlreadyInSale = false;
 		SaleOrderLine saleOrderLine = null;
+		//Loop to cheeck if the item is already in the sale
 		for (int i = 0; i < sale.getSaleOrderLinesSize(); i++) {
+			//check if the product is already in the sale
 			if (sale.getSaleOrderLine(i).getProduct().equals(product)) {
+				productAlreadyInSale = true;
 				if (product.isUnique()) {
-					product = null;
+					//TODO: throw error, because two of the same unique items cannot be in the sale. 
 				} else {
-					// TODO determine if this check should be here
+					//check if there's enough quantity to add 1 more
 					if (sale.getSaleOrderLine(i).getQuantity() + 1 <= product.getStock(location)) {
 						saleOrderLine = sale.getSaleOrderLine(i);
+						//increase the quantity of the saleOrderLine by 1
 						saleOrderLine.setQuantity(saleOrderLine.getQuantity() + 1);
 					} else {
-						product = null;
+						//TODO: throw error, because not enough stock to add 1 to quantity
 					}
 				}
 			}
 		}
-
-		if (product != null && saleOrderLine == null) {
+		//if the prodocut is not in the sale already:
+		if (!productAlreadyInSale) {
 			// check if there's at least one of the item.
 			if (product.getStock(location) >= 1) {
+				//create a new SaleOrderLine
 				saleOrderLine = new SaleOrderLine(product, 1);
 				sale.addSaleOrderLine(saleOrderLine);
 			} else {
-				product = null;
+				//TODO: throw error, because there's no stock of the item.
 			}
 		}
 		return saleOrderLine;

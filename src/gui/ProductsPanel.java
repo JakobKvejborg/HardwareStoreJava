@@ -268,7 +268,7 @@ public class ProductsPanel extends JPanel {
 
 		this.employeee = employee;
 		this.location = location;
-
+		
 		productCtrl = new ProductCtrl(employee, location); // maybe wrong
 
 		setBorder(new EmptyBorder(10, 10, 35, 10));
@@ -441,7 +441,7 @@ public class ProductsPanel extends JPanel {
 	private void barcodeEntered() {
 	    String barcode = textBarcode.getText().trim();
 
-	    if (!barcode.isEmpty()) {
+//	    if (!barcode.isEmpty()) {
 	        ArrayList<AbstractProduct> products = ProductContainer.getInstance().getProducts();
 	        AbstractProduct productFound = null;
 
@@ -476,7 +476,7 @@ public class ProductsPanel extends JPanel {
 	            // Scroll to the selected row
 	            table.scrollRectToVisible(table.getCellRect(rowIndex, 0, true));
 	        }
-	    }
+//	    }
 	}
 
 

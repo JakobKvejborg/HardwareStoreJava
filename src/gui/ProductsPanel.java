@@ -309,14 +309,15 @@ public class ProductsPanel extends JPanel {
 		});
 		panel_1.add(btnBarcodeEnter, BorderLayout.EAST);
 
-		JPanel panel_2 = new JPanel();
-		panel.add(panel_2, BorderLayout.SOUTH);
-		GridBagLayout gbl_panel_2 = new GridBagLayout();
-		gbl_panel_2.columnWidths = new int[] { 108, 85, 85, 0, 0 };
-		gbl_panel_2.rowHeights = new int[] { 0, 21, 0 };
-		gbl_panel_2.columnWeights = new double[] { 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
-		gbl_panel_2.rowWeights = new double[] { 0.0, 0.0, Double.MIN_VALUE };
-		panel_2.setLayout(gbl_panel_2);
+        JPanel panel_2 = new JPanel();
+        panel.add(panel_2, BorderLayout.SOUTH);
+        GridBagLayout gbl_panel_2 = new GridBagLayout();
+        gbl_panel_2.columnWidths = new int[]{108, 85, 85, 354, 0};
+        gbl_panel_2.rowHeights = new int[]{0, 21, 0};
+        gbl_panel_2.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+        gbl_panel_2.rowWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
+        panel_2.setLayout(gbl_panel_2);
+
 
 		JButton btnAddProduct = new JButton("Tilføj nyt produkt      ");
 		btnAddProduct.setToolTipText(" ");

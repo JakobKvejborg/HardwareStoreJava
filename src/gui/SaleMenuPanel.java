@@ -149,10 +149,14 @@ public class SaleMenuPanel extends JPanel {
 				res = saleOrderLine.getQuantity();
 				break;
 			case 2:
-				res = saleOrderLine.getProduct().getSalePrice(LocalDateTime.now());
+				double pricePr = saleOrderLine.getProduct().getSalePrice(LocalDateTime.now());
+				String priceFormatPr = String.format("%.2f", pricePr);
+				res = priceFormatPr;
 				break;
 			case 3:
-				res = saleOrderLine.getPrice(LocalDateTime.now());
+				double priceTotal = saleOrderLine.getPrice(LocalDateTime.now());
+				String priceFormatTotal = String.format("%.2f", priceTotal);
+				res = priceFormatTotal;
 				break;
 			case 4:
 				res = "<html><font face='Times New Roman' size='4' color='red'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;x</font></html>";
@@ -659,8 +663,12 @@ public class SaleMenuPanel extends JPanel {
 		double payment;
 		payment = Double.parseDouble(paymentInput);
 		sale = saleCtrl.completeSale(payment);
-		String totalPrice = "Total: " + sale.getPrice() + " Betalt: " + payment + "kr Tilbage: "
-				+ (payment - sale.getPrice()) + "kr";
+		
+		double price = sale.getPrice();
+		double remainingAmount = payment - price;
+		String totalPrice = String.format("Total: %.2fkr Betalt: %.2fkr Tilbage: %.2fkr", price, payment, remainingAmount);
+//		String totalPrice = "Total: " + sale.getPrice() + " Betalt: " + payment + "kr Tilbage: "
+//				+ (payment - sale.getPrice()) + "kr";
 		lblTotalPrice.setText(totalPrice);
 		System.out.println(sale.getPrice());
 		saleCtrl.makeSale();
@@ -704,7 +712,9 @@ public class SaleMenuPanel extends JPanel {
 	private void updateData() {
 		Sale sale = saleCtrl.getSale();
 		updateTable();
-		textTotalPrice.setText(saleCtrl.getSale().getPrice() + "kr");
+		double price = saleCtrl.getSale().getPrice();
+		String priceFormattet = String.format("%.2fkr", price);
+		textTotalPrice.setText(priceFormattet);
 		if (sale.getCustomer() != null) {
 			setCustomerData(sale.getCustomer());
 		} else {

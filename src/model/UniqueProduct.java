@@ -1,6 +1,7 @@
 package model;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 /**
  * @author Jonas, Penrose
@@ -9,6 +10,7 @@ import java.time.LocalDateTime;
  */
 public class UniqueProduct extends AbstractProduct implements SemiSellableIF {
 	private String defaultWarranty;
+	private ArrayList<UniqueStock> stocks;	
 	private TemporalPriceList price;
 	private TemporalPriceList discount;
 	
@@ -19,6 +21,7 @@ public class UniqueProduct extends AbstractProduct implements SemiSellableIF {
 		this.price.addPrice(price, creationDate);
 		this.discount = new TemporalPriceList();
 		this.discount.addPrice(discount, creationDate);
+		this.stocks = new ArrayList<UniqueStock>();
 	}
 
 	public void setDefaultWarranty(String warranty) {
@@ -46,11 +49,37 @@ public class UniqueProduct extends AbstractProduct implements SemiSellableIF {
 		return true;
 	}
 
+	/**
+	 * Adds a stock to the product. Cannot add the same stock twice.
+	 * @param stock
+	 * @return if the stock was successfully added
+	 */
+	public boolean addStock(UniqueStock stock) {
+		boolean res = true;
+		boolean found = false;
+		for(int i = 0; i < stocks.size() && !found; i++) {
+			if(stocks.get(i) == stock) {
+				found = true;
+			}
+		}
+		if(!found) {
+			stocks.add(stock);
+			res = true;
+		}
+		return res;
+	}
+	
 	@Override
 	public int getStock(Location location) {
-		// TODO Auto-generated method stub
-		return 0;
+		int res = 0;
+		for(int i = 0; i < stocks.size(); i++) {
+			if(stocks.get(i).getLocation().equals(location)) {
+				res += stocks.get(i).getQuantity();
+			}
+		}
+		return res;
 	}
+	
 	@Override
 	public double getOriginalSalePrice(LocalDateTime date) {
 		return price.getPrice(date);

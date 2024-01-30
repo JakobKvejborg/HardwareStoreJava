@@ -95,7 +95,7 @@ public class SaleCtrl implements SaleCtrlIF {
 	 *         null if the no product has the barcode or the product cannot be sold.
 	 */
 	// Maybe this function should throw exceptions if the product isn't sellable,
-	// or if no product is found.
+	// or if no product is found, etc.
 	public SaleOrderLine addProduct(String barcode) {
 		//find a product with the barcode that can be sold
 		SellableIF product = productCtrl.findSellable(barcode);
@@ -112,7 +112,7 @@ public class SaleCtrl implements SaleCtrlIF {
 				if (product.isUnique()) {
 					//TODO: throw error, because two of the same unique items cannot be in the sale. 
 				} else {
-					//check if there's enough quantity to add 1 more
+					//check if there's enough stock to add 1 more
 					if (sale.getSaleOrderLine(i).getQuantity() + 1 <= product.getStock(location)) {
 						saleOrderLine = sale.getSaleOrderLine(i);
 						//increase the quantity of the saleOrderLine by 1

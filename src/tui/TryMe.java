@@ -70,6 +70,7 @@ public class TryMe {
 		UniqueCopy copy1 = new UniqueCopy("222", product4);
 		UniqueCopy copy2 = new UniqueCopy("333", product4);
 		UniqueStock copyStock = new UniqueStock(location, 2, 7);
+		product4.addStock(copyStock);
 		copy1.setStock(copyStock);
 		copy2.setStock(copyStock);
 		copyStock.addCopy(copy1);
@@ -79,6 +80,7 @@ public class TryMe {
 		productContainer.addProduct(lendableProduct);
 		LendableCopy leaseCopy = new LendableCopy("999", lendableProduct);
 		UniqueStock loanLeaseStock = new UniqueStock(location, 2, 7);
+		lendableProduct.addStock(loanLeaseStock);
 		leaseCopy.setStock(loanLeaseStock);
 		loanLeaseStock.addCopy(leaseCopy);
 		

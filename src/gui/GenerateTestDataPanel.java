@@ -14,6 +14,7 @@ public class GenerateTestDataPanel extends JPanel {
 
     private Employee employee;
     private Location location;
+    private ProductsPanel productsPanel;
 
 
     private static final long serialVersionUID = 1L;
@@ -22,9 +23,10 @@ public class GenerateTestDataPanel extends JPanel {
     /**
      * Create the panel.
      */
-    public GenerateTestDataPanel(Employee employee, Location location) {
+    public GenerateTestDataPanel(Employee employee, Location location, ProductsPanel productsPanel) {
         this.employee = employee;
         this.location = location;
+        this.productsPanel = productsPanel;
 
         setBorder(new EmptyBorder(10, 10, 10, 10));
         setLayout(new BorderLayout(0, 0));
@@ -43,6 +45,7 @@ public class GenerateTestDataPanel extends JPanel {
                 TryMe.createCustomers();
                 TryMe.createProducts(location);
                 button1.setEnabled(false);
+                productsPanel.updateTableData();
             }
         });
 

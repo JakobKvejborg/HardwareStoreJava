@@ -430,6 +430,7 @@ public class ProductsPanel extends JPanel {
 		textBarcode.addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusGained(FocusEvent e) {
+//				updateTableData();
 				if (!textBarcode.getText().isEmpty()) {
 					textBarcode.setText("");
 				}

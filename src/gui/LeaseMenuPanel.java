@@ -220,7 +220,7 @@ public class LeaseMenuPanel extends JPanel {
 				Double.MIN_VALUE };
 		panelDescriptionSidebar.setLayout(gbl_panelDescriptionSidebar);
 
-		JLabel lblStock = new JLabel("Lager Antal");
+		JLabel lblStock = new JLabel("Lager antal");
 		GridBagConstraints gbc_lblStock = new GridBagConstraints();
 		gbc_lblStock.insets = new Insets(0, 0, 5, 0);
 		gbc_lblStock.gridx = 0;
@@ -237,7 +237,7 @@ public class LeaseMenuPanel extends JPanel {
 		panelDescriptionSidebar.add(textStock, gbc_textStock);
 		textStock.setColumns(10);
 
-		JLabel lblFullPrice = new JLabel("Pris /m Rabat");
+		JLabel lblFullPrice = new JLabel("Pris /m rabat");
 		GridBagConstraints gbc_lblFullPrice = new GridBagConstraints();
 		gbc_lblFullPrice.insets = new Insets(0, 0, 5, 0);
 		gbc_lblFullPrice.gridx = 0;
@@ -344,7 +344,7 @@ public class LeaseMenuPanel extends JPanel {
 		gbl_panelTotal.rowWeights = new double[] { 0.0, Double.MIN_VALUE };
 		panelTotal.setLayout(gbl_panelTotal);
 
-		JLabel lblCustomerDiscount = new JLabel("Kunde Rabat:");
+		JLabel lblCustomerDiscount = new JLabel("Kunderabat:");
 		GridBagConstraints gbc_lblCustomerDiscount = new GridBagConstraints();
 		gbc_lblCustomerDiscount.anchor = GridBagConstraints.WEST;
 		gbc_lblCustomerDiscount.insets = new Insets(0, 0, 0, 5);

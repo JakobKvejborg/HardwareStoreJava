@@ -111,7 +111,7 @@ public class LoanMenuPanel extends JPanel {
 		gbl_panelDescriptionSidebar.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		panelDescriptionSidebar.setLayout(gbl_panelDescriptionSidebar);
 		
-		JLabel lblNewLabel_7 = new JLabel("Lager Antal");
+		JLabel lblNewLabel_7 = new JLabel("Lager antal");
 		GridBagConstraints gbc_lblNewLabel_7 = new GridBagConstraints();
 		gbc_lblNewLabel_7.insets = new Insets(0, 0, 5, 0);
 		gbc_lblNewLabel_7.gridx = 0;
@@ -128,7 +128,7 @@ public class LoanMenuPanel extends JPanel {
 		panelDescriptionSidebar.add(textField, gbc_textField);
 		textField.setColumns(10);
 		
-		JLabel lblNewLabel_1 = new JLabel(" Pris /m Rabat ");
+		JLabel lblNewLabel_1 = new JLabel(" Pris /m rabat ");
 		GridBagConstraints gbc_lblNewLabel_1 = new GridBagConstraints();
 		gbc_lblNewLabel_1.insets = new Insets(0, 0, 5, 0);
 		gbc_lblNewLabel_1.gridx = 0;
@@ -202,7 +202,7 @@ public class LoanMenuPanel extends JPanel {
 		gbl_panelTotal.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panelTotal.setLayout(gbl_panelTotal);
 		
-		JLabel lblCustomerDiscount = new JLabel("Kunde Rabat:");
+		JLabel lblCustomerDiscount = new JLabel("Kunderabat:");
 		GridBagConstraints gbc_lblCustomerDiscount = new GridBagConstraints();
 		gbc_lblCustomerDiscount.anchor = GridBagConstraints.WEST;
 		gbc_lblCustomerDiscount.insets = new Insets(0, 0, 0, 5);

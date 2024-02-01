@@ -52,7 +52,7 @@ public class SaleMenuPanel extends JPanel {
     private SaleTable saleTableModel;
     private JLabel lblTotalPrice;
     private CustomerCtrl customerCtrl;
-    private static String[] COL_NAMES = {"Vare", "Antal", "Styk pris", "Total Pris", "Fjern"};
+    private static String[] COL_NAMES = {"Vare", "Antal", "Styk pris", "Total pris", "Fjern"};
 
     private static final long serialVersionUID = 1L;
     private JTextField txtFindCustomer;
@@ -407,7 +407,7 @@ public class SaleMenuPanel extends JPanel {
         panelPriceCal.setLayout(gbl_panelPriceCal);
 
         lblCustomerDiscount = new JLabel();
-        lblCustomerDiscount.setText("Kunde Rabat:");
+        lblCustomerDiscount.setText("Kunderabat:");
         GridBagConstraints gbc_lblCustomerDiscount = new GridBagConstraints();
         gbc_lblCustomerDiscount.anchor = GridBagConstraints.EAST;
         gbc_lblCustomerDiscount.insets = new Insets(0, 0, 0, 5);
@@ -547,7 +547,7 @@ public class SaleMenuPanel extends JPanel {
         panelDescriptionSideBar.add(textPrice, gbc_textPrice);
         textPrice.setColumns(10);
 
-        lblDiscountedPrice = new JLabel("Pris med rabat");
+        lblDiscountedPrice = new JLabel("Pris /m rabat");
         GridBagConstraints gbc_lblDiscountedPrice = new GridBagConstraints();
         gbc_lblDiscountedPrice.insets = new Insets(0, 0, 5, 0);
         gbc_lblDiscountedPrice.gridx = 0;

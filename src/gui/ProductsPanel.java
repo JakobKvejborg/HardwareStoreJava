@@ -350,6 +350,13 @@ public class ProductsPanel extends JPanel {
 		gbc_btnAddLoanProduct.gridx = 1;
 		gbc_btnAddLoanProduct.gridy = 0;
 		panel_2.add(btnAddLoanProduct, gbc_btnAddLoanProduct);
+		btnAddLoanProduct.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				updateTableData();
+				// TODO add createLoanProductWindow
+			}
+		});
 
 		JButton btnAddLeasingProduct = new JButton("Tilføj leasingprodukt");
 		GridBagConstraints gbc_btnAddLeasingProduct = new GridBagConstraints();
@@ -489,8 +496,13 @@ public class ProductsPanel extends JPanel {
 
 	private void addProductButton() {
 		textBarcode.setText("Indtast stregkode");
-		CreateProductWindow createProductWindow = new CreateProductWindow(productCtrl, ProductContainer.getInstance());
+		CreateProductWindow createProductWindow = new CreateProductWindow(productCtrl, ProductContainer.getInstance(), employeee, location, this);
 		createProductWindow.setVisible(true);
+	}
+
+	public void updateTableData() {
+		productTable.fireTableDataChanged();
+//		productTable.fireTableCellUpdated(rowIndex, columnIndex);
 	}
 
 }

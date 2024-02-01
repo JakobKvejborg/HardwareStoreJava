@@ -46,18 +46,23 @@ public class CreateProductWindow extends JDialog {
     private ShelfProduct product; // TODO maybe AbstractProduct instead
     private ProductContainer productContainer;
     private ProductsPanel productsPanel;
+    private Employee employeee;
+    private Location location;
 
 
 
     /**
      * Create the dialog.
      */
-    public CreateProductWindow(ProductCtrl productCtrl, ProductContainer productContainer) {
+    public CreateProductWindow(ProductCtrl productCtrl, ProductContainer productContainer, Employee employee, Location location, ProductsPanel productsPanel) {
+        this.employeee = employee;
+        this.location = location;
         setResizable(false);
         setModal(true);
         this.productCtrl = productCtrl;
         createLayout();
         this.productContainer = ProductContainer.getInstance();
+        this.productsPanel = productsPanel;
 
     }
 
@@ -276,9 +281,10 @@ public class CreateProductWindow extends JDialog {
             
             setVisible(false);
             dispose();
-           
+
 
         }
+        productsPanel.updateTableData();
     }
 
     public Customer getCustomer() {
@@ -308,5 +314,7 @@ public class CreateProductWindow extends JDialog {
     private void printAllProducts() {
         System.out.println(ProductContainer.getInstance().getProducts());
     }
+
+
 }
 

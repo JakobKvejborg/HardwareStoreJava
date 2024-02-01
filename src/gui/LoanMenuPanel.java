@@ -128,7 +128,7 @@ public class LoanMenuPanel extends JPanel {
 		panelDescriptionSidebar.add(textField, gbc_textField);
 		textField.setColumns(10);
 		
-		JLabel lblNewLabel_1 = new JLabel("Pris /m Rabat");
+		JLabel lblNewLabel_1 = new JLabel(" Pris /m Rabat ");
 		GridBagConstraints gbc_lblNewLabel_1 = new GridBagConstraints();
 		gbc_lblNewLabel_1.insets = new Insets(0, 0, 5, 0);
 		gbc_lblNewLabel_1.gridx = 0;
@@ -156,7 +156,7 @@ public class LoanMenuPanel extends JPanel {
 		dtrpnIItemDescription.setText("Varens beskrivelse her.");
 		scrollPaneDescription.setViewportView(dtrpnIItemDescription);
 		
-		JLabel lblProductName = new JLabel("Varens Navn");
+		JLabel lblProductName = new JLabel("Produkt");
 		lblProductName.setHorizontalAlignment(SwingConstants.CENTER);
 		panelDescription.add(lblProductName, BorderLayout.NORTH);
 		

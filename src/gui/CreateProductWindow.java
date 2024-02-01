@@ -312,7 +312,7 @@ public class CreateProductWindow extends JDialog {
         return txtFieldDiscount.getText();
     }
     private void printAllProducts() {
-        System.out.println(ProductContainer.getInstance().getProducts());
+//        System.out.println(ProductContainer.getInstance().getProducts());
     }
 
 

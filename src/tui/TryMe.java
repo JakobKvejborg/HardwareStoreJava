@@ -94,7 +94,7 @@ public class TryMe {
 				+ "Materiale	Metal/stof\r\n"
 				+ "Bredde	58 cm\r\n"
 				+ "Højde	80 cm", "654321", 25.99, 35.99, 0.15, LocalDateTime.of(2022,01,1,1,1,1));
-		ShelfProduct product3 = new ShelfProduct("Skruer", "Søm i en butik er som modeverdenens små superhelte. De er de stille kræfter, der holder alt sammen med stil og elegance.\r\n "
+		ShelfProduct product3 = new ShelfProduct("Søm", "Søm i en butik er som modeverdenens små superhelte. De er de stille kræfter, der holder alt sammen med stil og elegance.\r\n "
 				+ "\r\n"
 				+ "Disse små, spidse helte arbejder i skyggen af sko, tøj og tilbehør, og selvom de kan virke ubetydelige, er de faktisk de usynlige lim, der holder vores garderober sammen.\r\n "
 				+ "\r\n"
@@ -106,7 +106,7 @@ public class TryMe {
 				+ "Vægt, kg.: 0.052000\r\n"
 				+ "EAN-nr: 5701291506756\r\n"
 				+ "Nettovægt, kg.: 0.052\r\n"
-				+ "Produkttype:	skruer\r\n"
+				+ "Produkttype:	Søm\r\n"
 				+ "Dimensioner:	25 x 3.5 mm ( L x Ø )\r\n"
 				+ "Amount per package (stk): 30\r\n"
 				+ "Diameter: 3.5 mm\r\n"

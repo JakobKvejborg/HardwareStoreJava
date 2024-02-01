@@ -299,7 +299,7 @@ public class LeaseMenuPanel extends JPanel {
 		dtrpnIItemDescription.setText("Varens beskrivelse her.");
 		scrollPaneDescription.setViewportView(dtrpnIItemDescription);
 
-		lblProductName = new JLabel("Varens Navn");
+		lblProductName = new JLabel("Produkt");
 		lblProductName.setHorizontalAlignment(SwingConstants.CENTER);
 		panelDescription.add(lblProductName, BorderLayout.NORTH);
 

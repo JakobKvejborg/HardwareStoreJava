@@ -48,7 +48,7 @@ public class TryMe {
 		//Aisle aisle = new Aisle("Area 51, shelf 3.", location);
 		
 		productContainer = ProductContainer.getInstance();
-		ShelfProduct product1 = new ShelfProduct("Table", "Bedstefar-ryster spisebordet er det perfekte valg til dit spisestueområde. Med sin moderne og stilfulde design vil dette firkantede spisebord tilføje elegance og funktionalitet til enhver indretning.\r\n"
+		ShelfProduct product1 = new ShelfProduct("Bord", "Bedstefar-ryster spisebordet er det perfekte valg til dit spisestueområde. Med sin moderne og stilfulde design vil dette firkantede spisebord tilføje elegance og funktionalitet til enhver indretning.\r\n"
 				+ "\r\n"
 				+ "Bordpladen er lavet af sort træ-look MDF, hvilket giver en smuk og holdbar overflade. Den er monteret på sorte folierede metalben, der tilføjer stabilitet og styrke til bordet.\r\n"
 				+ "\r\n"
@@ -70,7 +70,7 @@ public class TryMe {
 				+ "Materiale	MDF/Metal\r\n"
 				+ "Bredde	120 cm\r\n"
 				+ "Højde	76 cm", "123456", 9.99, 19.99, 0, LocalDateTime.of(2022,01,1,1,1,1));
-		ShelfProduct product2 = new ShelfProduct("Chair", "Bedstefar-ryster stolen er den perfekte tilføjelse til dit spisebord. Disse spisestuestole er designet med fokus på både stil og komfort. Betrukket med rose velvet stof og monteret på elegante metalben, tilføjer de et sofistikeret og moderne touch til dit hjem.\r\n"
+		ShelfProduct product2 = new ShelfProduct("Stol", "Bedstefar-ryster stolen er den perfekte tilføjelse til dit spisebord. Disse spisestuestole er designet med fokus på både stil og komfort. Betrukket med rose velvet stof og monteret på elegante metalben, tilføjer de et sofistikeret og moderne touch til dit hjem.\r\n"
 				+ "\r\n"
 				+ "Bedstefar-ryster spisestuestolene er ikke kun smukke, men også utrolig behagelige at sidde i. Den bløde polstring og ryglæn giver optimal støtte og komfort, så du kan nyde lange middage med familie og venner uden at føle ubehag.\r\n"
 				+ "\r\n"
@@ -151,7 +151,7 @@ public class TryMe {
 		copyStock.addCopy(copy1);
 		copyStock.addCopy(copy2);
 		
-		LendableProduct lendableProduct = new LendableProduct("Tractor", "Traktoren, også kendt som den firehjulede landdansker, er naturens svar på en festvogn med traktordæk, der tramper gennem markerne som et landligt diskotek.\r\n "
+		LendableProduct lendableProduct = new LendableProduct("Traktor", "Traktoren, også kendt som den firehjulede landdansker, er naturens svar på en festvogn med traktordæk, der tramper gennem markerne som et landligt diskotek.\r\n "
 				+ "Med en krop, der skriger \"jeg er klar til at pløje og feste!\", og lyden af motoren, der synger en symfoni af landlivets rytmer, er traktoren som en rockstjerne i agerens verden.\r\n "
 				+ "Den bærer sit eget sæt af \"agrikulære\" moves, når den bevæger sig igennem landskabet og spreder landlig glæde, som om den er på en permanent country-festival på hjul.\r\n"
 				+ "Den er ikke bare en maskine; den er en bondefiesta på fire hjul!", "987789", 4999, 12, 0, 13, 0);

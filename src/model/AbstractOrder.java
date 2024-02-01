@@ -53,6 +53,10 @@ public abstract class AbstractOrder {
 		return date;
 	}
 	
+	public void setDate(LocalDateTime date) {
+		this.date = date;
+	}
+	
 	/**
      * Sets the employee attached to this order.
      * @param employee The <code>Employee</code> object handling this order.

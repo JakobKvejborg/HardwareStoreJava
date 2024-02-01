@@ -195,29 +195,30 @@ public class ProductsPanel extends JPanel {
                     return false;
             }
         }
-
-        @Override
-        public void setValueAt(Object value, int rowIndex, int columnIndex) {
-            AbstractProduct product = products.get(rowIndex);
-            switch (columnIndex) {
-                // Name
-                case 0:
-                    product.setName(value.toString());
-                    break;
-                // amount
-                case 1:
-                    // TODO: make this work
-                    break;
-                // Purchase Price
-                case 2:
-                    try {
-                        double newPurchasePrice = Double.parseDouble(value.toString());
-                        product.setPurchasePrice(newPurchasePrice);
-                    }
-                    // TODO tell user the error
-                    catch (NumberFormatException e) {
-                    }
-                    break;
+		
+		//TODO: move a bunch of this stuff to productCtrl instead.
+		@Override
+		public void setValueAt(Object value, int rowIndex, int columnIndex) {
+			AbstractProduct product = products.get(rowIndex);
+			switch (columnIndex) {
+			// Name
+			case 0:
+				product.setName(value.toString());
+				break;
+			// amount
+			case 1:
+				// TODO: make this work
+				break;
+			// Purchase Price
+			case 2:
+				try {
+					double newPurchasePrice = Double.parseDouble(value.toString());
+					product.setPurchasePrice(newPurchasePrice);
+				}
+				// TODO tell user the error
+				catch (NumberFormatException e) {
+				}
+				break;
 
                 // Barcode
                 case 3:

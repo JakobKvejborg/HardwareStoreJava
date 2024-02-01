@@ -43,6 +43,8 @@ public class SaleCtrl implements SaleCtrlIF {
 	 * @return returns the customer added to the sale.
 	 */
 	public Customer setCustomer(String phone) {
+		updateSale();
+
 		Customer customer = customerCtrl.findCustomer(phone);
 		sale.setCustomer(customer);
 		return customer;
@@ -54,10 +56,13 @@ public class SaleCtrl implements SaleCtrlIF {
 	}
 
 	public void removeProduct(int index) {
+		updateSale();
+		
 		sale.removeSaleOrderLine(index);
 	}
 
 	public boolean setQuantity(int index, int quantity) {
+		updateSale();
 		
 		if(quantity == 0) {
 			removeProduct(index);
@@ -98,6 +103,7 @@ public class SaleCtrl implements SaleCtrlIF {
 	// or if no product is found, etc.
 	public SaleOrderLine addProduct(String barcode) {
 		//find a product with the barcode that can be sold
+		updateSale();
 		SellableIF product = productCtrl.findSellable(barcode);
 		if (product == null) {
 			return null;
@@ -137,6 +143,12 @@ public class SaleCtrl implements SaleCtrlIF {
 		return saleOrderLine;
 	}
 
+	private void updateSale() {
+		if(this.sale != null) {
+			sale.setDate(LocalDateTime.now());
+		}
+	}
+
 	/**
 	 * sets the quantity of the last added OrderLine.
 	 * 
@@ -144,6 +156,8 @@ public class SaleCtrl implements SaleCtrlIF {
 	 * @return returns true if the quantity was successfully set.
 	 */
 	public boolean setQuantity(int quantity) {
+		updateSale();
+
 		return setQuantity(sale.getSaleOrderLinesSize() - 1, quantity);
 	}
 
@@ -173,6 +187,7 @@ public class SaleCtrl implements SaleCtrlIF {
 	// TODO: figure out what to do if the customer overpays.
 	public Sale completeSale(double payment) {
 		// TODO make sure the sale has proper values
+		updateSale();
 		Sale res = null;
 		if (payment >= sale.getPrice()) {
 			sale.setEmployee(employee);
